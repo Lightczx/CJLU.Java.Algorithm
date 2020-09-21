@@ -1,10 +1,9 @@
 package DGP.CJLU.Experiment2.Lab2;
 
-import DGP.CJLU.Experiment2.Lab1.ListPos;
 import DGP.CJLU.Utils.ExecuteTime;
 import DGP.CJLU.Utils.Rand;
+import DGP.CJLU.Utils.TwoList;
 
-import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -51,6 +50,5 @@ public class Main {
                 twoList.Result.add(num);
         }
     }
-
 
 }
