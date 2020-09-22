@@ -1,7 +1,7 @@
 package DGP.CJLU.Experiment1.Lab4;
 
 import DGP.CJLU.Utils.ExecuteTime;
-import DGP.CJLU.Utils.Rand;
+import DGP.CJLU.Utils.Implementation.Rand;
 
 public class Main {
     public static void main(String[] args) {
@@ -72,12 +72,12 @@ public class Main {
     }
 
     public static void rng3(int n){
-        int[] arr=new int[n];
+        int[] arr=new int[n+1];
         for(int i=0;i<n;i++){
             arr[i]=i+1;
         }
         for( int j = 1; j<n; j++)
-            swapReferences(arr, arr[j], arr[Rand.randInt(0,j-1)] );
+            swapReferences(arr, arr[j], arr[Rand.randInt(0,j)] );
     }
 
     public static void swapReferences(int[] arr,int i,int j){

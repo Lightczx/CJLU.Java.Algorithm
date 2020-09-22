@@ -1,5 +1,9 @@
 package DGP.CJLU.Utils;
 
+/**
+ * counting the execute time of codes
+ * use run method to counting
+ */
 public class ExecuteTime {
     private long beginTime;
     private long endTime;
@@ -20,6 +24,11 @@ public class ExecuteTime {
         System.out.println("function "+functionName+" execution takes " + takes()+" nanoseconds");
     }
 
+    /**
+     * execute some code packed by lambda function or local method and counts the running time
+     * @param code normally lambda function or a method reference to run
+     * @return the executor can continue run code
+     */
     public ExecuteTime run(Code code){
         this.begin();
         code.Run();

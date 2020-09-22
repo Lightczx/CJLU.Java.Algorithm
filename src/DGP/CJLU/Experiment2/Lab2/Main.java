@@ -1,8 +1,9 @@
 package DGP.CJLU.Experiment2.Lab2;
 
 import DGP.CJLU.Utils.ExecuteTime;
-import DGP.CJLU.Utils.Rand;
+import DGP.CJLU.Utils.Implementation.Rand;
 import DGP.CJLU.Utils.TwoList;
+import com.google.common.collect.Sets;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -37,6 +38,7 @@ public class Main {
     private static TwoList InitializeLinkedList(){
         LinkedList<Integer> list1 =new LinkedList<>();
         LinkedList<Integer> list2 =new LinkedList<>();
+
         for(int i=1;i<=10;i++)
             list1.add(i);
         for(int j=1;j<=5;j++)

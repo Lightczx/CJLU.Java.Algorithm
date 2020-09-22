@@ -1,6 +1,6 @@
 package DGP.CJLU.Experiment2.Lab5;
 
-import DGP.CJLU.Utils.Rand;
+import DGP.CJLU.Utils.Implementation.Rand;
 
 import java.util.LinkedList;
 

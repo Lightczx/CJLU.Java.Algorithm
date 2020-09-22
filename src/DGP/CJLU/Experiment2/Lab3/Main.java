@@ -1,7 +1,7 @@
 package DGP.CJLU.Experiment2.Lab3;
 
 import DGP.CJLU.Utils.ExecuteTime;
-import DGP.CJLU.Utils.Rand;
+import DGP.CJLU.Utils.Implementation.Rand;
 import DGP.CJLU.Utils.TwoList;
 
 import java.util.ArrayList;
