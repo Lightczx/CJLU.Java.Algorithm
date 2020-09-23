@@ -5,52 +5,53 @@ import DGP.CJLU.Utils.Implementation.Rand;
 import DGP.CJLU.Utils.TwoList;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 public class Main {
     public static void main(String[] args) {
 
-        TwoList arrayLists=InitializeArrayList();
-        TwoList linkedLists=InitializeLinkedList();
+        TwoList arrayLists = InitializeArrayList();
+        TwoList linkedLists = InitializeLinkedList();
         //we don't want to count the initialize time
-        new ExecuteTime().run(()->{
+        new ExecuteTime().run(() -> {
             GetUnion(arrayLists);
-        }).run(()->{
+        }).run(() -> {
             arrayLists.L1.removeAll(arrayLists.L2);
             arrayLists.L1.addAll(arrayLists.L2);
-        }).run(()->{
+        }).run(() -> {
             GetUnion(linkedLists);
-        }).run(()->{
+        }).run(() -> {
             linkedLists.L1.removeAll(linkedLists.L2);
             linkedLists.L1.addAll(linkedLists.L2);
         });
     }
 
-    private static TwoList InitializeArrayList(){
-        ArrayList<Integer> list1=new ArrayList<>();
-        ArrayList<Integer> list2=new ArrayList<>();
-        for(int i=1;i<=10;i++)
+    private static TwoList InitializeArrayList() {
+        ArrayList<Integer> list1 = new ArrayList<>();
+        ArrayList<Integer> list2 = new ArrayList<>();
+        for (int i = 1; i <= 10; i++)
             list1.add(i);
-        for(int j=5;j<=15;j++)
+        for (int j = 5; j <= 15; j++)
             list2.add(j);
-        return new TwoList(list1,list2,new ArrayList<>());
+        return new TwoList(list1, list2, new ArrayList<>());
     }
 
-    private static TwoList InitializeLinkedList(){
-        LinkedList<Integer> list1 =new LinkedList<>();
-        LinkedList<Integer> list2 =new LinkedList<>();
-        for(int i=1;i<=10;i++)
+    private static TwoList InitializeLinkedList() {
+        LinkedList<Integer> list1 = new LinkedList<>();
+        LinkedList<Integer> list2 = new LinkedList<>();
+        for (int i = 1; i <= 10; i++)
             list1.add(i);
-        for(int j=1;j<=5;j++)
-            list2.add(Rand.randInt(1,10));
-        return new TwoList(list1,list2,new LinkedList<>());
+        for (int j = 1; j <= 5; j++)
+            list2.add(Rand.randInt(1, 10));
+        return new TwoList(list1, list2, new LinkedList<>());
     }
 
-    private static void GetUnion(TwoList twoList){
-        for (int num:twoList.L1) {
-            if(!twoList.L1.contains(num))
+    private static void GetUnion(TwoList twoList) {
+        for (int num : twoList.L1) {
+            if (!twoList.L1.contains(num))
                 twoList.L1.add(num);
-            twoList.Result=twoList.L1;
+            twoList.Result = twoList.L1;
         }
     }
 }

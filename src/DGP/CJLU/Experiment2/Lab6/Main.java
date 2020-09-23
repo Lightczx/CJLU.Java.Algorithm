@@ -8,15 +8,15 @@ import java.util.LinkedList;
 
 public class Main {
     public static void main(String[] args) {
-        new ExecuteTime().run(()->{
+        new ExecuteTime().run(() -> {
             InitializeSingleLinkedList().reverse();
         });
     }
 
-    private static SingleLinkedList<Integer> InitializeSingleLinkedList(){
-        SingleLinkedList<Integer> list =new SingleLinkedList<>();
-        for(int j=1;j<=10;j++)
-            list.add(Rand.randInt(1,10));
+    private static SingleLinkedList<Integer> InitializeSingleLinkedList() {
+        SingleLinkedList<Integer> list = new SingleLinkedList<>();
+        for (int j = 1; j <= 10; j++)
+            list.add(Rand.randInt(1, 10));
         return list;
     }
 

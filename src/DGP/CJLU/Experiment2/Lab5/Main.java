@@ -6,16 +6,16 @@ import java.util.LinkedList;
 
 public class Main {
     public static void main(String[] args) {
-       LinkedList<Integer> list =InitializeLinkedList();
-        for (int num:list) {
+        LinkedList<Integer> list = InitializeLinkedList();
+        for (int num : list) {
             System.out.println(num);
         }
     }
 
-    private static LinkedList<Integer> InitializeLinkedList(){
-        LinkedList<Integer> list =new LinkedList<>();
-        for(int j=1;j<=10;j++)
-            list.add(Rand.randInt(1,10));
+    private static LinkedList<Integer> InitializeLinkedList() {
+        LinkedList<Integer> list = new LinkedList<>();
+        for (int j = 1; j <= 10; j++)
+            list.add(Rand.randInt(1, 10));
         return list;
     }
 }

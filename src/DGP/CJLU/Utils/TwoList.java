@@ -11,9 +11,10 @@ public class TwoList {
     public AbstractList<Integer> L2;
     //type limit
     public AbstractList<Integer> Result;
-    public TwoList(AbstractList<Integer> L1, AbstractList<Integer> L2,AbstractList<Integer> Result){
-        this.L1=L1;
-        this.L2=L2;
-        this.Result=Result;
+
+    public TwoList(AbstractList<Integer> L1, AbstractList<Integer> L2, AbstractList<Integer> Result) {
+        this.L1 = L1;
+        this.L2 = L2;
+        this.Result = Result;
     }
 }
