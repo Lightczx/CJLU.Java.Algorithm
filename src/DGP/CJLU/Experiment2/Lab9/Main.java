@@ -2,8 +2,12 @@ package DGP.CJLU.Experiment2.Lab9;
 
 import DGP.CJLU.Utils.ExecuteTime;
 
-import java.util.LinkedList;
-
+/**
+ * 9.	Write a program to add and multiply(optional) two polynomials. The polynomial has the
+ * following form:P ( x ) = a1x e1 + ... + an x en Where ai is the coefficient, ei is the exponent
+ * and ei is non-negative integer. Test your program using two example polynomials:
+ * P1(x) = 10x1000+5x14+1 and P2(x) = 3x1990+2x1492+11x+5.And more test examples should be used.
+ */
 public class Main {
     public static void main(String[] args) {
         Polynomial p1 = new Polynomial();
@@ -18,8 +22,6 @@ public class Main {
         p2.addTerm(5, 0);
 
         new ExecuteTime().run(() -> {
-            System.out.println(p1.toString());
-            System.out.println(p2.toString());
             System.out.println(p1.add(p2).toString());
             System.out.println(p1.multiply(p2).toString());
         });

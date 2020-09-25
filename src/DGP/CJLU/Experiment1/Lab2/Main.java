@@ -2,6 +2,14 @@ package DGP.CJLU.Experiment1.Lab2;
 
 import DGP.CJLU.Utils.ExecuteTime;
 
+/**
+ * Write functions to calculate factorial of N integers.
+ * a)	Use iterative method
+ * b)	Use recursive method
+ * c)	Run	program	(a)	for	N=1000,	10000,100000;	program	(b)	for	N=1000,10000,100000,1000000.
+ * d)	When will the exception java.lang.StackOverflowError occur of program (b)?
+ * e)	Compare the actual running times.
+ */
 public class Main {
     public static void main(String[] args) {
         //2 a 1000

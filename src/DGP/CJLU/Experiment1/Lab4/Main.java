@@ -3,6 +3,31 @@ package DGP.CJLU.Experiment1.Lab4;
 import DGP.CJLU.Utils.ExecuteTime;
 import DGP.CJLU.Utils.Implementation.Rand;
 
+/**
+ * Suppose you need to generate a random permutation of the first N integers. For example,
+ * {4,3,1,5,2} and {3,1,4,2,5} are legal permutations,but {5,4,1,2,1 is not, because one number （1）
+ * is duplicated and another (3) is missing. This routine is often used in simulation of algorithms.
+ * We assume the existence of a random number generator, r, with method randInt(i,j), that generates
+ * integers between i and j with equal probability.
+ * Here are three algorithms:
+ * a)	Fill the array a from a[0] to a[n-1] as follows: To fill a[i], generate random numbers until
+ *      you get one that is not already in a[0], a[1],......, a[i-1].
+ * b)	Same as algorithm (a), but keep an extra array called the used array. When a random number,
+ *      ran, is first put in the array a, set used[ran] = true.This means that when filling a[i]
+ *      with a random number, you can test in one step to see whether the random number has been
+ *      used, instead of the (possibly) i steps in the first algorithm.
+ * c)	Fill the array such that	a[i] = i + 1. Then
+ *      for( i = 1; i<n; i++)
+ *          swapReferences( a[i], a[ randInt(0,i) ] );
+ * d)	Complete the following tasks.
+ *      i.	Write the time complexity of each algorithm.
+ *      ii.	Write (separate) programs to execute each algorithm 10 times, to get a good average.
+ *      Run program (a) for N=1000, 5000, 10000;
+ *          program (b) for N=10000, 50000, 100000, 500000, 1000000;
+ *          program (c) for N=1000000, 5000000, 10000000.
+ *      iii.Compare your analysis with the actual running times.
+ *      iv.	What is the worst-case running time of each algorithm?
+ */
 public class Main {
     public static void main(String[] args) {
         //a

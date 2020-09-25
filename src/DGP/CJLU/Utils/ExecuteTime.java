@@ -21,11 +21,11 @@ public class ExecuteTime {
     }
 
     private void printTimeTakes(String functionName) {
-        System.out.println("function " + functionName + " execution takes " + takes() + " nanoseconds");
+        System.out.println("function [" + functionName + "] execution takes " + takes() + " nanoseconds or " +(double)takes()/1000000+" milliseconds");
     }
 
     /**
-     * execute some code packed by lambda function or local method and counts the running time
+     * execute some code packed by lambda function or local method reference and counts the running time
      *
      * @param code normally lambda function or a method reference to run
      * @return the executor can continue run code
@@ -39,4 +39,19 @@ public class ExecuteTime {
         printTimeTakes(methodName);
         return this;
     }
+
+    public ExecuteTime tryRun(Code code){
+        try{
+            this.begin();
+            code.Run();
+            this.end();
+        }
+        catch (Exception e){
+            System.out.println(e.getLocalizedMessage());
+        }
+        String methodName = code.getClass().getSimpleName();
+        printTimeTakes(methodName);
+        return this;
+    }
+
 }

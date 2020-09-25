@@ -2,10 +2,13 @@ package DGP.CJLU.Experiment2.Lab4;
 
 import DGP.CJLU.Utils.Implementation.Rand;
 
-import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
+/**
+ * Compute the maximum, minimum and average value of a list. LinkedList and ArrayList should be used.
+ */
 public class Main {
     public static void main(String[] args) {
         ArrayList<Integer> arrayList = InitializeArrayList();
@@ -33,7 +36,7 @@ public class Main {
         return list;
     }
 
-    private static int GetMaximum(AbstractList<Integer> list) {
+    private static int GetMaximum(List<Integer> list) {
         int maximum = 0;
         for (int num : list) {
             maximum = Math.max(maximum, num);
@@ -41,7 +44,7 @@ public class Main {
         return maximum;
     }
 
-    private static int GetMinimum(AbstractList<Integer> list) {
+    private static int GetMinimum(List<Integer> list) {
         int minimum = 0;
         for (int num : list) {
             minimum = Math.min(minimum, num);
@@ -49,7 +52,7 @@ public class Main {
         return minimum;
     }
 
-    private static double GetAverage(AbstractList<Integer> list) {
+    private static double GetAverage(List<Integer> list) {
         int sum = 0;
         for (int num : list) {
             sum += num;

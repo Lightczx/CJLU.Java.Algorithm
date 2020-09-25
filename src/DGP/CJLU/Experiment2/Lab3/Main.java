@@ -2,12 +2,16 @@ package DGP.CJLU.Experiment2.Lab3;
 
 import DGP.CJLU.Utils.ExecuteTime;
 import DGP.CJLU.Utils.Implementation.Rand;
-import DGP.CJLU.Utils.TwoList;
+import DGP.CJLU.Experiment2.Lab2.TwoList;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedList;
 
+/**
+ * 3.	Given two sorted lists, L1 and L2, write a procedure to compute L1∪ L2 using only the basic
+ * list operations.What is the time complexity of your procedure? Compare the running times of your
+ * implementation with removeAll + addAll. LinkedList and ArrayList should be used.
+ */
 public class Main {
     public static void main(String[] args) {
 
