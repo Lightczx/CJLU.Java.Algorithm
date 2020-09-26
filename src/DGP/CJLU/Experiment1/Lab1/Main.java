@@ -24,10 +24,10 @@ public class Main {
             sum2(1000);
         }).run(() -> {
             sum2(10000);
-        }).run(() -> {
+        }).tryRun(() -> {
             //StackOverflowError
             sum2(100000);
-        }).run(() -> {
+        }).tryRun(() -> {
             //StackOverflowError
             sum2(100000);
         });

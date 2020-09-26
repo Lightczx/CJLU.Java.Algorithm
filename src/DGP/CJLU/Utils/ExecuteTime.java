@@ -21,7 +21,12 @@ public class ExecuteTime {
     }
 
     private void printTimeTakes(String functionName) {
-        System.out.println("function [" + functionName + "] execution takes " + takes() + " nanoseconds or " +(double)takes()/1000000+" milliseconds");
+        System.out.println("function [" + functionName + "] execution takes " + takes() + " ns or " + (double) takes() / 1000000 + " ms");
+    }
+
+    private void printError(String functionName, Throwable throwable) {
+        String s = throwable.getClass().toString().substring(6);
+        System.err.println("function [" + functionName + "] threw a " + s);
     }
 
     /**
@@ -40,17 +45,18 @@ public class ExecuteTime {
         return this;
     }
 
-    public ExecuteTime tryRun(Code code){
-        try{
-            this.begin();
-            code.Run();
-            this.end();
-        }
-        catch (Exception e){
-            System.out.println(e.getLocalizedMessage());
-        }
+    /**
+     * execute some untrusted code packed by lambda function or local method reference and do try catch work for it
+     * @param code normally lambda function or a method reference to run
+     * @return the executor can continue run code
+     */
+    public ExecuteTime tryRun(Code code) {
         String methodName = code.getClass().getSimpleName();
-        printTimeTakes(methodName);
+        try {
+            run(code);
+        } catch (Throwable e) {
+            printError(methodName, e);
+        }
         return this;
     }
 
