@@ -50,7 +50,7 @@ public class SingleLinkedList<E> {
      */
     public void add(E e, int index) {
         if (index < 0 || index > size)
-            throw new IllegalArgumentException("index is invalid");
+            throw new IllegalArgumentException();
         if (index == 0)
             this.addFirst(e);
 
@@ -79,7 +79,6 @@ public class SingleLinkedList<E> {
 
     public E removeLast() {
         if (this.head == null) {
-            System.out.println("无元素可删除");
             return null;
         }
         //只有一个元素

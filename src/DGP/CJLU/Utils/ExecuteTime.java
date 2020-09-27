@@ -37,7 +37,7 @@ public class ExecuteTime {
      */
     public ExecuteTime run(Code code) {
         this.begin();
-        code.Run();
+        code.invoke();
         this.end();
 
         String methodName = code.getClass().getSimpleName();
