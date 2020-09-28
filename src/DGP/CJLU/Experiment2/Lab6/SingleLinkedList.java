@@ -1,8 +1,7 @@
-package DGP.CJLU.Utils.Implementation;
+package DGP.CJLU.Experiment2.Lab6;
 
 /**
  * single linked list custom implementation
- *
  * @param <E> the stored value type
  */
 public class SingleLinkedList<E> {
@@ -15,7 +14,6 @@ public class SingleLinkedList<E> {
             this.next = next;
         }
 
-        //end
         public Node(E e) {
             this(e, null);
         }

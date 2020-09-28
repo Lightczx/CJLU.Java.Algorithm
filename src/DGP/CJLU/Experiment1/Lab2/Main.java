@@ -1,6 +1,6 @@
 package DGP.CJLU.Experiment1.Lab2;
 
-import DGP.CJLU.Utils.ExecuteTime;
+import DGP.CJLU.Utils.Dispatcher;
 
 /**
  * Write functions to calculate factorial of N integers.
@@ -13,7 +13,7 @@ import DGP.CJLU.Utils.ExecuteTime;
 public class Main {
     public static void main(String[] args) {
         //2 a 1000
-        new ExecuteTime().run(() -> {
+        new Dispatcher().run(() -> {
             factorial1(1000);
         }).run(() -> {
             factorial1(10000);

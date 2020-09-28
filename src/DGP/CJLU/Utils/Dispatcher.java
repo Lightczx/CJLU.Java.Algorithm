@@ -4,7 +4,7 @@ package DGP.CJLU.Utils;
  * counting the execute time of codes
  * use run method to counting
  */
-public class ExecuteTime {
+public class Dispatcher {
     private long beginTime;
     private long endTime;
 
@@ -35,7 +35,7 @@ public class ExecuteTime {
      * @param code normally lambda function or a method reference to run
      * @return the executor can continue run code
      */
-    public ExecuteTime run(Code code) {
+    public Dispatcher run(Code code) {
         this.begin();
         code.invoke();
         this.end();
@@ -50,7 +50,7 @@ public class ExecuteTime {
      * @param code normally lambda function or a method reference to run
      * @return the executor can continue run code
      */
-    public ExecuteTime tryRun(Code code) {
+    public Dispatcher tryRun(Code code) {
         String methodName = code.getClass().getSimpleName();
         try {
             run(code);

@@ -1,6 +1,6 @@
 package DGP.CJLU.Experiment1.Lab3;
 
-import DGP.CJLU.Utils.ExecuteTime;
+import DGP.CJLU.Utils.Dispatcher;
 
 /**
  * Write functions to calculate the N-th Fibonacci number.
@@ -12,7 +12,7 @@ import DGP.CJLU.Utils.ExecuteTime;
  */
 public class Main {
     public static void main(String[] args) {
-        new ExecuteTime().run(() -> {
+        new Dispatcher().run(() -> {
             fib1(1000);
         }).run(() -> {
             fib1(10000);

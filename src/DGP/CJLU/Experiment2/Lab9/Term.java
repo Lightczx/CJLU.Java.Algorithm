@@ -6,9 +6,9 @@ public class Term {
     public int coefficient;
     public int exponent;
 
-    public Term(int coefficient, int exponent) {
-        this.coefficient = coefficient;
-        this.exponent = exponent;
+    public Term(int c, int e) {
+        this.coefficient = c;
+        this.exponent = e;
     }
 
     public boolean isSameOrderWith(Term term) {
@@ -19,15 +19,24 @@ public class Term {
         return new Term(coefficient + term.coefficient, exponent);
     }
 
+    /**
+     * a term multiplies a term gets a term
+     * @param term provide a term
+     * @return result
+     */
     public Term multiply(Term term) {
         return new Term(coefficient * term.coefficient, exponent + term.exponent);
     }
 
+    /**
+     * a term multiplies a polynomial gets a polynomial
+     * @param polynomial provide a polynomial
+     * @return result polynomial
+     */
     public Polynomial multiply(Polynomial polynomial) {
         LinkedList<Term> result = new LinkedList<>();
-        for (Term term : polynomial.getTerms()) {
+        for (Term term : polynomial.getCopiedTerms())
             result.add(this.multiply(term));
-        }
         return new Polynomial(result);
     }
 
@@ -35,13 +44,8 @@ public class Term {
         return coefficient > 0;
     }
 
-    public boolean isNegative() {
-        return coefficient < 0;
-    }
-
     /**
-     * code committed partially by Sun jiatao
-     *
+     * code tested by 1900303204 jiatao Sun
      * @return the string representation of the term
      */
     @Override
@@ -51,10 +55,6 @@ public class Term {
         if (coefficient == 0) {
             return null;
         }
-        //当系数不为±1时,追加系数
-        /*if(coefficient!=1&&coefficient!=-1){
-            sb.append(coefficient);
-        }*/
         //当次数为0时，需要追加±1
         if (exponent == 0) {
             sb.append(coefficient);
@@ -64,6 +64,7 @@ public class Term {
             if (coefficient == -1) {
                 sb.append("-");
             }
+            //当系数不为±1时,追加系数
             if (coefficient != 1 && coefficient != -1) {
                 sb.append(coefficient);
             }

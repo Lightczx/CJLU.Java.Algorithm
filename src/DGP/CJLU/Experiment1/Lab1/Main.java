@@ -1,6 +1,6 @@
 package DGP.CJLU.Experiment1.Lab1;
 
-import DGP.CJLU.Utils.ExecuteTime;
+import DGP.CJLU.Utils.Dispatcher;
 
 /**
  * Write functions to sum N integers.
@@ -14,7 +14,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        new ExecuteTime().run(() -> {
+        new Dispatcher().run(() -> {
             sum1(1000);
         }).run(() -> {
             sum1(10000);

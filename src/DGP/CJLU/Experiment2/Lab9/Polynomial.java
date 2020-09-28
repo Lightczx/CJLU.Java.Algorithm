@@ -6,14 +6,17 @@ import java.util.LinkedList;
 public class Polynomial {
     private LinkedList<Term> terms;
 
-    public LinkedList<Term> getTerms() {
-        return terms;
+    /**
+     * get the shallow copy of terms
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    public LinkedList<Term> getCopiedTerms() {
+        return (LinkedList<Term>) terms.clone();
     }
 
     public Polynomial() {
-        LinkedList<Term> terms = new LinkedList<>();
-        terms.add(new Term(0, 0));
-        this.terms = terms;
+        this.terms = new LinkedList<>();
     }
 
     public Polynomial(LinkedList<Term> terms) {
@@ -29,12 +32,13 @@ public class Polynomial {
     }
 
     public Polynomial add(Polynomial polynomial) {
-        LinkedList<Term> terms1 = (LinkedList<Term>) terms.clone();
-        LinkedList<Term> terms2 = (LinkedList<Term>) polynomial.terms.clone();
+        LinkedList<Term> ta = getCopiedTerms();
+        LinkedList<Term> tb = polynomial.getCopiedTerms();
+
         LinkedList<Term> result = new LinkedList<>();
-        for (Iterator<Term> iterator = terms1.iterator(); iterator.hasNext(); ) {
-            Term t1 = iterator.next();
-            for (Iterator<Term> iter = terms2.iterator(); iter.hasNext(); ) {
+        for (Term t1 : ta) {
+            Iterator<Term> iter = tb.iterator();
+            while (iter.hasNext()) {
                 Term t2 = iter.next();
                 if (t1.isSameOrderWith(t2)) {
                     t1 = t1.add(t2);
@@ -43,15 +47,16 @@ public class Polynomial {
             }
             result.add(t1);
         }
-        result.addAll(terms2);
-        sort(result);
-        return new Polynomial(result).unify();
+        result.addAll(tb);
+        return new Polynomial(result).normalize();
     }
 
+    /**
+     * sort the LinkedList in descending order
+     * @param ts terms
+     */
     private void sort(LinkedList<Term> ts) {
-        ts.sort((o1, o2) -> {
-            return Integer.compare(o2.exponent, o1.exponent);
-        });
+        ts.sort((o1, o2) -> Integer.compare(o2.exponent, o1.exponent));
     }
 
     public Polynomial multiply(Polynomial polynomial) {
@@ -62,11 +67,11 @@ public class Polynomial {
         for (Polynomial p : temp)
             result = result.add(p);
 
-        return result.unify();
+        return result.normalize();
     }
 
-    private Polynomial unify() {
-        LinkedList<Term> temp1 = (LinkedList<Term>) terms.clone();
+    public Polynomial normalize() {
+        LinkedList<Term> temp1 = getCopiedTerms();
         LinkedList<Term> result = new LinkedList<>();
 
         for (Term t1 : temp1) {

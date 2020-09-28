@@ -1,6 +1,6 @@
 package DGP.CJLU.Experiment2.Lab2;
 
-import DGP.CJLU.Utils.ExecuteTime;
+import DGP.CJLU.Utils.Dispatcher;
 import DGP.CJLU.Utils.Implementation.Rand;
 
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ public class Main {
         TwoList arrayLists = InitializeArrayList();
         TwoList linkedLists = InitializeLinkedList();
         //we don't want to count the initialize time
-        new ExecuteTime().run(() -> {
+        new Dispatcher().run(() -> {
             GetIntersection(arrayLists);
         }).run(() -> {
             arrayLists.L1.retainAll(arrayLists.L2);
