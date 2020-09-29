@@ -16,7 +16,15 @@ public class Polynomial {
     }
 
     public Polynomial() {
-        this.terms = new LinkedList<>();
+        terms = new LinkedList<>();
+    }
+
+    public Polynomial(String polynomial) {
+        String[] strs=polynomial.replace("-","+-").split("\\+");
+        terms = new LinkedList<>();
+        for(String s : strs){
+            terms.add(new Term(s));
+        }
     }
 
     public Polynomial(LinkedList<Term> terms) {
@@ -51,13 +59,7 @@ public class Polynomial {
         return new Polynomial(result).normalize();
     }
 
-    /**
-     * sort the LinkedList in descending order
-     * @param ts terms
-     */
-    private void sort(LinkedList<Term> ts) {
-        ts.sort((o1, o2) -> Integer.compare(o2.exponent, o1.exponent));
-    }
+
 
     public Polynomial multiply(Polynomial polynomial) {
         Polynomial result = new Polynomial();
@@ -68,6 +70,14 @@ public class Polynomial {
             result = result.add(p);
 
         return result.normalize();
+    }
+
+    /**
+     * sort the LinkedList in descending order
+     * @param ts terms
+     */
+    private void sort(LinkedList<Term> ts) {
+        ts.sort((o1, o2) -> Integer.compare(o2.exponent, o1.exponent));
     }
 
     public Polynomial normalize() {

@@ -1,6 +1,6 @@
 package DGP.CJLU.Experiment2.Lab6;
 
-import DGP.CJLU.Utils.Dispatcher;
+import DGP.CJLU.Utils.ExecuteTime;
 import DGP.CJLU.Utils.Implementation.Rand;
 
 /**
@@ -8,7 +8,7 @@ import DGP.CJLU.Utils.Implementation.Rand;
  */
 public class Main {
     public static void main(String[] args) {
-        new Dispatcher().run(() -> {
+        new ExecuteTime().run(() -> {
             InitializeSingleLinkedList().reverse();
         });
     }

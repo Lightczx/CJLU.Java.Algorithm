@@ -1,6 +1,11 @@
 package DGP.CJLU.Utils;
 
-public class Dispatcher{
+/**
+ * counting the execute time of codes
+ * use run method to counting
+ */
+public class ExecuteTime {
+
     private long beginTime;
     private long endTime;
 
@@ -31,7 +36,7 @@ public class Dispatcher{
      * @param code normally lambda function or a method reference to run
      * @return the executor can continue run code
      */
-    public Dispatcher run(Code code) {
+    public ExecuteTime run(Code code) {
         this.begin();
         code.invoke();
         this.end();
@@ -46,7 +51,7 @@ public class Dispatcher{
      * @param code normally lambda function or a method reference to run
      * @return the executor can continue run code
      */
-    public Dispatcher tryRun(Code code) {
+    public ExecuteTime tryRun(Code code) {
         String methodName = code.getClass().getSimpleName();
         try {
             run(code);
@@ -55,4 +60,5 @@ public class Dispatcher{
         }
         return this;
     }
+
 }

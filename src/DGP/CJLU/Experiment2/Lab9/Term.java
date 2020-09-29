@@ -11,6 +11,19 @@ public class Term {
         this.exponent = e;
     }
 
+    public Term(String term) {
+        if(term.contains("x")||term.contains("X")) {
+            String[] strs=term.replace("X","x").replace("^","").replace("-x","-1x").split("x");
+            coefficient = (strs[0] == null||strs[0].equals("")) ? 1 : Integer.parseInt(strs[0]);
+            exponent = (strs.length==1||strs[1] == null) ? 1 : Integer.parseInt(strs[1]);
+        }
+        else {
+            coefficient=Integer.parseInt(term);
+            exponent=0;
+        }
+
+    }
+
     public boolean isSameOrderWith(Term term) {
         return term.exponent == exponent;
     }

@@ -1,6 +1,6 @@
 package DGP.CJLU.Experiment2.Lab3;
 
-import DGP.CJLU.Utils.Dispatcher;
+import DGP.CJLU.Utils.ExecuteTime;
 import DGP.CJLU.Utils.Implementation.Rand;
 import DGP.CJLU.Experiment2.Lab2.TwoList;
 
@@ -18,7 +18,7 @@ public class Main {
         TwoList arrayLists = InitializeArrayList();
         TwoList linkedLists = InitializeLinkedList();
         //we don't want to count the initialize time
-        new Dispatcher().run(() -> {
+        new ExecuteTime().run(() -> {
             GetUnion(arrayLists);
         }).run(() -> {
             arrayLists.L1.removeAll(arrayLists.L2);

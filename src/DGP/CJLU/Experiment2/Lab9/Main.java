@@ -1,6 +1,6 @@
 package DGP.CJLU.Experiment2.Lab9;
 
-import DGP.CJLU.Utils.Dispatcher;
+import DGP.CJLU.Utils.ExecuteTime;
 
 /**
  * 9.	Write a program to add and multiply(optional) two polynomials. The polynomial has the
@@ -10,22 +10,15 @@ import DGP.CJLU.Utils.Dispatcher;
  */
 public class Main {
     public static void main(String[] args) {
-        Polynomial p1 = new Polynomial();
-        p1.addTerm(10, 1000);
-        p1.addTerm(5, 14);
-        p1.addTerm(1, 0);
+        Polynomial p1 = new Polynomial("10x^1000+5x^14+1");
+        Polynomial p2 = new Polynomial("3x^1990-2x^1492+11x+5");
 
-        Polynomial p2 = new Polynomial();
-        p2.addTerm(3, 1990);
-        p2.addTerm(-2, 1492);
-        p2.addTerm(11, 1);
-        p2.addTerm(5, 0);
-
-        new Dispatcher().run(() -> {
+        System.out.println(p1);
+        System.out.println(p2);
+        new ExecuteTime().run(() -> {
             System.out.println(p1.add(p2).toString());
             System.out.println(p1.multiply(p2).toString());
-            System.out.println(p1);
-            System.out.println(p2);
+
         });
     }
 }
