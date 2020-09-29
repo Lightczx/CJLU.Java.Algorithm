@@ -18,7 +18,6 @@ public class Main {
         new ExecuteTime().run(() -> {
             System.out.println(p1.add(p2).toString());
             System.out.println(p1.multiply(p2).toString());
-
         });
     }
 }
