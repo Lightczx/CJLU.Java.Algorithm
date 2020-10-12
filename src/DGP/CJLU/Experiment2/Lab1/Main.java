@@ -1,6 +1,6 @@
 package DGP.CJLU.Experiment2.Lab1;
 
-import DGP.CJLU.Utils.ExecuteTime;
+import DGP.CJLU.Utils.Dispatcher;
 import DGP.CJLU.Utils.Implementation.Rand;
 
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ public class Main {
     public static void main(String[] args) {
         ListPos lparray = InitializeArrayList();
         ListPos lplinked = InitializeLinkedList();
-        new ExecuteTime().run(() -> {
+        new Dispatcher().run(() -> {
             PrintLots(lparray.List, lparray.Pos);
         }).run(() -> {
             PrintLots(lplinked.List, lplinked.Pos);

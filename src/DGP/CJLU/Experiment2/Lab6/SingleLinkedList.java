@@ -7,7 +7,7 @@ package DGP.CJLU.Experiment2.Lab6;
  */
 public class SingleLinkedList<E> {
     private class Node {
-        private E e;
+        private final E e;
         private Node next;
 
         public Node(E e, Node next) {
@@ -29,7 +29,7 @@ public class SingleLinkedList<E> {
     }
 
     public SingleLinkedList() {
-        this.dummyTail=new Node(null,null);
+        this.dummyTail = new Node(null, null);
         this.dummyHead = new Node(null, dummyTail);
         this.size = 0;
     }
@@ -49,16 +49,16 @@ public class SingleLinkedList<E> {
         Node pre = null;
         Node cur = dummyHead;
         Node next;
-        while (cur!=null) {
+        while (cur != null) {
             next = cur.next;
             cur.next = pre;
             pre = cur;
             cur = next;
         }
         //swap head and tail
-        Node tmp=dummyHead;
-        dummyHead=dummyTail;
-        dummyTail=tmp;
+        Node tmp = dummyHead;
+        dummyHead = dummyTail;
+        dummyTail = tmp;
     }
 
     @Override
@@ -67,7 +67,7 @@ public class SingleLinkedList<E> {
         StringBuilder sb = new StringBuilder();
         sb.append("head -> ");
         while (!cur.equals(dummyTail)) {
-                sb.append(cur.e);
+            sb.append(cur.e);
             sb.append(" -> ");
             cur = cur.next;
         }

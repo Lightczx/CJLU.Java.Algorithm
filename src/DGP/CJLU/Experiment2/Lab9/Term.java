@@ -12,28 +12,35 @@ public class Term {
     }
 
     public Term(String term) {
-        if(term.contains("x")||term.contains("X")) {
-            String[] strs=term.replace("X","x").replace("^","").replace("-x","-1x").split("x");
-            coefficient = (strs[0] == null||strs[0].equals("")) ? 1 : Integer.parseInt(strs[0]);
-            exponent = (strs.length==1||strs[1] == null) ? 1 : Integer.parseInt(strs[1]);
+        if (term.contains("x") || term.contains("X")) {
+            String[] strs = term.replace("X", "x").replace("^", "").replace("-x", "-1x").split("x");
+            coefficient = strs.length == 0 ? 1 : Integer.parseInt(strs[0]);
+            exponent = strs.length <= 1 ? 1 : Integer.parseInt(strs[1]);
+        } else {//number term
+            coefficient = Integer.parseInt(term);
+            exponent = 0;
         }
-        else {
-            coefficient=Integer.parseInt(term);
-            exponent=0;
-        }
-
     }
 
     public boolean isSameOrderWith(Term term) {
         return term.exponent == exponent;
     }
 
+    /**
+     * term add term
+     *
+     * @param term another term
+     * @return result term
+     */
     public Term add(Term term) {
+        if (this.exponent != term.exponent)
+            throw new IllegalArgumentException("项的次数应该相同");
         return new Term(coefficient + term.coefficient, exponent);
     }
 
     /**
      * a term multiplies a term gets a term
+     *
      * @param term provide a term
      * @return result
      */
@@ -43,6 +50,7 @@ public class Term {
 
     /**
      * a term multiplies a polynomial gets a polynomial
+     *
      * @param polynomial provide a polynomial
      * @return result polynomial
      */
@@ -59,6 +67,7 @@ public class Term {
 
     /**
      * code tested by 1900303204 jiatao Sun
+     *
      * @return the string representation of the term
      */
     @Override

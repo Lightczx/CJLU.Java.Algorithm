@@ -1,6 +1,6 @@
 package DGP.CJLU.Experiment1.Lab4;
 
-import DGP.CJLU.Utils.ExecuteTime;
+import DGP.CJLU.Utils.Dispatcher;
 import DGP.CJLU.Utils.Implementation.Rand;
 
 /**
@@ -31,39 +31,39 @@ import DGP.CJLU.Utils.Implementation.Rand;
 public class Main {
     public static void main(String[] args) {
         //a
-        new ExecuteTime().run(() -> {
+        new Dispatcher().run(() -> {
             rng1(1000);
         });
-        new ExecuteTime().run(() -> {
+        new Dispatcher().run(() -> {
             rng1(5000);
         });
-        new ExecuteTime().run(() -> {
+        new Dispatcher().run(() -> {
             rng1(10000);
         });
         //b
-        new ExecuteTime().run(() -> {
+        new Dispatcher().run(() -> {
             rng2(10000);
         });
-        new ExecuteTime().run(() -> {
+        new Dispatcher().run(() -> {
             rng2(50000);
         });
-        new ExecuteTime().run(() -> {
+        new Dispatcher().run(() -> {
             rng2(100000);
         });
-        new ExecuteTime().run(() -> {
+        new Dispatcher().run(() -> {
             rng2(500000);
         });
-        new ExecuteTime().run(() -> {
+        new Dispatcher().run(() -> {
             rng2(1000000);
         });
         //c
-        new ExecuteTime().run(() -> {
+        new Dispatcher().run(() -> {
             rng3(1000000);
         });
-        new ExecuteTime().run(() -> {
+        new Dispatcher().run(() -> {
             rng3(5000000);
         });
-        new ExecuteTime().run(() -> {
+        new Dispatcher().run(() -> {
             rng3(10000000);
         });
     }

@@ -1,6 +1,6 @@
 package DGP.CJLU.Experiment2.Lab6;
 
-import DGP.CJLU.Utils.ExecuteTime;
+import DGP.CJLU.Utils.Dispatcher;
 import DGP.CJLU.Utils.Implementation.Rand;
 
 /**
@@ -9,20 +9,16 @@ import DGP.CJLU.Utils.Implementation.Rand;
 public class Main {
 
     public static void main(String[] args) {
-        SingleLinkedList singleLinkedList = InitializeSingleLinkedList();
-        System.out.println(singleLinkedList.toString());
-        new ExecuteTime().run(() -> {
-
-            singleLinkedList.reverse();
-        });
-        System.out.println(singleLinkedList.toString());
+        SingleLinkedList<Integer> singleLinkedList = InitializeSingleLinkedList();
+        //System.out.println(singleLinkedList.toString());
+        new Dispatcher().run(singleLinkedList::reverse);
+        //System.out.println(singleLinkedList.toString());
     }
 
     private static SingleLinkedList<Integer> InitializeSingleLinkedList() {
         SingleLinkedList<Integer> list = new SingleLinkedList<>();
-        for (int j = 1; j <= 10; j++)
-            list.addFirst(Rand.randInt(1, 10));
+        for (int j = 1; j <= 1000000; j++)
+            list.addFirst(Rand.randInt(1, 1000000));
         return list;
     }
-
 }

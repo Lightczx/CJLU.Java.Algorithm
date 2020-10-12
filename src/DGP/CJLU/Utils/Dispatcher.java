@@ -1,6 +1,11 @@
 package DGP.CJLU.Utils;
 
-public class Dispatcher{
+/**
+ * counting the execute time of codes
+ * use run method to counting
+ */
+public class Dispatcher {
+
     private long beginTime;
     private long endTime;
 
@@ -12,7 +17,7 @@ public class Dispatcher{
         endTime = System.nanoTime();
     }
 
-    public long takes() {
+    private long takes() {
         return endTime - beginTime;
     }
 
@@ -43,6 +48,7 @@ public class Dispatcher{
 
     /**
      * execute some untrusted code packed by lambda function or local method reference and do try catch work for it
+     *
      * @param code normally lambda function or a method reference to run
      * @return the executor can continue run code
      */
@@ -55,4 +61,5 @@ public class Dispatcher{
         }
         return this;
     }
+
 }

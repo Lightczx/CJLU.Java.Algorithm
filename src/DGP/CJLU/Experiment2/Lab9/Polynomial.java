@@ -4,10 +4,11 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 public class Polynomial {
-    private LinkedList<Term> terms;
+    private final LinkedList<Term> terms;
 
     /**
      * get the shallow copy of terms
+     *
      * @return
      */
     @SuppressWarnings("unchecked")
@@ -15,28 +16,26 @@ public class Polynomial {
         return (LinkedList<Term>) terms.clone();
     }
 
-    public Polynomial() {
+    private Polynomial() {
         terms = new LinkedList<>();
     }
 
     public Polynomial(String polynomial) {
-        String[] strs=polynomial.replace("-","+-").split("\\+");
+        String[] strs = polynomial.replace("-", "+-").split("\\+");
         terms = new LinkedList<>();
-        for(String s : strs){
-            terms.add(new Term(s));
-        }
+        for (String s : strs)
+            if (!s.isEmpty())
+                terms.add(new Term(s));
     }
 
+    /**
+     * init with list sort
+     *
+     * @param terms
+     */
     public Polynomial(LinkedList<Term> terms) {
+        sort(terms);
         this.terms = terms;
-    }
-
-    public void addTerm(Term term) {
-        terms.add(term);
-    }
-
-    public void addTerm(int c, int e) {
-        terms.add(new Term(c, e));
     }
 
     public Polynomial add(Polynomial polynomial) {
@@ -59,8 +58,6 @@ public class Polynomial {
         return new Polynomial(result).normalize();
     }
 
-
-
     public Polynomial multiply(Polynomial polynomial) {
         Polynomial result = new Polynomial();
         LinkedList<Polynomial> temp = new LinkedList<>();
@@ -69,11 +66,12 @@ public class Polynomial {
         for (Polynomial p : temp)
             result = result.add(p);
 
-        return result.normalize();
+        return result;
     }
 
     /**
-     * sort the LinkedList in descending order
+     * sort the LinkedList in descending order / O(n2)
+     *
      * @param ts terms
      */
     private void sort(LinkedList<Term> ts) {
@@ -81,10 +79,10 @@ public class Polynomial {
     }
 
     public Polynomial normalize() {
-        LinkedList<Term> temp1 = getCopiedTerms();
+        LinkedList<Term> copy = getCopiedTerms();
         LinkedList<Term> result = new LinkedList<>();
 
-        for (Term t1 : temp1) {
+        for (Term t1 : copy) {
             for (Term t2 : result) {
                 if (t1.isSameOrderWith(t2)) {
                     t1 = t1.add(t2);
