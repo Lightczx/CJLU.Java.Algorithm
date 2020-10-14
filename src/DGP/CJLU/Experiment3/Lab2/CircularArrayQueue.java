@@ -7,7 +7,8 @@ public class CircularArrayQueue<E> implements Queue<E> {
     private int begin = 0;
     private int availableIndex = 0;
     private final int arraySize;
-    private int count=0;
+    private int count = 0;
+
     @SuppressWarnings("unchecked")
     public CircularArrayQueue(int arraySize) {
         this.arraySize = arraySize;
@@ -17,18 +18,18 @@ public class CircularArrayQueue<E> implements Queue<E> {
     @Override
     public boolean offer(E e) {
         //empty : add
-        if(count==0){
+        if (count == 0) {
             array[availableIndex++] = e;
             count++;
             return true;
         }
         //full : return
-        if(isFull())
+        if (isFull())
             return false;
 
         array[availableIndex++] = e;
         //circle to 0
-        if (availableIndex == arraySize){
+        if (availableIndex == arraySize) {
             availableIndex = 0;
         }
         count++;
@@ -36,20 +37,19 @@ public class CircularArrayQueue<E> implements Queue<E> {
     }
 
     public boolean isFull() {
-        if(count>0)
+        if (count > 0)
             return availableIndex == begin;
         return false;
     }
 
 
-
     @Override
     public E poll() {
         if (begin != availableIndex) {//ensure not null
-            E e=array[begin];
-            array[begin++]=null;
-            if(begin==arraySize)
-                begin=0;
+            E e = array[begin];
+            array[begin++] = null;
+            if (begin == arraySize)
+                begin = 0;
             count--;
             return e;
         }
@@ -72,7 +72,7 @@ public class CircularArrayQueue<E> implements Queue<E> {
         for (int i = 0; ; i++) {
             b.append(array[i]);
             if (i == iMax)
-                return b.append(']').append(begin).append(" | ").append(availableIndex).toString();
+                return b.append("] ").append(begin).append(" | ").append(availableIndex).toString();
             b.append(" , ");
         }
     }

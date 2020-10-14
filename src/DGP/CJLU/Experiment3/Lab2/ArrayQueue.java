@@ -2,8 +2,6 @@ package DGP.CJLU.Experiment3.Lab2;
 
 import DGP.CJLU.Utils.Implementation.Queue;
 
-import java.util.Arrays;
-
 public class ArrayQueue<E> implements Queue<E> {
     private final E[] array;
     private int availableIndex = 0;

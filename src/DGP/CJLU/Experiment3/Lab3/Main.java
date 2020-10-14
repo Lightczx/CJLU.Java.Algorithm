@@ -1,76 +1,136 @@
 package DGP.CJLU.Experiment3.Lab3;
 
-import DGP.CJLU.Utils.Implementation.Exceptions.FormatException;
+import DGP.CJLU.Experiment3.Lab1.LinkedStack;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.Reader;
+import java.io.*;
 import java.util.Stack;
 
 /**
- *Write a program to get a file's content, and check the content for the following balancing symbols: (), [], {}, Requirement:
- *  a)use customized class MyStack.
- *  b)use java.util.Stack
- *  c)In the test file,there must be English letters and symbols.
+ * Write a program to get a file's content, and check the content for the following balancing symbols: (), [], {}, Requirement:
+ * a use customized class MyStack.
+ * b use java.util.Stack
+ * c In the test file,there must be English letters and symbols.
  */
 public class Main {
     public static void main(String[] args) {
+        File file = new File("D:\\test.txt");
+        if (!file.exists()) {
+            System.out.println("找不到文件");
+            return;
+        }
+        StringBuilder sb = readFileToStringBuffer(file);
 
+        System.out.println("verifyUsingStack : " + (verifyUsingStack(sb) ? "符号对称" : "符号不对称"));
+        System.out.println("verifyUsingLinkedStack : " + (verifyUsingLinkedStack(sb) ? "符号对称" : "符号不对称"));
     }
 
-    public StringBuilder readFileToStringBuffer(File file) {
+    private static StringBuilder readFileToStringBuffer(File file) {
         StringBuilder sb = new StringBuilder();
-        Reader reader = null;
-        BufferedReader br = null;
         try {
-            reader = new FileReader(file);
-            br = new BufferedReader(reader);
+            Reader reader = new FileReader(file);
+            BufferedReader br = new BufferedReader(reader);
             String data;
-            while ((data = br.readLine()) != null) {
+            while ((data = br.readLine()) != null)
                 sb.append(data);
-            }
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                reader.close();
-                br.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            };
         }
         return sb;
     }
 
-    public boolean verifyUsingStack(StringBuilder sb) throws FormatException {
-        Stack<Character> stack=new Stack<>();
+    private static boolean verifyUsingStack(StringBuilder sb) {
+        Stack<Character> stack = new Stack<>();
         String s = sb.toString();
-        try{
-            for(int i = 0; i < s.length(); i++){
-                char c=s.charAt(i);
-                if(c=='('||c=='['||c=='{')
-                    stack.push(c);
-                if(c==')'&&stack.pop()!='(')
-                    throw new FormatException("Not Matched");
-                if(c==']'&&stack.pop()!='[')
-                    throw new FormatException("Not Matched");
-                if(c=='}'&&stack.pop()!='{')
-                    throw new FormatException("Not Matched");
-                //special code for comment mark
-                //replace comment mark with dollar mark
-                if(c=='/'&&s.charAt(i+1)=='*')// /*
-                    stack.push('$');
-                if(c=='*'&&s.charAt(i+1)=='/'&&stack.pop()!='$')// */
-                    throw new FormatException("Not Matched");
+        try {
+            boolean inComment = false;
+            for (int i = 0; i < s.length(); i++) {
+                char c = s.charAt(i);
+                switch (c) {
+                    case '(', '[', '{':
+                        if (!inComment)
+                            stack.push(c);
+                        break;
+                    case ')':
+                        if (!inComment && stack.pop() != '(')
+                            return false;
+                        break;
+                    case ']':
+                        if (!inComment && stack.pop() != '[')
+                            return false;
+                        break;
+                    case '}':
+                        if (!inComment && stack.pop() != '{')
+                            return false;
+                        break;
+                    case '/':
+                        if (!inComment && s.charAt(i + 1) == '*') {
+                            stack.push('$');
+                            inComment = true;
+                            i++;
+                        }
+                        break;
+                    case '*'://in comment we only care about */
+                        if (s.charAt(i + 1) == '/')
+                            if (stack.pop() != '$')
+                                return false;
+                            else {
+                                inComment = false;
+                                i++;
+                            }
+                        break;
+                }
             }
             return true;
-        }catch (Exception e){
+        } catch (Exception e) {
             return false;
         }
-
     }
 
-
+    private static boolean verifyUsingLinkedStack(StringBuilder sb) {
+        LinkedStack<Character> stack = new LinkedStack<>();
+        String s = sb.toString();
+        try {
+            boolean inComment = false;
+            for (int i = 0; i < s.length(); i++) {
+                char c = s.charAt(i);
+                switch (c) {
+                    case '(', '[', '{':
+                        if (!inComment)
+                            stack.push(c);
+                        break;
+                    case ')':
+                        if (!inComment && stack.pop() != '(')
+                            return false;
+                        break;
+                    case ']':
+                        if (!inComment && stack.pop() != '[')
+                            return false;
+                        break;
+                    case '}':
+                        if (!inComment && stack.pop() != '{')
+                            return false;
+                        break;
+                    case '/':
+                        if (!inComment && s.charAt(i + 1) == '*') {
+                            stack.push('$');
+                            inComment = true;
+                            i++;
+                        }
+                        break;
+                    case '*'://in comment we only care about */
+                        if (s.charAt(i + 1) == '/')
+                            if (stack.pop() != '$')
+                                return false;
+                            else {
+                                inComment = false;
+                                i++;
+                            }
+                        break;
+                }
+            }
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }

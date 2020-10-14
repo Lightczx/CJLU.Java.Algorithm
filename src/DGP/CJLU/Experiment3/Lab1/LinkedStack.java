@@ -5,8 +5,8 @@ import java.util.LinkedList;
 public class LinkedStack<E> {
     private final LinkedList<E> linkedList = new LinkedList<>();
 
-    public boolean push(E e) {
-        return linkedList.add(e);
+    public void push(E e) {
+        linkedList.addFirst(e);
     }
 
     public E pop() {
