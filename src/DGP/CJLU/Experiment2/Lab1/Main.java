@@ -1,6 +1,6 @@
 package DGP.CJLU.Experiment2.Lab1;
 
-import DGP.CJLU.Utils.Dispatcher;
+import DGP.CJLU.Utils.Execution.Dispatcher;
 import DGP.CJLU.Utils.Implementation.Rand;
 
 import java.util.ArrayList;

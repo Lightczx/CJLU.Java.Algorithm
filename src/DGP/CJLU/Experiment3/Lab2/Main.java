@@ -1,6 +1,6 @@
 package DGP.CJLU.Experiment3.Lab2;
 
-import DGP.CJLU.Utils.Dispatcher;
+import DGP.CJLU.Utils.Execution.Dispatcher;
 import DGP.CJLU.Utils.Implementation.Queue;
 
 import java.util.LinkedList;

@@ -1,6 +1,6 @@
 package DGP.CJLU.Experiment1.Lab3;
 
-import DGP.CJLU.Utils.Dispatcher;
+import DGP.CJLU.Utils.Execution.Dispatcher;
 
 /**
  * Write functions to calculate the N-th Fibonacci number.

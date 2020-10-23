@@ -1,6 +1,6 @@
 package DGP.CJLU.Experiment2.Lab9;
 
-import DGP.CJLU.Utils.Dispatcher;
+import DGP.CJLU.Utils.Execution.Dispatcher;
 
 /**
  * 9.	Write a program to add and multiply(optional) two polynomials. The polynomial has the

@@ -1,6 +1,6 @@
 package DGP.CJLU.Experiment1.Lab4;
 
-import DGP.CJLU.Utils.Dispatcher;
+import DGP.CJLU.Utils.Execution.Dispatcher;
 import DGP.CJLU.Utils.Implementation.Rand;
 
 /**

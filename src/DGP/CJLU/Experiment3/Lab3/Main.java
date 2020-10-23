@@ -1,6 +1,7 @@
 package DGP.CJLU.Experiment3.Lab3;
 
 import DGP.CJLU.Experiment3.Lab1.LinkedStack;
+import DGP.CJLU.Utils.File.FileHelper;
 
 import java.io.*;
 import java.util.Stack;
@@ -18,24 +19,10 @@ public class Main {
             System.out.println("找不到文件");
             return;
         }
-        StringBuilder sb = readFileToStringBuffer(file);
+        StringBuilder sb = FileHelper.readFileToStringBuilder(file);
 
         System.out.println("verifyUsingStack : " + (verifyUsingStack(sb) ? "符号对称" : "符号不对称"));
         System.out.println("verifyUsingLinkedStack : " + (verifyUsingLinkedStack(sb) ? "符号对称" : "符号不对称"));
-    }
-
-    private static StringBuilder readFileToStringBuffer(File file) {
-        StringBuilder sb = new StringBuilder();
-        try {
-            Reader reader = new FileReader(file);
-            BufferedReader br = new BufferedReader(reader);
-            String data;
-            while ((data = br.readLine()) != null)
-                sb.append(data);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return sb;
     }
 
     private static boolean verifyUsingStack(StringBuilder sb) {
