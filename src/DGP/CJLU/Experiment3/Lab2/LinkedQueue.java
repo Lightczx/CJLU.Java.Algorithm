@@ -5,6 +5,9 @@ import DGP.CJLU.Utils.Implementation.Queue;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+/**
+ * @author 16861
+ */
 public class LinkedQueue<E> implements Queue<E> {
 
     private final LinkedList<E> linkedList = new LinkedList<>();
@@ -16,7 +19,8 @@ public class LinkedQueue<E> implements Queue<E> {
 
     @Override
     public E poll() {
-        E first = linkedList.getFirst();//Returns the first element in this list.
+        E first = linkedList.getFirst();
+        //Returns the first element in this list.
         linkedList.removeFirst();
         return first;
     }
@@ -29,16 +33,18 @@ public class LinkedQueue<E> implements Queue<E> {
     @Override
     public String toString() {
         Iterator<E> it = linkedList.iterator();
-        if (!it.hasNext())
+        if (!it.hasNext()) {
             return "[]";
+        }
 
         StringBuilder sb = new StringBuilder();
         sb.append('[');
         while (true) {
             E e = it.next();
             sb.append(e);
-            if (!it.hasNext())
+            if (!it.hasNext()) {
                 return sb.append(']').toString();
+            }
             sb.append(" , ");
         }
     }

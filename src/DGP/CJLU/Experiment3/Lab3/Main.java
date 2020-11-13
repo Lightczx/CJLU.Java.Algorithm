@@ -3,7 +3,7 @@ package DGP.CJLU.Experiment3.Lab3;
 import DGP.CJLU.Experiment3.Lab1.LinkedStack;
 import DGP.CJLU.Utils.File.FileHelper;
 
-import java.io.*;
+import java.io.File;
 import java.util.Stack;
 
 /**
@@ -34,20 +34,24 @@ public class Main {
                 char c = s.charAt(i);
                 switch (c) {
                     case '(', '[', '{':
-                        if (!inComment)
+                        if (!inComment) {
                             stack.push(c);
+                        }
                         break;
                     case ')':
-                        if (!inComment && stack.pop() != '(')
+                        if (!inComment && stack.pop() != '(') {
                             return false;
+                        }
                         break;
                     case ']':
-                        if (!inComment && stack.pop() != '[')
+                        if (!inComment && stack.pop() != '[') {
                             return false;
+                        }
                         break;
                     case '}':
-                        if (!inComment && stack.pop() != '{')
+                        if (!inComment && stack.pop() != '{') {
                             return false;
+                        }
                         break;
                     case '/':
                         if (!inComment && s.charAt(i + 1) == '*') {
@@ -57,14 +61,17 @@ public class Main {
                         }
                         break;
                     case '*'://in comment we only care about */
-                        if (s.charAt(i + 1) == '/')
-                            if (stack.pop() != '$')
+                        if (s.charAt(i + 1) == '/') {
+                            if (stack.pop() != '$') {
                                 return false;
-                            else {
+                            } else {
                                 inComment = false;
                                 i++;
                             }
+                        }
                         break;
+                    default:
+                        throw new IllegalStateException("Unexpected value: " + c);
                 }
             }
             return true;
@@ -82,20 +89,24 @@ public class Main {
                 char c = s.charAt(i);
                 switch (c) {
                     case '(', '[', '{':
-                        if (!inComment)
+                        if (!inComment) {
                             stack.push(c);
+                        }
                         break;
                     case ')':
-                        if (!inComment && stack.pop() != '(')
+                        if (!inComment && stack.pop() != '(') {
                             return false;
+                        }
                         break;
                     case ']':
-                        if (!inComment && stack.pop() != '[')
+                        if (!inComment && stack.pop() != '[') {
                             return false;
+                        }
                         break;
                     case '}':
-                        if (!inComment && stack.pop() != '{')
+                        if (!inComment && stack.pop() != '{') {
                             return false;
+                        }
                         break;
                     case '/':
                         if (!inComment && s.charAt(i + 1) == '*') {
@@ -104,15 +115,19 @@ public class Main {
                             i++;
                         }
                         break;
-                    case '*'://in comment we only care about */
-                        if (s.charAt(i + 1) == '/')
-                            if (stack.pop() != '$')
+                    case '*':
+                        //in comment we only care about */
+                        if (s.charAt(i + 1) == '/') {
+                            if (stack.pop() != '$') {
                                 return false;
-                            else {
+                            } else {
                                 inComment = false;
                                 i++;
                             }
+                        }
                         break;
+                    default:
+                        throw new IllegalStateException("Unexpected value: " + c);
                 }
             }
             return true;

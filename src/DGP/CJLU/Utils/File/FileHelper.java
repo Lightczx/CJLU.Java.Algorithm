@@ -2,6 +2,9 @@ package DGP.CJLU.Utils.File;
 
 import java.io.*;
 
+/**
+ * @author 16861
+ */
 public class FileHelper {
     public static StringBuilder readFileToStringBuilder(File file) {
         StringBuilder sb = new StringBuilder();
@@ -9,8 +12,9 @@ public class FileHelper {
             Reader reader = new FileReader(file);
             BufferedReader br = new BufferedReader(reader);
             String data;
-            while ((data = br.readLine()) != null)
+            while ((data = br.readLine()) != null) {
                 sb.append(data);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

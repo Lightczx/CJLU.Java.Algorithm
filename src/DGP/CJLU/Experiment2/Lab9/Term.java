@@ -33,8 +33,9 @@ public class Term {
      * @return result term
      */
     public Term add(Term term) {
-        if (this.exponent != term.exponent)
+        if (this.exponent != term.exponent) {
             throw new IllegalArgumentException("项的次数应该相同");
+        }
         return new Term(coefficient + term.coefficient, exponent);
     }
 
@@ -56,8 +57,9 @@ public class Term {
      */
     public Polynomial multiply(Polynomial polynomial) {
         LinkedList<Term> result = new LinkedList<>();
-        for (Term term : polynomial.getCopiedTerms())
+        for (Term term : polynomial.getCopiedTerms()) {
             result.add(this.multiply(term));
+        }
         return new Polynomial(result);
     }
 

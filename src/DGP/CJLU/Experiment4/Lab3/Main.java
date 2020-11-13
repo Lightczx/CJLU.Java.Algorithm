@@ -2,9 +2,8 @@ package DGP.CJLU.Experiment4.Lab3;
 
 import DGP.CJLU.Utils.File.FileHelper;
 
-import java.io.*;
+import java.io.File;
 import java.util.Map;
-import java.util.Set;
 import java.util.TreeMap;
 
 /**
@@ -12,6 +11,7 @@ import java.util.TreeMap;
  * a)	Create a file and copy an English article to the file.
  * b)	Write a program to count each word in the file
  * c)	TreeMap must be used.
+ * @author 16861
  */
 public class Main {
     public static void main(String[] args) {
@@ -21,10 +21,10 @@ public class Main {
             return;
         }
         StringBuilder sb = FileHelper.readFileToStringBuilder(file);
-        Analyse(sb.toString());
+        analyse(sb.toString());
     }
 
-    public static void Analyse(String text) {
+    public static void analyse(String text) {
         TreeMap<String, Integer> treemap = new TreeMap<>();
         //split text into array
         String[] str = text.split("[,.!\": ]");
@@ -42,7 +42,8 @@ public class Main {
         }
 
         System.out.println("Word\tCount");
-        for (Map.Entry<String, Integer> e : treemap.entrySet())
+        for (Map.Entry<String, Integer> e : treemap.entrySet()) {
             System.out.println(e.getKey() + "\t" + e.getValue());
+        }
     }
 }

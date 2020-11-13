@@ -6,32 +6,20 @@ package DGP.CJLU.Experiment2.Lab6;
  * @param <E> the stored value type
  */
 public class SingleLinkedList<E> {
-    private class Node {
-        private final E e;
-        private Node next;
-
-        public Node(E e, Node next) {
-            this.e = e;
-            this.next = next;
-        }
-
-    }
-
     /**
      * dummy head
      */
     private Node dummyHead;
     private Node dummyTail;
     private int size;
-
-    public int getSize() {
-        return this.size;
-    }
-
     public SingleLinkedList() {
         this.dummyTail = new Node(null, null);
         this.dummyHead = new Node(null, dummyTail);
         this.size = 0;
+    }
+
+    public int getSize() {
+        return this.size;
     }
 
     /**
@@ -73,5 +61,16 @@ public class SingleLinkedList<E> {
         }
         sb.append("tail");
         return sb.toString();
+    }
+
+    private class Node {
+        private final E e;
+        private Node next;
+
+        public Node(E e, Node next) {
+            this.e = e;
+            this.next = next;
+        }
+
     }
 }

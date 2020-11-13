@@ -11,32 +11,34 @@ import java.util.List;
  */
 public class Main {
     public static void main(String[] args) {
-        ArrayList<Integer> arrayList = InitializeArrayList();
-        GetMaximum(arrayList);
-        GetMinimum(arrayList);
-        GetAverage(arrayList);
+        ArrayList<Integer> arrayList = initializeArrayList();
+        getMaximum(arrayList);
+        getMinimum(arrayList);
+        getAverage(arrayList);
 
-        LinkedList<Integer> linkedList = InitializeLinkedList();
-        GetMaximum(linkedList);
-        GetMinimum(linkedList);
-        GetAverage(linkedList);
+        LinkedList<Integer> linkedList = initializeLinkedList();
+        getMaximum(linkedList);
+        getMinimum(linkedList);
+        getAverage(linkedList);
     }
 
-    private static ArrayList<Integer> InitializeArrayList() {
+    private static ArrayList<Integer> initializeArrayList() {
         ArrayList<Integer> list = new ArrayList<>();
-        for (int j = 5; j <= 15; j++)
+        for (int j = 5; j <= 15; j++) {
             list.add(j);
+        }
         return list;
     }
 
-    private static LinkedList<Integer> InitializeLinkedList() {
+    private static LinkedList<Integer> initializeLinkedList() {
         LinkedList<Integer> list = new LinkedList<>();
-        for (int j = 1; j <= 10; j++)
+        for (int j = 1; j <= 10; j++) {
             list.add(Rand.randInt(1, 10));
+        }
         return list;
     }
 
-    private static int GetMaximum(List<Integer> list) {
+    private static int getMaximum(List<Integer> list) {
         int maximum = 0;
         for (int num : list) {
             maximum = Math.max(maximum, num);
@@ -44,7 +46,7 @@ public class Main {
         return maximum;
     }
 
-    private static int GetMinimum(List<Integer> list) {
+    private static int getMinimum(List<Integer> list) {
         int minimum = 0;
         for (int num : list) {
             minimum = Math.min(minimum, num);
@@ -52,7 +54,7 @@ public class Main {
         return minimum;
     }
 
-    private static double GetAverage(List<Integer> list) {
+    private static double getAverage(List<Integer> list) {
         int sum = 0;
         for (int num : list) {
             sum += num;

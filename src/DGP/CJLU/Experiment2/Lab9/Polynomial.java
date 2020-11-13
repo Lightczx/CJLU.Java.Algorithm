@@ -3,18 +3,11 @@ package DGP.CJLU.Experiment2.Lab9;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+/**
+ * @author 16861
+ */
 public class Polynomial {
     private final LinkedList<Term> terms;
-
-    /**
-     * get the shallow copy of terms
-     *
-     * @return
-     */
-    @SuppressWarnings("unchecked")
-    public LinkedList<Term> getCopiedTerms() {
-        return (LinkedList<Term>) terms.clone();
-    }
 
     private Polynomial() {
         terms = new LinkedList<>();
@@ -23,19 +16,31 @@ public class Polynomial {
     public Polynomial(String polynomial) {
         String[] strs = polynomial.replace("-", "+-").split("\\+");
         terms = new LinkedList<>();
-        for (String s : strs)
-            if (!s.isEmpty())
+        for (String s : strs) {
+            if (!s.isEmpty()) {
                 terms.add(new Term(s));
+            }
+        }
     }
 
     /**
      * init with list sort
      *
-     * @param terms
+     * @param terms terms
      */
     public Polynomial(LinkedList<Term> terms) {
         sort(terms);
         this.terms = terms;
+    }
+
+    /**
+     * get the shallow copy of terms
+     *
+     * @return value
+     */
+    @SuppressWarnings("unchecked")
+    public LinkedList<Term> getCopiedTerms() {
+        return (LinkedList<Term>) terms.clone();
     }
 
     public Polynomial add(Polynomial polynomial) {
@@ -61,10 +66,12 @@ public class Polynomial {
     public Polynomial multiply(Polynomial polynomial) {
         Polynomial result = new Polynomial();
         LinkedList<Polynomial> temp = new LinkedList<>();
-        for (Term a : terms)
+        for (Term a : terms) {
             temp.add(a.multiply(polynomial));
-        for (Polynomial p : temp)
+        }
+        for (Polynomial p : temp) {
             result = result.add(p);
+        }
 
         return result;
     }
@@ -107,10 +114,12 @@ public class Polynomial {
                     isFirst = false;
                 }
             } else {
-                if (t.isPositive())
+                if (t.isPositive()) {
                     sb.append("+");
-                if (t.toString() != null)
+                }
+                if (t.toString() != null) {
                     sb.append(t.toString());
+                }
             }
         }
         return sb.toString();

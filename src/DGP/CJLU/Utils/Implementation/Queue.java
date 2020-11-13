@@ -3,6 +3,7 @@ package DGP.CJLU.Utils.Implementation;
 /**
  * simplified from java.util.Queue
  *
+ * @author 16861
  * @param <E>
  */
 public interface Queue<E> {

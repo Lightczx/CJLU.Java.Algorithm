@@ -27,6 +27,7 @@ import DGP.CJLU.Utils.Implementation.Rand;
  * program (c) for N=1000000, 5000000, 10000000.
  * iii.Compare your analysis with the actual running times.
  * iv.	What is the worst-case running time of each algorithm?
+ * @author 16861
  */
 public class Main {
     public static void main(String[] args) {
@@ -89,8 +90,9 @@ public class Main {
             if (!used[value]) {
                 arr[i] = value;
                 used[value] = true;
-            } else
+            } else {
                 i--;
+            }
         }
     }
 
@@ -99,8 +101,9 @@ public class Main {
         for (int i = 0; i < n; i++) {
             arr[i] = i + 1;
         }
-        for (int j = 1; j < n; j++)
+        for (int j = 1; j < n; j++) {
             swapReferences(arr, arr[j], arr[Rand.randInt(0, j)]);
+        }
     }
 
     public static void swapReferences(int[] arr, int i, int j) {

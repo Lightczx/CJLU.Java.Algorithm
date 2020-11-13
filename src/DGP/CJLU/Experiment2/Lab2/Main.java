@@ -10,48 +10,55 @@ import java.util.LinkedList;
  * Given two sorted lists, L1 and L2, write a procedure to compute L1∩ L2 using only the basic list
  * operations. What is the time complexity of your procedure? Compare the running times of your
  * implementation with retainAll.LinkedList and ArrayList should be used.
+ *
+ * @author 16861
  */
 public class Main {
     public static void main(String[] args) {
-        TwoList arrayLists = InitializeArrayList();
-        TwoList linkedLists = InitializeLinkedList();
+        TwoList arrayLists = initializeArrayList();
+        TwoList linkedLists = initializeLinkedList();
         //we don't want to count the initialize time
         new Dispatcher().run(() -> {
-            GetIntersection(arrayLists);
+            getIntersection(arrayLists);
         }).run(() -> {
-            arrayLists.L1.retainAll(arrayLists.L2);
+            arrayLists.l1.retainAll(arrayLists.l2);
         }).run(() -> {
-            GetIntersection(linkedLists);
+            getIntersection(linkedLists);
         }).run(() -> {
-            linkedLists.L1.retainAll(linkedLists.L2);
+            linkedLists.l1.retainAll(linkedLists.l2);
         });
     }
 
-    private static TwoList InitializeArrayList() {
+    private static TwoList initializeArrayList() {
         ArrayList<Integer> list1 = new ArrayList<>();
         ArrayList<Integer> list2 = new ArrayList<>();
-        for (int i = 1; i <= 10; i++)
+        for (int i = 1; i <= 10; i++) {
             list1.add(i);
-        for (int j = 5; j <= 15; j++)
+        }
+        for (int j = 5; j <= 15; j++) {
             list2.add(j);
+        }
         return new TwoList(list1, list2, new ArrayList<>());
     }
 
-    private static TwoList InitializeLinkedList() {
+    private static TwoList initializeLinkedList() {
         LinkedList<Integer> list1 = new LinkedList<>();
         LinkedList<Integer> list2 = new LinkedList<>();
 
-        for (int i = 1; i <= 10; i++)
+        for (int i = 1; i <= 10; i++) {
             list1.add(i);
-        for (int j = 1; j <= 5; j++)
+        }
+        for (int j = 1; j <= 5; j++) {
             list2.add(Rand.randInt(1, 10));
+        }
         return new TwoList(list1, list2, new LinkedList<>());
     }
 
-    private static void GetIntersection(TwoList twoList) {
-        for (int num : twoList.L1) {
-            if (twoList.L2.contains(num))
-                twoList.Result.add(num);
+    private static void getIntersection(TwoList twoList) {
+        for (int num : twoList.l1) {
+            if (twoList.l2.contains(num)) {
+                twoList.result.add(num);
+            }
         }
     }
 

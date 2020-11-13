@@ -4,27 +4,12 @@ import DGP.CJLU.Utils.Implementation.Exceptions.UnderflowException;
 
 import java.util.Comparator;
 
+/**
+ * @author 16861
+ */
 public class BinarySearchTree<T extends Comparable<? super T>> {
-    private static class BinaryNode<E> {
-        //Constructors
-        BinaryNode(E theElement) {
-            this(theElement, null, null);
-        }
-
-        BinaryNode(E theElement, BinaryNode<E> lt, BinaryNode<E> rt) {
-            element = theElement;
-            left = lt;
-            right = rt;
-        }
-
-        E element;
-        BinaryNode<E> left;
-        BinaryNode<E> right;
-    }
-
     private BinaryNode<T> root;
     private Comparator<? super T> cmp;
-
     public BinarySearchTree() {
         root = null;
     }
@@ -70,14 +55,15 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
      * Print the tree contents in sorted order.
      */
     public void printTree(TreeTraversalType type) {
-        if (isEmpty())
+        if (isEmpty()) {
             System.out.print("Empty tree");
-        else
+        } else {
             switch (type) {
                 case preOrder -> System.out.print("PreOrder :\t");
                 case inOrder -> System.out.print("InOrder :\t");
                 case postOrder -> System.out.print("PostOrder :\t");
             }
+        }
         switch (type) {
             case preOrder -> printTreeByPreOrder(root);
             case inOrder -> printTreeByInOrder(root);
@@ -113,10 +99,11 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
      * @return node containing the sma11est item.
      */
     private BinaryNode<T> findMin(BinaryNode<T> t) {
-        if (t == null)
+        if (t == null) {
             return null;
-        else if (t.left == null)
+        } else if (t.left == null) {
             return t;
+        }
         return findMin(t.left);
     }
 
@@ -125,9 +112,11 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
      * return node containing the largest item.
      */
     private BinaryNode<T> findMax(BinaryNode<T> t) {
-        if (t != null)
-            while (t.right != null)
+        if (t != null) {
+            while (t.right != null) {
                 t = t.right;
+            }
+        }
         return t;
     }
 
@@ -165,20 +154,24 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
      * @return the new root of the subtree.
      */
     private BinaryNode<T> remove(T x, BinaryNode<T> t) {
-        if (t == null)
-            return null;//return t; // Item not found; do nothing
+        if (t == null) {
+            // Item not found; do nothing
+            return null;
+        }
 
         int compareResult = x.compareTo(t.element);
 
-        if (compareResult < 0)
+        if (compareResult < 0) {
             t.left = remove(x, t.left);
-        else if (compareResult > 0)
+        } else if (compareResult > 0) {
             t.right = remove(x, t.right);
-        else if (t.left != null && t.right != null) {// Two children
+        // Two children
+        } else if (t.left != null && t.right != null) {
             t.element = findMin(t.right).element;
             t.right = remove(t.element, t.right);
-        } else
+        } else {
             t = (t.left != null) ? t.left : t.right;
+        }
         return t;
     }
 
@@ -215,12 +208,15 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
 
     private long getLeavesCount(BinaryNode<T> t) {
         long result = 0;
-        if (t.left == null && t.right == null)
+        if (t.left == null && t.right == null) {
             return 1;
-        if (t.left != null)
+        }
+        if (t.left != null) {
             result += getLeavesCount(t.left);
-        if (t.right != null)
+        }
+        if (t.right != null) {
             result += getLeavesCount(t.right);
+        }
         return result;
 
     }
@@ -230,8 +226,9 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
     }
 
     private long getDepth(BinaryNode<T> t) {
-        if (t == null)
+        if (t == null) {
             return -1;
+        }
         return 1 + Math.max(getDepth(t.left), getDepth(t.right));
     }
 
@@ -240,14 +237,32 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
     }
 
     private long counts(BinaryNode<T> t) {
-        if (t == null)
+        if (t == null) {
             return 0;
+        }
         long sum = 0;
 
-        if (t.left != null)
+        if (t.left != null) {
             sum += counts(t.left);
-        if (t.right != null)
+        }
+        if (t.right != null) {
             sum += counts(t.right);
+        }
         return ++sum;
+    }
+
+    private static class BinaryNode<E> {
+        E element;
+        BinaryNode<E> left;
+        BinaryNode<E> right;
+        //Constructors
+        BinaryNode(E theElement) {
+            this(theElement, null, null);
+        }
+        BinaryNode(E theElement, BinaryNode<E> lt, BinaryNode<E> rt) {
+            element = theElement;
+            left = lt;
+            right = rt;
+        }
     }
 }

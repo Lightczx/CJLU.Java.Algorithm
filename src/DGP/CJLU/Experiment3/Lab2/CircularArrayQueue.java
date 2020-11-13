@@ -2,11 +2,14 @@ package DGP.CJLU.Experiment3.Lab2;
 
 import DGP.CJLU.Utils.Implementation.Queue;
 
+/**
+ * @author 16861
+ */
 public class CircularArrayQueue<E> implements Queue<E> {
     private final E[] array;
+    private final int arraySize;
     private int begin = 0;
     private int availableIndex = 0;
-    private final int arraySize;
     private int count = 0;
 
     @SuppressWarnings("unchecked")
@@ -37,19 +40,22 @@ public class CircularArrayQueue<E> implements Queue<E> {
     }
 
     public boolean isFull() {
-        if (count > 0)
+        if (count > 0) {
             return availableIndex == begin;
+        }
         return false;
     }
 
 
     @Override
     public E poll() {
-        if (begin != availableIndex) {//ensure not null
+        //ensure not null//ensure not null
+        if (begin != availableIndex) {
             E e = array[begin];
             array[begin++] = null;
-            if (begin == arraySize)
+            if (begin == arraySize) {
                 begin = 0;
+            }
             count--;
             return e;
         }
@@ -64,15 +70,17 @@ public class CircularArrayQueue<E> implements Queue<E> {
     @Override
     public String toString() {
         int iMax = array.length - 1;
-        if (iMax == -1)
+        if (iMax == -1) {
             return "[]";
+        }
 
         StringBuilder b = new StringBuilder();
         b.append('[');
         for (int i = 0; ; i++) {
             b.append(array[i]);
-            if (i == iMax)
+            if (i == iMax) {
                 return b.append("] ").append(begin).append(" | ").append(availableIndex).toString();
+            }
             b.append(" , ");
         }
     }

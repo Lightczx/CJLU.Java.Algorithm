@@ -2,6 +2,7 @@ package DGP.CJLU.Experiment3.Lab1;
 
 /**
  * Implement a stack class using a linked list and write a program to test it.
+ * @author 16861
  */
 public class Main {
     public static void main(String[] args) {

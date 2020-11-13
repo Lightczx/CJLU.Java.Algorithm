@@ -6,23 +6,7 @@ import DGP.CJLU.Utils.Implementation.Exceptions.UnderflowException;
 import java.util.Comparator;
 
 public class AvlTree<T extends Comparable<? super T>> {
-    private static class AvlNode<E> {
-        AvlNode(E e) {
-            this(e, null, null);
-        }
-
-        AvlNode(E e, AvlNode<E> lt, AvlNode<E> rt) {
-            this.element = e;
-            this.left = lt;
-            this.right = rt;
-        }
-
-        E element;
-        AvlNode<E> left;
-        AvlNode<E> right;
-        int height;
-    }
-
+    private static final int ALLOWED_IMBALANCE = 1;
     private AvlNode<T> root;
     private Comparator<? super T> cmp;
 
@@ -71,14 +55,15 @@ public class AvlTree<T extends Comparable<? super T>> {
      * Print the tree contents in sorted order.
      */
     public void printTree(TreeTraversalType type) {
-        if (isEmpty())
+        if (isEmpty()) {
             System.out.print("Empty tree");
-        else
+        } else {
             switch (type) {
                 case preOrder -> System.out.print("PreOrder :\t");
                 case inOrder -> System.out.print("InOrder :\t");
                 case postOrder -> System.out.print("PostOrder :\t");
             }
+        }
         switch (type) {
             case preOrder -> printTreeByPreOrder(root);
             case inOrder -> printTreeByInOrder(root);
@@ -95,16 +80,18 @@ public class AvlTree<T extends Comparable<? super T>> {
      * @return true if the item is found; false otherwise.
      */
     private boolean contains(T x, AvlNode<T> t) {
-        if (t == null)
+        if (t == null) {
             return false;
+        }
         int compareResult = myCompare(x, t.element);
 
-        if (compareResult < 0)
+        if (compareResult < 0) {
             return contains(x, t.left);
-        else if (compareResult > 0)
+        } else if (compareResult > 0) {
             return contains(x, t.right);
-        else
+        } else {
             return true;
+        }
     }
 
     /**
@@ -122,36 +109,38 @@ public class AvlTree<T extends Comparable<? super T>> {
      * @return the new root of the subtree.
      */
     private AvlNode<T> insert(T x, AvlNode<T> t) {
-        if (t == null)
+        if (t == null) {
             return new AvlNode<>(x, null, null);
+        }
 
         int compareResult = x.compareTo(t.element);
-        if (compareResult < 0)
+        if (compareResult < 0) {
             t.left = insert(x, t.left);
-        else if (compareResult > 0)
+        } else if (compareResult > 0) {
             t.right = insert(x, t.right);
-        else
-            ; // Duplicate; do nothing
+        }
         return balance(t);
     }
 
-    private static final int ALLOWED_IMBALANCE = 1;
-
     //Assume t is either balanced or within one of being balanced
     private AvlNode<T> balance(AvlNode<T> t) {
-        if (t == null)
+        if (t == null) {
             return t;
+        }
 
-        if (height(t.left) - height(t.right) > ALLOWED_IMBALANCE)
-            if (height(t.left.left) >= height(t.left.right))
+        if (height(t.left) - height(t.right) > ALLOWED_IMBALANCE) {
+            if (height(t.left.left) >= height(t.left.right)) {
                 t = rotateWithLeftChild(t);
-            else
+            } else {
                 t = doubleWithLeftChild(t);
-        else if (height(t.right) - height(t.left) > ALLOWED_IMBALANCE)
-            if (height(t.right.right) >= height(t.right.left))
+            }
+        } else if (height(t.right) - height(t.left) > ALLOWED_IMBALANCE) {
+            if (height(t.right.right) >= height(t.right.left)) {
                 t = rotateWithRightChild(t);
-            else
+            } else {
                 t = doubleWithRightChild(t);
+            }
+        }
         t.height = Math.max(height(t.left), height(t.right)) + 1;
         return t;
     }
@@ -207,17 +196,20 @@ public class AvlTree<T extends Comparable<? super T>> {
     }
 
     protected AvlNode<T> findMin(AvlNode<T> t) {
-        if (t == null)
+        if (t == null) {
             return null;
-        else if (t.left == null)
+        } else if (t.left == null) {
             return t;
+        }
         return findMin(t.left);
     }
 
     private AvlNode<T> findMax(AvlNode<T> t) {
-        if (t != null)
-            while (t.right != null)
+        if (t != null) {
+            while (t.right != null) {
                 t = t.right;
+            }
+        }
         return t;
     }
 
@@ -233,19 +225,22 @@ public class AvlTree<T extends Comparable<? super T>> {
      * @return the new root of the subtree.
      */
     private AvlNode<T> remove(T x, AvlNode<T> t) {
-        if (t == null)
-            return null;//return t;// Item not found; do nothing
+        if (t == null) {
+            // Item not found; do nothing
+            return null;
+        }
 
         int compareResult = x.compareTo(t.element);
-        if (compareResult < 0)
+        if (compareResult < 0) {
             t.left = remove(x, t.left);
-        else if (compareResult > 0)
+        } else if (compareResult > 0) {
             t.right = remove(x, t.right);
-        else if (t.left != null && t.right != null) {// Two children
+        } else if (t.left != null && t.right != null) {// Two children
             t.element = findMin(t.right).element;
             t.right = remove(t.element, t.right);
-        } else
+        } else {
             t = (t.left != null) ? t.left : t.right;
+        }
         return balance(t);
     }
 
@@ -297,8 +292,9 @@ public class AvlTree<T extends Comparable<? super T>> {
     }
 
     private long getDepth(AvlNode<T> t) {
-        if (t == null)
+        if (t == null) {
             return -1;
+        }
         return 1 + Math.max(getDepth(t.left), getDepth(t.right));
     }
 
@@ -311,11 +307,28 @@ public class AvlTree<T extends Comparable<? super T>> {
             return 0;
         long sum = 0;
 
-        if (t.left != null)
+        if (t.left != null) {
             sum += counts(t.left);
-        if (t.right != null)
+        }
+        if (t.right != null) {
             sum += counts(t.right);
+        }
         return ++sum;
+    }
+
+    private static class AvlNode<E> {
+        E element;
+        AvlNode<E> left;
+        AvlNode<E> right;
+        int height;
+        AvlNode(E e) {
+            this(e, null, null);
+        }
+        AvlNode(E e, AvlNode<E> lt, AvlNode<E> rt) {
+            this.element = e;
+            this.left = lt;
+            this.right = rt;
+        }
     }
 
 }
