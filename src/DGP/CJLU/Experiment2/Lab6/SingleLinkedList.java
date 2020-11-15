@@ -12,6 +12,7 @@ public class SingleLinkedList<E> {
     private Node dummyHead;
     private Node dummyTail;
     private int size;
+
     public SingleLinkedList() {
         this.dummyTail = new Node(null, null);
         this.dummyHead = new Node(null, dummyTail);

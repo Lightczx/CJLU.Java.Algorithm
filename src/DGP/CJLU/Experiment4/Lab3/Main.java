@@ -11,6 +11,7 @@ import java.util.TreeMap;
  * a)	Create a file and copy an English article to the file.
  * b)	Write a program to count each word in the file
  * c)	TreeMap must be used.
+ *
  * @author 16861
  */
 public class Main {

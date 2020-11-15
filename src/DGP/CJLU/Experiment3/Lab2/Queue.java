@@ -1,10 +1,10 @@
-package DGP.CJLU.Utils.Implementation;
+package DGP.CJLU.Experiment3.Lab2;
 
 /**
  * simplified from java.util.Queue
  *
- * @author 16861
  * @param <E>
+ * @author 16861
  */
 public interface Queue<E> {
     /**

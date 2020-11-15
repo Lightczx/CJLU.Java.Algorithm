@@ -46,14 +46,14 @@ public class Infix extends Expression {
             //左括号,直接压入堆栈
             else if (item.isLeftParentheses()) {
                 stack.push(item);
-            //右括号,(意味着括号已结束)不断弹出栈顶运算符并输出直到遇到左括号(弹出但不输出)
+                //右括号,(意味着括号已结束)不断弹出栈顶运算符并输出直到遇到左括号(弹出但不输出)
             } else if (item.isRightParentheses()) {
                 while (!stack.peek().isLeftParentheses()) {
                     result.data.add(stack.pop());
                 }
                 //pop out left parentheses
                 stack.pop();
-            //运算符,将该运算符与栈顶运算符进行比较
+                //运算符,将该运算符与栈顶运算符进行比较
             } else if (item.isOperator()) {
                 if (!stack.isEmpty() && item.priority() <= stack.peek().priority()) {
                     while (!(stack.isEmpty() || item.priority() > stack.peek().priority())) {

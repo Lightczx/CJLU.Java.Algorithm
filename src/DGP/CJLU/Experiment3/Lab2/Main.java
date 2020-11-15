@@ -1,7 +1,6 @@
 package DGP.CJLU.Experiment3.Lab2;
 
 import DGP.CJLU.Utils.Execution.Dispatcher;
-import DGP.CJLU.Utils.Implementation.Queue;
 
 import java.util.LinkedList;
 
@@ -12,6 +11,7 @@ import java.util.LinkedList;
  * c)	A circular array
  * Requirement:
  * a)	use java.util.Queue to test the same operation sequence
+ *
  * @author 16861
  */
 public class Main {

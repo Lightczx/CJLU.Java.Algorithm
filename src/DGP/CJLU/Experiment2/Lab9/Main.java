@@ -7,6 +7,7 @@ import DGP.CJLU.Utils.Execution.Dispatcher;
  * following form:P ( x ) = a1x^e1 + ... + anx^en Where ai is the coefficient, ei is the exponent
  * and ei is non-negative integer. Test your program using two example polynomials:
  * P1(x) = 10x1000+5x14+1 and P2(x) = 3x1990+2x1492+11x+5.And more test examples should be used.
+ *
  * @author 16861
  */
 public class Main {

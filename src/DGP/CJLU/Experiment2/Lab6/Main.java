@@ -5,6 +5,7 @@ import DGP.CJLU.Utils.Implementation.Rand;
 
 /**
  * Write a nonrecursive procedure to reverse a singly linked list in O(N) time.
+ *
  * @author 16861
  */
 public class Main {

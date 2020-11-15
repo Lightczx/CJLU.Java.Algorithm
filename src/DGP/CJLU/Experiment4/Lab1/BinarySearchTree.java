@@ -10,6 +10,7 @@ import java.util.Comparator;
 public class BinarySearchTree<T extends Comparable<? super T>> {
     private BinaryNode<T> root;
     private Comparator<? super T> cmp;
+
     public BinarySearchTree() {
         root = null;
     }
@@ -165,7 +166,7 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
             t.left = remove(x, t.left);
         } else if (compareResult > 0) {
             t.right = remove(x, t.right);
-        // Two children
+            // Two children
         } else if (t.left != null && t.right != null) {
             t.element = findMin(t.right).element;
             t.right = remove(t.element, t.right);
@@ -255,10 +256,12 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
         E element;
         BinaryNode<E> left;
         BinaryNode<E> right;
+
         //Constructors
         BinaryNode(E theElement) {
             this(theElement, null, null);
         }
+
         BinaryNode(E theElement, BinaryNode<E> lt, BinaryNode<E> rt) {
             element = theElement;
             left = lt;

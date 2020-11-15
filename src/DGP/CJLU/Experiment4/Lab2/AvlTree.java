@@ -321,9 +321,11 @@ public class AvlTree<T extends Comparable<? super T>> {
         AvlNode<E> left;
         AvlNode<E> right;
         int height;
+
         AvlNode(E e) {
             this(e, null, null);
         }
+
         AvlNode(E e, AvlNode<E> lt, AvlNode<E> rt) {
             this.element = e;
             this.left = lt;
