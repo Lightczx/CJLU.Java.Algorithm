@@ -15,6 +15,14 @@ package DGP.CJLU.Experiment5.Lab1;
 public class Main {
     public static void main(String[] args) {
         HashTable<Integer> table;
+        table = new SeparateChainingHashTable<>();
+        doTest(table);
+        table = new LinearProbingHashTable<>();
+        doTest(table);
+        table = new QuadraticProbingHashTable<>();
+        doTest(table);
+        table = new DoubleHashingHashTable<>();
+        doTest(table);
 
         table = new SeparateChainingRehashingHashTable<>();
         doTest(table);

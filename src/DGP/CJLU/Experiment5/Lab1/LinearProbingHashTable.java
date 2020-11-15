@@ -5,26 +5,17 @@ import java.util.Arrays;
 /**
  * @author 16861
  */
-public class LinearProbingRehashingHashTable<T> extends RehashingHashTable<T> {
+public class LinearProbingHashTable<T> extends AbstractHashTable<T> {
     /**
      * Construct the hash table.
      */
-    public LinearProbingRehashingHashTable() {
-        this(TABLE_SIZE);
-    }
-
-    /**
-     * Construct the hash table.
-     *
-     * @param size the approximate initial size.
-     */
-    private LinearProbingRehashingHashTable(int size) {
-        allocateArray(size);
+    public LinearProbingHashTable() {
+        allocateArray();
         clear();
     }
 
     /**
-     * Method that performs quadratic probing resolution.
+     * Method that performs linear probing resolution.
      *
      * @param x the item to search for.
      * @return the position where the search terminates.
@@ -45,7 +36,6 @@ public class LinearProbingRehashingHashTable<T> extends RehashingHashTable<T> {
         return currentPos;
     }
 
-
     private int hashToIndex(T x) {
         int hashVal = x.hashCode();
 
@@ -59,6 +49,6 @@ public class LinearProbingRehashingHashTable<T> extends RehashingHashTable<T> {
 
     @Override
     public String toString() {
-        return "LinearProbingRehashingHashTable:\n" + Arrays.toString(data);
+        return "LinearProbingHashTable:\n" + Arrays.toString(data);
     }
 }

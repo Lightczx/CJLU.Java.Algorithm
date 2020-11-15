@@ -9,29 +9,14 @@ import java.util.List;
  *
  * @author 16861
  */
-public class SeparateChainingRehashingHashTable<T> extends AbstractRehashingHashTable<T> {
+public class SeparateChainingRehashingHashTable<T> extends SeparateChainingHashTable<T> {
     private static final int TABLE_SIZE = 11;
     /**
-     * The array of Lists.
-     */
-    private final List<T>[] data;
-    private int size;
-
-    /**
      * Construct the hash table.
-     */
-    public SeparateChainingRehashingHashTable() {
-        this(TABLE_SIZE);
-    }
-
-    /**
-     * Construct the hash table.
-     *
-     * @param size approximate table size.
      */
     @SuppressWarnings("unchecked")
-    private SeparateChainingRehashingHashTable(int size) {
-        data = new LinkedList[nextPrime(size)];
+    public SeparateChainingRehashingHashTable() {
+        data = new LinkedList[nextPrime(TABLE_SIZE)];
         for (int i = 0; i < data.length; i++) {
             data[i] = new LinkedList<>();
         }
@@ -46,65 +31,77 @@ public class SeparateChainingRehashingHashTable<T> extends AbstractRehashingHash
     @Override
     public boolean insert(T x) {
         List<T> whichList = data[hashToIndex(x)];
+        boolean result = false;
         if (!whichList.contains(x)) {
-            return whichList.add(x);
+            result = whichList.add(x);
 
-            /*// Rehash; see Section 5.5
-            if (++currentSize > dataLists.length) {
+            // Rehash; see Section 5.5
+            if (++size > data.length) {
                 rehash();
-            }*/
+            }
         }
-        return false;
+        return result;
     }
 
-    /**
-     * Remove from the hash table.
-     *
-     * @param x the item to remove.
-     */
-    @Override
-    public boolean remove(T x) {
-        List<T> whichList = data[hashToIndex(x)];
-        if (whichList.contains(x)) {
-            size--;
-            return whichList.remove(x);
-        }
-        return false;
-    }
+    @SuppressWarnings("unchecked")
+    private void rehash() {
+        List<T>[] oldLists = data;
 
-    /**
-     * Find an item in the hash table.
-     *
-     * @param x the item to search for.
-     * @return true if x is not found.
-     */
-    @Override
-    public boolean contains(T x) {
-        List<T> whichList = data[hashToIndex(x)];
-        return whichList.contains(x);
-    }
-
-    /**
-     * Make the hash table logically empty.
-     */
-    @Override
-    public void clear() {
-        for (int i = 0; i < data.length; i++) {
-            data[i].clear();
+        // Create new double-sized, empty table
+        data = new List[nextPrime(2 * data.length)];
+        for (int j = 0; j < data.length; j++) {
+            data[j] = new LinkedList<>();
         }
+
+        // Copy table over
         size = 0;
+        for (List<T> list : oldLists) {
+            for (T item : list) {
+                insert(item);
+            }
+        }
     }
 
-    private int hashToIndex(T x) {
-        //Integer's hashCode equals the value itself
-        int hashVal = x.hashCode();
-
-        hashVal %= TABLE_SIZE;
-        if (hashVal < 0) {
-            hashVal += TABLE_SIZE;
+    /**
+     * Internal method to find a prime number at least as large as n.
+     *
+     * @param n the starting number (must be positive).
+     * @return a prime number larger than or equal to n.
+     */
+    protected static int nextPrime(int n) {
+        if (n % 2 == 0) {
+            n++;
         }
 
-        return hashVal;
+        for (; !isPrime(n); n += 2) {
+        }
+
+        return n;
+    }
+
+    /**
+     * Internal method to test if a number is prime.
+     * Not an efficient algorithm.
+     *
+     * @param n the number to test.
+     * @return the result of the test.
+     */
+    protected static boolean isPrime(int n) {
+        if (n == 2 || n == 3) {
+            return true;
+        }
+
+        if (n == 1 || n % 2 == 0) {
+            return false;
+        }
+
+        for (int i = 3; i * i <= n; i += 2) {
+            if (n % i == 0) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     @Override
@@ -119,7 +116,7 @@ public class SeparateChainingRehashingHashTable<T> extends AbstractRehashingHash
         }
 
         StringBuilder b = new StringBuilder();
-        b.append("SeparateChainingHashTable:\n");
+        b.append("SeparateChainingRehashingHashTable:\n");
         for (int i = 0; ; i++) {
             b.append(i).append(":\t").append(data[i]);
             if (i == iMax) {

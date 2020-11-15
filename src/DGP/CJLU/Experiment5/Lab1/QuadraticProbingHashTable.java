@@ -5,21 +5,12 @@ import java.util.Arrays;
 /**
  * @author 16861
  */
-public class LinearProbingRehashingHashTable<T> extends RehashingHashTable<T> {
+public class QuadraticProbingHashTable<T> extends AbstractHashTable<T> {
     /**
      * Construct the hash table.
      */
-    public LinearProbingRehashingHashTable() {
-        this(TABLE_SIZE);
-    }
-
-    /**
-     * Construct the hash table.
-     *
-     * @param size the approximate initial size.
-     */
-    private LinearProbingRehashingHashTable(int size) {
-        allocateArray(size);
+    public QuadraticProbingHashTable() {
+        allocateArray();
         clear();
     }
 
@@ -31,12 +22,13 @@ public class LinearProbingRehashingHashTable<T> extends RehashingHashTable<T> {
      */
     @Override
     protected int findPos(T x) {
+        int offset = 1;
         int currentPos = hashToIndex(x);
 
         while (data[currentPos] != null && !data[currentPos].element.equals(x)) {
             // Compute its probe
-            currentPos += 1;
-
+            currentPos += offset;
+            offset += 2;
             if (currentPos >= data.length) {
                 currentPos -= data.length;
             }
@@ -44,7 +36,6 @@ public class LinearProbingRehashingHashTable<T> extends RehashingHashTable<T> {
 
         return currentPos;
     }
-
 
     private int hashToIndex(T x) {
         int hashVal = x.hashCode();
@@ -59,6 +50,6 @@ public class LinearProbingRehashingHashTable<T> extends RehashingHashTable<T> {
 
     @Override
     public String toString() {
-        return "LinearProbingRehashingHashTable:\n" + Arrays.toString(data);
+        return "QuadraticProbingHashTable:\n" + Arrays.toString(data);
     }
 }

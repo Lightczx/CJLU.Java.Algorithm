@@ -3,7 +3,38 @@ package DGP.CJLU.Experiment5.Lab1;
 /**
  * @author 16861
  */
-public abstract class AbstractRehashingHashTable<T> implements HashTable<T> {
+public abstract class RehashingHashTable<T>extends AbstractHashTable<T> {
+    /**
+     * Expand the hash table.
+     */
+    private void rehash() {
+        HashEntry<T>[] oldArray = data;
+
+        // Create a new double-sized, empty table
+        allocateArray(2 * oldArray.length);
+        occupied = 0;
+        size = 0;
+
+        // Copy table over
+        for (HashEntry<T> entry : oldArray) {
+            if (entry != null && entry.isActive) {
+                insert(entry.element);
+            }
+        }
+    }
+
+    /**
+     * Internal method to allocate array.
+     *
+     * @param arraySize the size of the array.
+     */
+    @SuppressWarnings("unchecked")
+    protected void allocateArray(int arraySize) {
+        //record the previous prime number
+
+        data = new HashEntry[nextPrime(arraySize)];
+    }
+
     /**
      * Internal method to find a prime number at least as large as n.
      *
