@@ -20,7 +20,13 @@ public abstract class AbstractHashTable<T> implements HashTable<T> {
      */
     protected int size;
 
-    protected abstract int findPos(T x);
+    /**
+     * Method that performs finding hashing resolution.
+     *
+     * @param x the item to search for.
+     * @return the position where the search terminates.
+     */
+    protected abstract int resolve(T x);
 
     /**
      * Remove from the hash table.
@@ -30,7 +36,7 @@ public abstract class AbstractHashTable<T> implements HashTable<T> {
      */
     @Override
     public boolean remove(T x) {
-        int currentPos = findPos(x);
+        int currentPos = resolve(x);
         if (isActive(currentPos)) {
             data[currentPos].isActive = false;
             size--;
@@ -49,7 +55,7 @@ public abstract class AbstractHashTable<T> implements HashTable<T> {
     @Override
     public boolean insert(T x) {
         // Insert x as active
-        int currentPos = findPos(x);
+        int currentPos = resolve(x);
         if (isActive(currentPos)) {
             return false;
         }
@@ -99,7 +105,7 @@ public abstract class AbstractHashTable<T> implements HashTable<T> {
      */
     @Override
     public boolean contains(T x) {
-        int currentPos = findPos(x);
+        int currentPos = resolve(x);
         return isActive(currentPos);
     }
 
@@ -118,5 +124,49 @@ public abstract class AbstractHashTable<T> implements HashTable<T> {
     @SuppressWarnings("unchecked")
     protected void allocateArray() {
         data = new HashEntry[TABLE_SIZE];
+    }
+
+    /**
+     * @return
+     */
+    protected int hash(T x) {
+        int hashVal = x.hashCode();
+
+        hashVal %= data.length;
+        if (hashVal < 0) {
+            hashVal += data.length;
+        }
+
+        return hashVal;
+    }
+
+    @Override
+    public String toString() {
+        return "ThisTable:\n" + Arrays.toString(data);
+    }
+
+    protected static class HashEntry<E> {
+        /**
+         * the element
+         */
+        public E element;
+        /**
+         * false if marked deleted
+         */
+        public boolean isActive;
+
+        public HashEntry(E e) {
+            this(e, true);
+        }
+
+        public HashEntry(E e, boolean i) {
+            element = e;
+            isActive = i;
+        }
+
+        @Override
+        public String toString() {
+            return "{" + element + ',' + isActive + '}';
+        }
     }
 }

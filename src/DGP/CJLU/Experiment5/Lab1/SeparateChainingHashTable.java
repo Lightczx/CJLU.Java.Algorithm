@@ -102,7 +102,7 @@ public class SeparateChainingHashTable<T> implements HashTable<T> {
         }
 
         StringBuilder b = new StringBuilder();
-        b.append("SeparateChainingHashTable:\n");
+        b.append("ThisTable:\n");
         for (int i = 0; ; i++) {
             b.append(i).append(":\t").append(data[i]);
             if (i == iMax) {

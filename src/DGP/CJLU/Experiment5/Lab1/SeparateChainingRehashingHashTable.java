@@ -11,6 +11,7 @@ import java.util.List;
  */
 public class SeparateChainingRehashingHashTable<T> extends SeparateChainingHashTable<T> {
     private static final int TABLE_SIZE = 11;
+
     /**
      * Construct the hash table.
      */
@@ -19,46 +20,6 @@ public class SeparateChainingRehashingHashTable<T> extends SeparateChainingHashT
         data = new LinkedList[nextPrime(TABLE_SIZE)];
         for (int i = 0; i < data.length; i++) {
             data[i] = new LinkedList<>();
-        }
-    }
-
-    /**
-     * Insert into the hash table. If the item is
-     * already present, then do nothing.
-     *
-     * @param x the item to insert.
-     */
-    @Override
-    public boolean insert(T x) {
-        List<T> whichList = data[hashToIndex(x)];
-        boolean result = false;
-        if (!whichList.contains(x)) {
-            result = whichList.add(x);
-
-            // Rehash; see Section 5.5
-            if (++size > data.length) {
-                rehash();
-            }
-        }
-        return result;
-    }
-
-    @SuppressWarnings("unchecked")
-    private void rehash() {
-        List<T>[] oldLists = data;
-
-        // Create new double-sized, empty table
-        data = new List[nextPrime(2 * data.length)];
-        for (int j = 0; j < data.length; j++) {
-            data[j] = new LinkedList<>();
-        }
-
-        // Copy table over
-        size = 0;
-        for (List<T> list : oldLists) {
-            for (T item : list) {
-                insert(item);
-            }
         }
     }
 
@@ -104,25 +65,43 @@ public class SeparateChainingRehashingHashTable<T> extends SeparateChainingHashT
         return true;
     }
 
+    /**
+     * Insert into the hash table. If the item is
+     * already present, then do nothing.
+     *
+     * @param x the item to insert.
+     */
     @Override
-    public String toString() {
-        if (data == null) {
-            return "null";
-        }
+    public boolean insert(T x) {
+        List<T> whichList = data[hashToIndex(x)];
+        boolean result = false;
+        if (!whichList.contains(x)) {
+            result = whichList.add(x);
 
-        int iMax = data.length - 1;
-        if (iMax == -1) {
-            return "[]";
-        }
-
-        StringBuilder b = new StringBuilder();
-        b.append("SeparateChainingRehashingHashTable:\n");
-        for (int i = 0; ; i++) {
-            b.append(i).append(":\t").append(data[i]);
-            if (i == iMax) {
-                return b.append("\n").toString();
+            // Rehash; see Section 5.5
+            if (++size > data.length) {
+                rehash();
             }
-            b.append("\n");
+        }
+        return result;
+    }
+
+    @SuppressWarnings("unchecked")
+    private void rehash() {
+        List<T>[] oldLists = data;
+
+        // Create new double-sized, empty table
+        data = new List[nextPrime(2 * data.length)];
+        for (int j = 0; j < data.length; j++) {
+            data[j] = new LinkedList<>();
+        }
+
+        // Copy table over
+        size = 0;
+        for (List<T> list : oldLists) {
+            for (T item : list) {
+                insert(item);
+            }
         }
     }
 }
