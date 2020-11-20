@@ -5,14 +5,6 @@ package DGP.CJLU.Experiment5.Lab1;
  */
 public class QuadraticProbingHashTable<T> extends AbstractHashTable<T> {
     /**
-     * Construct the hash table.
-     */
-    public QuadraticProbingHashTable() {
-        allocateArray();
-        clear();
-    }
-
-    /**
      * Method that performs quadratic probing resolution.
      *
      * @param x the item to search for.

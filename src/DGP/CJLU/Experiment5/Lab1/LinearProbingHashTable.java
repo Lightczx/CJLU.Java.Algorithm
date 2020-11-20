@@ -5,14 +5,6 @@ package DGP.CJLU.Experiment5.Lab1;
  */
 public class LinearProbingHashTable<T> extends AbstractHashTable<T> {
     /**
-     * Construct the hash table.
-     */
-    public LinearProbingHashTable() {
-        allocateArray();
-        clear();
-    }
-
-    /**
      * Method that performs linear probing resolution.
      *
      * @param x the item to search for.

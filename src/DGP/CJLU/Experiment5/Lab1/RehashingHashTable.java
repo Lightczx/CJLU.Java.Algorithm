@@ -3,7 +3,22 @@ package DGP.CJLU.Experiment5.Lab1;
 /**
  * @author 16861
  */
-public abstract class RehashingHashTable<T> extends AbstractHashTable<T> {
+public class RehashingHashTable<T> extends AbstractHashTable<T> {
+    /**
+     * Construct the hash table.
+     */
+    public RehashingHashTable(){
+        this(TABLE_SIZE);
+    }
+    /**
+     * Construct the hash table.
+     * @param size the approximate initial size.
+     */
+    public RehashingHashTable( int size )
+    {
+        allocateArray( size );
+        clear();
+    }
     /**
      * Internal method to find a prime number at least as large as n.
      *
@@ -16,6 +31,7 @@ public abstract class RehashingHashTable<T> extends AbstractHashTable<T> {
         }
 
         for (; !isPrime(n); n += 2) {
+
         }
 
         return n;
@@ -56,8 +72,14 @@ public abstract class RehashingHashTable<T> extends AbstractHashTable<T> {
     public boolean insert(T x) {
         // Insert x as active
         int currentPos = resolve(x);
-        if (isActive(currentPos)) {
-            return false;
+        //check if the pos has value
+        while (isActive(currentPos)){
+            //same value ,do nothing
+            if(x.equals(data[currentPos])){
+                return false;
+            }
+            rehash();
+            currentPos=resolve(x);
         }
 
         if (data[currentPos] == null) {
@@ -66,13 +88,21 @@ public abstract class RehashingHashTable<T> extends AbstractHashTable<T> {
         data[currentPos] = new HashEntry<T>(x, true);
         size++;
 
-        // Rehash; see Section 5.5
-        if (++size > data.length) {
-            rehash();
-        }
-
         return true;
     }
+
+    /**
+     * Method that performs double hashing resolution.
+     * used to call findPos
+     *
+     * @param x the item to search for.
+     * @return the position where the search terminates.
+     */
+    @Override
+    protected int resolve(T x) {
+        return hash(x);
+    }
+
 
     /**
      * Expand the hash table.
@@ -101,7 +131,6 @@ public abstract class RehashingHashTable<T> extends AbstractHashTable<T> {
     @SuppressWarnings("unchecked")
     protected void allocateArray(int arraySize) {
         //record the previous prime number
-
         data = new HashEntry[nextPrime(arraySize)];
     }
 }

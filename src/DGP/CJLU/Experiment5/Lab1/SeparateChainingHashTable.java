@@ -33,7 +33,7 @@ public class SeparateChainingHashTable<T> implements HashTable<T> {
      */
     @Override
     public boolean insert(T x) {
-        List<T> whichList = data[hashToIndex(x)];
+        List<T> whichList = data[hash(x)];
         if (!whichList.contains(x)) {
             return whichList.add(x);
         }
@@ -47,7 +47,7 @@ public class SeparateChainingHashTable<T> implements HashTable<T> {
      */
     @Override
     public boolean remove(T x) {
-        List<T> whichList = data[hashToIndex(x)];
+        List<T> whichList = data[hash(x)];
         if (whichList.contains(x)) {
             size--;
             return whichList.remove(x);
@@ -63,7 +63,7 @@ public class SeparateChainingHashTable<T> implements HashTable<T> {
      */
     @Override
     public boolean contains(T x) {
-        List<T> whichList = data[hashToIndex(x)];
+        List<T> whichList = data[hash(x)];
         return whichList.contains(x);
     }
 
@@ -78,7 +78,7 @@ public class SeparateChainingHashTable<T> implements HashTable<T> {
         size = 0;
     }
 
-    protected int hashToIndex(T x) {
+    protected int hash(T x) {
         //Integer's hashCode equals the value itself
         int hashVal = x.hashCode();
 
@@ -102,13 +102,13 @@ public class SeparateChainingHashTable<T> implements HashTable<T> {
         }
 
         StringBuilder b = new StringBuilder();
-        b.append("ThisTable:\n");
+        b.append(getClass().getSimpleName()).append(":\n");
         for (int i = 0; ; i++) {
-            b.append(i).append(":\t").append(data[i]);
+            b.append(data[i]);
             if (i == iMax) {
-                return b.append("\n").toString();
+                return b.toString();
             }
-            b.append("\n");
+            b.append(",");
         }
     }
 }

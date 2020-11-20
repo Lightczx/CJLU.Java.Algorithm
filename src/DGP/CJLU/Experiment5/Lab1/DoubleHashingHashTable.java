@@ -5,15 +5,6 @@ package DGP.CJLU.Experiment5.Lab1;
  */
 public class DoubleHashingHashTable<T> extends AbstractHashTable<T> {
     private final int prevPrime = 7;
-
-    /**
-     * Construct the hash table.
-     */
-    public DoubleHashingHashTable() {
-        allocateArray();
-        clear();
-    }
-
     /**
      * Method that performs double hashing resolution.
      * used to call findPos

@@ -20,6 +20,11 @@ public abstract class AbstractHashTable<T> implements HashTable<T> {
      */
     protected int size;
 
+    public AbstractHashTable() {
+        allocateArray();
+        clear();
+    }
+
     /**
      * Method that performs finding hashing resolution.
      *
@@ -126,6 +131,7 @@ public abstract class AbstractHashTable<T> implements HashTable<T> {
         data = new HashEntry[TABLE_SIZE];
     }
 
+
     /**
      * @return
      */
@@ -142,7 +148,26 @@ public abstract class AbstractHashTable<T> implements HashTable<T> {
 
     @Override
     public String toString() {
-        return "ThisTable:\n" + Arrays.toString(data);
+
+        if (data == null) {
+            return "null";
+        }
+
+        int iMax = data.length - 1;
+        if (iMax == -1) {
+            return "[]";
+        }
+
+        StringBuilder b = new StringBuilder();
+        b.append(getClass().getSimpleName()+":\n");
+        b.append('[');
+        for (int i = 0; ; i++) {
+            b.append(data[i]);
+            if (i == iMax) {
+                return b.append(']').toString();
+            }
+            b.append(",");
+        }
     }
 
     protected static class HashEntry<E> {
@@ -166,7 +191,7 @@ public abstract class AbstractHashTable<T> implements HashTable<T> {
 
         @Override
         public String toString() {
-            return "{" + element + ',' + isActive + '}';
+            return isActive ? element.toString() : "";
         }
     }
 }
