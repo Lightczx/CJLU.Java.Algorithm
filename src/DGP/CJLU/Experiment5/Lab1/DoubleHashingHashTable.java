@@ -4,7 +4,6 @@ package DGP.CJLU.Experiment5.Lab1;
  * @author 16861
  */
 public class DoubleHashingHashTable<T> extends AbstractHashTable<T> {
-    private final int prevPrime = 7;
     /**
      * Method that performs double hashing resolution.
      * used to call findPos
@@ -18,19 +17,15 @@ public class DoubleHashingHashTable<T> extends AbstractHashTable<T> {
         int i = 1;
         while (data[currentPos] != null && !data[currentPos].element.equals(x)) {
             // Compute its probe
-            currentPos = hash2(x) * i++;
+            currentPos = (currentPos + hash2(x) * i++) % TABLE_SIZE;
             if (currentPos >= data.length) {
                 currentPos -= data.length;
             }
         }
-
         return currentPos;
     }
 
     private int hash2(T x) {
-        int hashVal = x.hashCode();
-
-        hashVal = prevPrime - (hashVal % prevPrime);
-        return hashVal;
+        return 7 - (x.hashCode() % 7);
     }
 }

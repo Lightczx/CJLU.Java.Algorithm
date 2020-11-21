@@ -16,15 +16,15 @@ public class Main {
     public static void main(String[] args) {
         HashTable<Integer> table;
         table = new SeparateChainingHashTable<>();
-        doTest(table);
+        test(table);
         table = new LinearProbingHashTable<>();
-        doTest(table);
+        test(table);
         table = new QuadraticProbingHashTable<>();
-        doTest(table);
+        test(table);
         table = new DoubleHashingHashTable<>();
-        doTest(table);
+        test(table);
         table=new RehashingHashTable<>();
-        doTest(table);
+        test(table);
         //SeparateChainingHashTable:
         //[],[],[1223, 6173],[],[4371],[],[],[],[4199],[1989],[4344, 9679]
         //LinearProbingHashTable:
@@ -32,12 +32,12 @@ public class Main {
         //QuadraticProbingHashTable:
         //[9679,null,1223,6173,4371,null,null,null,4199,1989,4344]
         //DoubleHashingHashTable:
-        //[null,6173,1223,null,4371,null,9679,null,4199,1989,4344]
+        //[null,9679,1223,6173,4371,null,null,null,4199,1989,4344]
         //RehashingHashTable:
         //[null,4371,null,null,1223,null,null,null,null,6173,null,1989,null,4199,null,null,null,null,null,9679,4344,null,null]
     }
 
-    private static void doTest(HashTable<Integer> table) {
+    private static void test(HashTable<Integer> table) {
         table.insert(4371);
         table.insert(1223);
         table.insert(6173);
