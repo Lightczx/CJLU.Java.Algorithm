@@ -52,7 +52,7 @@ public class Main {
             list1.add(i);
         }
         for (int j = 1; j <= 5; j++) {
-            list2.add(Rand.randInt(1, 10));
+            list2.add(new Rand().randomInt(1, 10));
         }
         return new TwoList(list1, list2, new LinkedList<>());
     }

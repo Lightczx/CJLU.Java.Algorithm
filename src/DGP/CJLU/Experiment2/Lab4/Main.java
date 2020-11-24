@@ -33,7 +33,7 @@ public class Main {
     private static LinkedList<Integer> initializeLinkedList() {
         LinkedList<Integer> list = new LinkedList<>();
         for (int j = 1; j <= 10; j++) {
-            list.add(Rand.randInt(1, 10));
+            list.add(new Rand().randomInt(1, 10));
         }
         return list;
     }

@@ -49,6 +49,17 @@ public class Dispatcher {
     }
 
     /**
+     * execute some code and do not count time
+     *
+     * @param code normally lambda function or a method reference to run
+     * @return the executor can continue run code
+     */
+    public Dispatcher pass(Code code) {
+        code.invoke();
+        return this;
+    }
+
+    /**
      * execute some untrusted code packed by lambda function or local method reference and do try catch work for it
      *
      * @param code normally lambda function or a method reference to run

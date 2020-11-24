@@ -19,8 +19,9 @@ public class Main {
 
     private static SingleLinkedList<Integer> InitializeSingleLinkedList() {
         SingleLinkedList<Integer> list = new SingleLinkedList<>();
-        for (int j = 1; j <= 1000000; j++)
-            list.addFirst(Rand.randInt(1, 1000000));
+        for (int j = 1; j <= 1000000; j++) {
+            list.addFirst(new Rand().randomInt(1, 1000000));
+        }
         return list;
     }
 }

@@ -40,7 +40,7 @@ public class Main {
             list.add(i);
         }
         for (int j = 1; j <= 5; j++) {
-            pos.add(Rand.randInt(1, 9));
+            pos.add(new Rand().randomInt(1, 9));
         }
         return new ListPos(list, pos);
     }
@@ -52,7 +52,7 @@ public class Main {
             list.add(i);
         }
         for (int j = 1; j <= 5; j++) {
-            pos.add(Rand.randInt(1, 9));
+            pos.add(new Rand().randomInt(1, 9));
         }
         return new ListPos(list, pos);
     }

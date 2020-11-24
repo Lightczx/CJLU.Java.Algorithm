@@ -2,6 +2,7 @@ package DGP.CJLU.Experiment1.Lab4;
 
 import DGP.CJLU.Utils.Execution.Dispatcher;
 import DGP.CJLU.Utils.Implementation.Rand;
+import DGP.CJLU.Utils.Implementation.Sorting;
 
 /**
  * Suppose you need to generate a random permutation of the first N integers. For example,
@@ -73,7 +74,7 @@ public class Main {
     public static void rng1(int n) {
         int[] arr = new int[n];
         for (int i = 0; i < n; i++) {
-            arr[i] = Rand.randInt(1, n);
+            arr[i] = new Rand().randomInt(1, n);
             for (int j = 0; j < i; j++) {
                 if (arr[j] == arr[i]) {
                     i--;
@@ -87,7 +88,7 @@ public class Main {
         int[] arr = new int[n];
         boolean[] used = new boolean[n + 1];
         for (int i = 0; i < n; i++) {
-            int value = Rand.randInt(1, n);
+            int value = new Rand().randomInt(1, n);
             if (!used[value]) {
                 arr[i] = value;
                 used[value] = true;
@@ -98,18 +99,13 @@ public class Main {
     }
 
     public static void rng3(int n) {
-        int[] arr = new int[n + 1];
+        Integer[] arr = new Integer[n + 1];
         for (int i = 0; i < n; i++) {
             arr[i] = i + 1;
         }
         for (int j = 1; j < n; j++) {
-            swapReferences(arr, arr[j], arr[Rand.randInt(0, j)]);
+            Sorting.swapReferences(arr, arr[j], arr[new Rand().randomInt(0, j)]);
         }
     }
 
-    public static void swapReferences(int[] arr, int i, int j) {
-        int temp = arr[i];
-        arr[i] = arr[j];
-        arr[j] = temp;
-    }
 }
