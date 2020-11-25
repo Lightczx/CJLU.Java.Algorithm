@@ -2,6 +2,7 @@ package DGP.CJLU.Experiment6;
 
 import DGP.CJLU.Experiment4.Lab2.AvlTree;
 import DGP.CJLU.Utils.Execution.Dispatcher;
+import DGP.CJLU.Utils.Implementation.ArrayFactory;
 import DGP.CJLU.Utils.Implementation.Rand;
 import DGP.CJLU.Utils.Implementation.Searching;
 import DGP.CJLU.Utils.Implementation.Sorting;
@@ -32,13 +33,15 @@ public class Main {
 
     private static void test(int range) {
         int n=new Rand().randomInt(0, range);
-        Integer[] arr=randomArray(range);
-        Integer[] arr2=incrementArray(range);
+        Integer[] arr= ArrayFactory.randomArray(range);
+        Integer[] arr2=ArrayFactory.incrementArray(range);
         AvlTree<Integer> tree=randomAvlTree(range);
         Hashtable<Integer,Integer> table=randomHashtable(range);
 
         new Dispatcher().run(()->{
             Searching.sequentialSearch(arr,n);
+        }).pass(()->{
+            Sorting.shellSort(arr);
         }).run(()->{
             Searching.binarySearch(arr2,n);
         }).run(()->{
@@ -47,25 +50,6 @@ public class Main {
             table.contains(n);
         });
         System.out.println("Test range [ "+range+" ] completed.");
-    }
-
-    static Integer[] randomArray(int n){
-        Integer[] arr = new Integer[n + 1];
-        for (int i = 0; i < n; i++) {
-            arr[i] = i + 1;
-        }
-        for (int j = 1; j < n; j++) {
-            Sorting.swapReferences(arr, arr[j], arr[new Rand().randomInt(0, j)]);
-        }
-        return arr;
-    }
-
-    static Integer[] incrementArray(int n){
-        Integer[] arr = new Integer[n + 1];
-        for (int i = 0; i < n; i++) {
-            arr[i] = i;
-        }
-        return arr;
     }
 
     static AvlTree<Integer> randomAvlTree(int n){
