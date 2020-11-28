@@ -159,7 +159,7 @@ public abstract class AbstractHashTable<T> implements HashTable<T> {
         }
 
         StringBuilder b = new StringBuilder();
-        b.append(getClass().getSimpleName()+":\n");
+        b.append(getClass().getSimpleName() + ":\n");
         b.append('[');
         for (int i = 0; ; i++) {
             b.append(data[i]);

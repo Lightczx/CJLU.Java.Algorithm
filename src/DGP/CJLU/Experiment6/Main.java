@@ -18,10 +18,11 @@ import java.util.Hashtable;
  * b)	The binary search
  * c)	AVL tree
  * d)	The hash table
+ *
  * @author 16861
  */
 public class Main {
-    public static void main(String[] args){
+    public static void main(String[] args) {
         test(10000);
         test(50000);
         test(100000);
@@ -32,41 +33,38 @@ public class Main {
     }
 
     private static void test(int range) {
-        int n=new Rand().randomInt(0, range);
-        Integer[] arr= ArrayFactory.randomArray(range);
-        Integer[] arr2=ArrayFactory.incrementArray(range);
-        AvlTree<Integer> tree=randomAvlTree(range);
-        Hashtable<Integer,Integer> table=randomHashtable(range);
+        int n = new Rand().randomInt(0, range);
+        Integer[] arr = ArrayFactory.randomArray(range);
+        Integer[] arr2 = ArrayFactory.incrementArray(range);
+        AvlTree<Integer> tree = randomAvlTree(range);
+        Hashtable<Integer, Integer> table = randomHashtable(range);
 
-        new Dispatcher().run(()->{
-            Searching.sequentialSearch(arr,n);
-        }).pass(()->{
-            Sorting.shellSort(arr);
-        }).run(()->{
-            Searching.binarySearch(arr2,n);
-        }).run(()->{
+        new Dispatcher().log("Test range [ " + range + " ] started").run("sequentialSearch", () -> {
+            Searching.sequentialSearch(arr, n);
+        }).run("binarySearch", () -> {
+            Searching.binarySearch(arr2, n);
+        }).run("AvlTree", () -> {
             tree.contains(n);
-        }).run(()->{
+        }).run("Hashtable", () -> {
             table.contains(n);
-        });
-        System.out.println("Test range [ "+range+" ] completed.");
+        }).log("Test range [ " + range + " ] completed.\n");
     }
 
-    static AvlTree<Integer> randomAvlTree(int n){
-        AvlTree<Integer> tree=new AvlTree<>();
-        for (int i = 0; i < n; i++) {
-            tree.insert(new Rand().randomInt(0,n));
+    private static AvlTree<Integer> randomAvlTree(int n) {
+        AvlTree<Integer> tree = new AvlTree<>();
+        for(int num:ArrayFactory.randomArray(n)){
+            tree.insert(num);
         }
         return tree;
     }
 
-    static Hashtable<Integer,Integer> randomHashtable(int n){
-        Hashtable<Integer,Integer> table=new Hashtable<>();
-        for (int i = 0; i < n; i++) {
-            table.put(i,new Rand().randomInt(0,n));
+    private static Hashtable<Integer, Integer> randomHashtable(int n) {
+        Hashtable<Integer, Integer> table = new Hashtable<>();
+        int i=0;
+        for(int num:ArrayFactory.randomArray(n)){
+            table.put(i, num);
+            i++;
         }
         return table;
     }
-
-
 }

@@ -23,7 +23,7 @@ public class Main {
         test(table);
         table = new DoubleHashingHashTable<>();
         test(table);
-        table=new RehashingHashTable<>();
+        table = new RehashingHashTable<>();
         test(table);
         //SeparateChainingHashTable:
         //[],[],[1223, 6173],[],[4371],[],[],[],[4199],[1989],[4344, 9679]

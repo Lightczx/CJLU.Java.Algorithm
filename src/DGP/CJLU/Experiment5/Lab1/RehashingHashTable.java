@@ -7,18 +7,20 @@ public class RehashingHashTable<T> extends AbstractHashTable<T> {
     /**
      * Construct the hash table.
      */
-    public RehashingHashTable(){
+    public RehashingHashTable() {
         this(TABLE_SIZE);
     }
+
     /**
      * Construct the hash table.
+     *
      * @param size the approximate initial size.
      */
-    public RehashingHashTable( int size )
-    {
-        allocateArray( size );
+    public RehashingHashTable(int size) {
+        allocateArray(size);
         clear();
     }
+
     /**
      * Internal method to find a prime number at least as large as n.
      *
@@ -73,13 +75,13 @@ public class RehashingHashTable<T> extends AbstractHashTable<T> {
         // Insert x as active
         int currentPos = resolve(x);
         //check if the pos has value
-        while (isActive(currentPos)){
+        while (isActive(currentPos)) {
             //same value ,do nothing
-            if(x.equals(data[currentPos])){
+            if (x.equals(data[currentPos])) {
                 return false;
             }
             rehash();
-            currentPos=resolve(x);
+            currentPos = resolve(x);
         }
 
         if (data[currentPos] == null) {

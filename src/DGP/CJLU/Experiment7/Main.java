@@ -20,44 +20,52 @@ import java.util.Arrays;
  *
  * You need submit the source code files, an Excel or WPS file which includes table 1, curves
  * and the run environment.
- * @author Administrator
+ *
+ * @author 16861
  */
 public class Main {
-    public static void main(String[] args){
+    public static void main(String[] args) {
         test(100);
+        test(1000);
+        test(5000);
+        test(10000);
+        test(50000);
+        test(100000);
+        test(1000000);
     }
 
-    static void test(int n){
+    static void test(int n) {
+        System.out.println("===test range [ " + n + " ] started===");
         Integer[] arr1 = ArrayFactory.randomArray(n);
-        Integer[] arr2 = Arrays.copyOf(arr1,n);
-        Integer[] arr3 = Arrays.copyOf(arr1,n);
-        Integer[] arr4 = Arrays.copyOf(arr1,n);
-        Integer[] arr5 = Arrays.copyOf(arr1,n);
-        Integer[] arr6 = Arrays.copyOf(arr1,n);
-        Integer[] arr7 = Arrays.copyOf(arr1,n);
-        Integer[] arr8 = Arrays.copyOf(arr1,n);
-        Integer[] arr9 = Arrays.copyOf(arr1,n);
+        Integer[] arr2 = Arrays.copyOf(arr1, n);
+        Integer[] arr3 = Arrays.copyOf(arr1, n);
+        Integer[] arr4 = Arrays.copyOf(arr1, n);
+        Integer[] arr5 = Arrays.copyOf(arr1, n);
+        Integer[] arr6 = Arrays.copyOf(arr1, n);
+        Integer[] arr7 = Arrays.copyOf(arr1, n);
+        Integer[] arr8 = Arrays.copyOf(arr1, n);
+        Integer[] arr9 = Arrays.copyOf(arr1, n);
 
-        new Dispatcher().run(()->{
+        new Dispatcher().run("selectionSort", () -> {
             Sorting.selectionSort(arr1);
-        }).run(()->{
+        }).run("bubbleSort", () -> {
             Sorting.bubbleSort(arr2);
-        }).run(()->{
+        }).run("insertionSort", () -> {
             Sorting.insertionSort(arr3);
-        }).run(()->{
+        }).run("shellSort", () -> {
             Sorting.shellSort(arr4);
-        }).run(()->{
+        }).run("heapsort", () -> {
             Sorting.heapsort(arr5);
-        }).run(()->{
+        }).run("mergeSort", () -> {
             Sorting.mergeSort(arr6);
-        }).run(()->{
+        }).run("quicksort", () -> {
             Sorting.quicksort(arr7);
-        }).run(()->{
-            //Sorting.bucket
-        }).run(()->{
-            //radix
+        }).run("bucketSort", () -> {
+            Sorting.bucketSort(arr8);
+        }).run("radixSort", () -> {
+            Sorting.radixSort(arr9);
         });
-
+        System.out.println("===test range [ " + n + " ] completed===\n");
 
     }
 }

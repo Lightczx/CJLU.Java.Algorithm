@@ -1,11 +1,6 @@
 package DGP.CJLU.Utils.Implementation;
 
-import DGP.CJLU.Utils.Implementation.Rand;
-
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.ListIterator;
+import java.util.*;
 
 /**
  * A class that contains several sorting routines,
@@ -16,16 +11,18 @@ import java.util.ListIterator;
  * @author Mark Allen Weiss
  */
 public final class Sorting {
+    private static final int CUTOFF = 3;
+
     /**
      * Simple insertion sort.
      *
      * @param a an array of Comparable items.
      */
-    public static <AnyType extends Comparable<? super AnyType>> void insertionSort(AnyType[] a) {
+    public static <T extends Comparable<? super T>> void insertionSort(T[] a) {
         int j;
 
         for (int p = 1; p < a.length; p++) {
-            AnyType tmp = a[p];
+            T tmp = a[p];
             for (j = p; j > 0 && tmp.compareTo(a[j - 1]) < 0; j--) {
                 a[j] = a[j - 1];
             }
@@ -38,12 +35,12 @@ public final class Sorting {
      *
      * @param arr an array of Comparable items.
      */
-    public static <AnyType extends Comparable<? super AnyType>> void shellSort(AnyType[] arr) {
+    public static <T extends Comparable<? super T>> void shellSort(T[] arr) {
         //step:步长
         for (int step = arr.length / 2; step > 0; step /= 2) {
             //对一个步长区间进行比较 [step,arr.length)
             for (int i = step; i < arr.length; i++) {
-                AnyType value = arr[i];
+                T value = arr[i];
                 int j;
 
                 //对步长区间中具体的元素进行比较
@@ -56,7 +53,6 @@ public final class Sorting {
             }
         }
     }
-
 
     /**
      * Internal method for heapsort.
@@ -75,9 +71,9 @@ public final class Sorting {
      * @index i the position from which to percolate down.
      * @int n the logical size of the binary heap.
      */
-    private static <AnyType extends Comparable<? super AnyType>> void percDown(AnyType[] a, int i, int n) {
+    private static <T extends Comparable<? super T>> void percDown(T[] a, int i, int n) {
         int child;
-        AnyType tmp;
+        T tmp;
 
         for (tmp = a[i]; leftChild(i) < n; i = child) {
             child = leftChild(i);
@@ -98,7 +94,7 @@ public final class Sorting {
      *
      * @param a an array of Comparable items.
      */
-    public static <AnyType extends Comparable<? super AnyType>> void heapsort(AnyType[] a) {
+    public static <T extends Comparable<? super T>> void heapsort(T[] a) {
         for (int i = a.length / 2 - 1; i >= 0; i--)  /* buildHeap */ {
             percDown(a, i, a.length);
         }
@@ -108,16 +104,14 @@ public final class Sorting {
         }
     }
 
-
     /**
      * Mergesort algorithm.
      *
      * @param a an array of Comparable items.
      */
     @SuppressWarnings("unchecked")
-    public static <AnyType extends Comparable<? super AnyType>> void mergeSort(AnyType[] a) {
-        AnyType[] tmpArray = (AnyType[]) new Comparable[a.length];
-
+    public static <T extends Comparable<? super T>> void mergeSort(T[] a) {
+        T[] tmpArray = (T[]) new Comparable[a.length];
         mergeSort(a, tmpArray, 0, a.length - 1);
     }
 
@@ -129,7 +123,7 @@ public final class Sorting {
      * @param left     the left-most index of the subarray.
      * @param right    the right-most index of the subarray.
      */
-    private static <AnyType extends Comparable<? super AnyType>> void mergeSort(AnyType[] a, AnyType[] tmpArray, int left, int right) {
+    private static <T extends Comparable<? super T>> void mergeSort(T[] a, T[] tmpArray, int left, int right) {
         if (left < right) {
             int center = (left + right) / 2;
             mergeSort(a, tmpArray, left, center);
@@ -147,7 +141,7 @@ public final class Sorting {
      * @param rightPos the index of the start of the second half.
      * @param rightEnd the right-most index of the subarray.
      */
-    private static <AnyType extends Comparable<? super AnyType>> void merge(AnyType[] a, AnyType[] tmpArray, int leftPos, int rightPos, int rightEnd) {
+    private static <T extends Comparable<? super T>> void merge(T[] a, T[] tmpArray, int leftPos, int rightPos, int rightEnd) {
         int leftEnd = rightPos - 1;
         int tmpPos = leftPos;
         int numElements = rightEnd - leftPos + 1;
@@ -181,11 +175,9 @@ public final class Sorting {
      *
      * @param a an array of Comparable items.
      */
-    public static <AnyType extends Comparable<? super AnyType>> void quicksort(AnyType[] a) {
+    public static <T extends Comparable<? super T>> void quicksort(T[] a) {
         quicksort(a, 0, a.length - 1);
     }
-
-    private static final int CUTOFF = 3;
 
     /**
      * Method to swap to elements in an array.
@@ -194,8 +186,8 @@ public final class Sorting {
      * @param index1 the index of the first object.
      * @param index2 the index of the second object.
      */
-    public static <AnyType> void swapReferences(AnyType[] a, int index1, int index2) {
-        AnyType tmp = a[index1];
+    public static <T> void swapReferences(T[] a, int index1, int index2) {
+        T tmp = a[index1];
         a[index1] = a[index2];
         a[index2] = tmp;
     }
@@ -204,7 +196,7 @@ public final class Sorting {
      * Return median of left, center, and right.
      * Order these and hide the pivot.
      */
-    private static <AnyType extends Comparable<? super AnyType>> AnyType median3(AnyType[] a, int left, int right) {
+    private static <T extends Comparable<? super T>> T median3(T[] a, int left, int right) {
         int center = (left + right) / 2;
         if (a[center].compareTo(a[left]) < 0) {
             swapReferences(a, left, center);
@@ -229,9 +221,9 @@ public final class Sorting {
      * @param left  the left-most index of the subarray.
      * @param right the right-most index of the subarray.
      */
-    private static <AnyType extends Comparable<? super AnyType>> void quicksort(AnyType[] a, int left, int right) {
+    private static <T extends Comparable<? super T>> void quicksort(T[] a, int left, int right) {
         if (left + CUTOFF <= right) {
-            AnyType pivot = median3(a, left, right);
+            T pivot = median3(a, left, right);
 
             // Begin partitioning
             int i = left, j = right - 1;
@@ -264,9 +256,9 @@ public final class Sorting {
      * @param left  the left-most index of the subarray.
      * @param right the right-most index of the subarray.
      */
-    private static <AnyType extends Comparable<? super AnyType>> void insertionSort(AnyType[] a, int left, int right) {
+    private static <T extends Comparable<? super T>> void insertionSort(T[] a, int left, int right) {
         for (int p = left + 1; p <= right; p++) {
-            AnyType tmp = a[p];
+            T tmp = a[p];
             int j;
 
             for (j = p; j > left && tmp.compareTo(a[j - 1]) < 0; j--) {
@@ -283,7 +275,7 @@ public final class Sorting {
      * @param a an array of Comparable items.
      * @param k the desired rank (1 is minimum) in the entire array.
      */
-    public static <AnyType extends Comparable<? super AnyType>> void quickSelect(AnyType[] a, int k) {
+    public static <T extends Comparable<? super T>> void quickSelect(T[] a, int k) {
         quickSelect(a, 0, a.length - 1, k);
     }
 
@@ -297,9 +289,9 @@ public final class Sorting {
      * @param right the right-most index of the subarray.
      * @param k     the desired index (1 is minimum) in the entire array.
      */
-    private static <AnyType extends Comparable<? super AnyType>> void quickSelect(AnyType[] a, int left, int right, int k) {
+    private static <T extends Comparable<? super T>> void quickSelect(T[] a, int left, int right, int k) {
         if (left + CUTOFF <= right) {
-            AnyType pivot = median3(a, left, right);
+            T pivot = median3(a, left, right);
 
             // Begin partitioning
             int i = left, j = right - 1;
@@ -314,20 +306,21 @@ public final class Sorting {
                     break;
                 }
             }
-
-            swapReferences(a, i, right - 1);   // Restore pivot
+            // Restore pivot
+            swapReferences(a, i, right - 1);
 
             if (k <= i) {
                 quickSelect(a, left, i - 1, k);
             } else if (k > i + 1) {
                 quickSelect(a, i + 1, right, k);
             }
-        } else {// Do an insertion sort on the subarray
+            // Do an insertion sort on the subarray
+        } else {
             insertionSort(a, left, right);
         }
     }
 
-    public static <AnyType extends Comparable<? super AnyType>> void selectionSort(AnyType[] numbs) {
+    public static <T extends Comparable<? super T>> void selectionSort(T[] numbs) {
         for (int i = 0; i < numbs.length; i++) {
             int minIndex = i;// 将当前下标定义为最小值下标
             for (int j = i + 1; j < numbs.length; j++) {
@@ -337,15 +330,15 @@ public final class Sorting {
             }
             //如果不是同一个，就交换
             if (i != minIndex) {
-                AnyType temp = numbs[i];
+                T temp = numbs[i];
                 numbs[i] = numbs[minIndex];
                 numbs[minIndex] = temp;
             }
         }
     }
 
-    public static <AnyType extends Comparable<? super AnyType>> void bubbleSort(AnyType[] a) {
-        AnyType temp;
+    public static <T extends Comparable<? super T>> void bubbleSort(T[] a) {
+        T temp;
         int i, j;
 
         for (i = 0; i < a.length - 1; i++) { /* 外循环为排序趟数，a.length个数进行a.length-1趟 */
@@ -359,84 +352,110 @@ public final class Sorting {
         }
     }
 
+    public static void bucketSort(Integer[] arr) {
+        int max = Integer.MIN_VALUE;
+        int min = Integer.MAX_VALUE;
 
-    public static void bucketSort(float[] arr) {
-        // 新建一个桶的集合
-        ArrayList<LinkedList<Float>> buckets = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            // 新建一个桶，并将其添加到桶的集合中去。
-            // 由于桶内元素会频繁的插入，所以选择 LinkedList 作为桶的数据结构
-            buckets.add(new LinkedList<Float>());
+        // 一次循环，将该数组的最大值，最小值求出来
+        for (int value : arr) {
+            max = Math.max(max, value);
+            min = Math.min(min, value);
         }
-        // 将输入数据全部放入桶中并完成排序
-        for (float data : arr) {
-            int index = getBucketIndex(data);
-            insertSort(buckets.get(index), data);
+
+        // 求桶数
+        int bucketNum = (max - min) / (arr.length) + 1;
+
+        // 初始化每个桶
+        ArrayList<ArrayList<Integer>> bucketArr = new ArrayList<>();
+        for (int i = 0; i < bucketNum; i++) {
+            bucketArr.add(new ArrayList<>());
         }
-        // 将桶中元素全部取出来并放入 arr 中输出
-        int index = 0;
-        for (LinkedList<Float> bucket : buckets) {
-            for (Float data : bucket) {
-                arr[index++] = data;
+
+        // 遍历数组，将每个元素放入桶中
+        for (int k : arr) {
+            int bucketIndex = (k - min) / (arr.length);
+            bucketArr.get(bucketIndex).add(k);
+        }
+
+        // 对每个桶元素，进行排序
+        for (ArrayList<Integer> integers : bucketArr) {
+            Collections.sort(integers);
+        }
+
+        // 将已经排序好的元素，重新赋值到arr数组里
+        int j = 0;
+        // 遍历每个桶，将每个桶的元素，赋值到arr数组里
+        for (ArrayList<Integer> arrayList : bucketArr) {
+            for (Integer key : arrayList) {
+                arr[j++] = key;
             }
         }
+
     }
 
-    public static int getBucketIndex(float data) {
-        // 这里例子写的比较简单，仅使用浮点数的整数部分作为其桶的索引值
-        // 实际开发中需要根据场景具体设计
-        return (int) data;
+    public static Integer[] radixSort(Integer[] sourceArray) {
+        //对 arr 进行拷贝，不改变参数内容
+        Integer[] arr = Arrays.copyOf(sourceArray, sourceArray.length);
+
+        int maxDigit = getMaxDigit(arr);
+        return radixSort(arr, maxDigit);
     }
 
-    public static void insertSort(List<Float> bucket, float data) {
-        ListIterator<Float> it = bucket.listIterator();
-        boolean insertFlag = true;
-        while (it.hasNext()) {
-            if (data <= it.next()) {
-                it.previous(); // 把迭代器的位置偏移回上一个位置
-                it.add(data); // 把数据插入到迭代器的当前位置
-                insertFlag = false;
-                break;
+    private static int getMaxDigit(Integer[] arr) {
+        int maxValue = getMaxValue(arr);
+        return getNumLength(maxValue);
+    }
+
+    private static int getMaxValue(Integer[] arr) {
+        int maxValue = arr[0];
+        for (int value : arr) {
+            if (maxValue < value) {
+                maxValue = value;
             }
         }
-        if (insertFlag) {
-            bucket.add(data); // 否则把数据插入到链表末端
-        }
+        return maxValue;
     }
 
-    /**
-     * @param data   待排序的数组
-     * @param radix  表示基数（进制）
-     * @param digits 表示最大数值位数
-     */
-    public static void radixSort(int[] data, int radix, int digits) {
-        LinkedList<LinkedList> queue = new LinkedList<>();
-        for (int r = 0; r < radix; r++) {
-            LinkedList<Integer> queue1 = new LinkedList<Integer>();
-            queue.offer(queue1);
+    private static int getNumLength(long num) {
+        if (num == 0) {
+            return 1;
         }
-        //最大元素的位数,进行digits次分配和收集
-        for (int i = 0; i < digits; i++) {
-            //分配数组元素
-            for (int j = 0; j < data.length; j++) {
-                //得到digits的第i+1位
-                int r = (int) (data[j] % Math.pow(radix, i + 1) / Math.pow(radix, i));
-                LinkedList<Integer> queue2 = queue.get(r);
-                queue2.offer(data[j]);
-                queue.set(r, queue2);
+        int lenght = 0;
+        for (long temp = num; temp != 0; temp /= 10) {
+            lenght++;
+        }
+        return lenght;
+    }
+
+    private static Integer[] radixSort(Integer[] arr, int maxDigit) {
+        int mod = 10;
+        int dev = 1;
+
+        for (int i = 0; i < maxDigit; i++, dev *= 10, mod *= 10) {
+            // 考虑负数的情况，这里扩展一倍队列数，其中 [0-9]对应负数，[10-19]对应正数 (bucket + 10)
+            int[][] counter = new int[mod * 2][0];
+
+            for (int j = 0; j < arr.length; j++) {
+                int bucket = ((arr[j] % mod) / dev) + mod;
+                counter[bucket] = arrayAppend(counter[bucket], arr[j]);
             }
-            //将收集队列元素
-            int count = 0;
-            for (int k = 0; k < radix; k++) {
-                while (queue.get(k).size() > 0) {
-                    data[count++] = (Integer) queue.get(k).poll();
+
+            int pos = 0;
+            for (int[] bucket : counter) {
+                for (int value : bucket) {
+                    arr[pos++] = value;
                 }
             }
         }
+
+        return arr;
     }
 
-    private static final int NUM_ITEMS = 1000;
-    private static int theSeed = 1;
+    private static int[] arrayAppend(int[] arr, int value) {
+        arr = Arrays.copyOf(arr, arr.length + 1);
+        arr[arr.length - 1] = value;
+        return arr;
+    }
 
     private static void checkSort(Integer[] a) {
         for (int i = 0; i < a.length; i++) {
