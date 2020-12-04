@@ -9,6 +9,17 @@ package DGP.CJLU.Utils.Execution;
  */
 public class Dispatcher {
 
+    public Dispatcher(){
+
+    }
+    public Dispatcher(DispatcherOperations operations){
+
+    }
+
+    public Dispatcher(String loginfo){
+        this.log(loginfo);
+    }
+
     private long beginTime;
     private long endTime;
 

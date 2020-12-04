@@ -1,5 +1,7 @@
 package DGP.CJLU.Utils.Implementation;
 
+import java.util.Arrays;
+
 /**
  * @author 16861
  */
@@ -21,5 +23,9 @@ public class ArrayFactory {
             arr[i] = i;
         }
         return arr;
+    }
+
+    public static <T> T[] copy(T[] array){
+        return Arrays.copyOf(array,array.length);
     }
 }
