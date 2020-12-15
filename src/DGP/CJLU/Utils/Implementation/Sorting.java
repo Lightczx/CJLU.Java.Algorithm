@@ -95,11 +95,13 @@ public final class Sorting {
      * @param a an array of Comparable items.
      */
     public static <T extends Comparable<? super T>> void heapsort(T[] a) {
-        for (int i = a.length / 2 - 1; i >= 0; i--)  /* buildHeap */ {
+        /* buildHeap */
+        for (int i = a.length / 2 - 1; i >= 0; i--)   {
             percDown(a, i, a.length);
         }
         for (int i = a.length - 1; i > 0; i--) {
-            swapReferences(a, 0, i);                /* deleteMax */
+            /* deleteMax */
+            swapReferences(a, 0, i);
             percDown(a, 0, i);
         }
     }
@@ -463,7 +465,7 @@ public final class Sorting {
                 System.out.println("Error at " + i);
             }
         }
-        System.out.println("Finished checksort");
+        System.out.println("Finished checkSort");
     }
 }
 
