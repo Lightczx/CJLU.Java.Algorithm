@@ -23,6 +23,8 @@ public class Main {
         graph.link("E","D",4);
         graph.link("F","D",10);
         graph.link("F","E",18);
-        new Dispatcher().log(graph).log(Arrays.toString(graph.topSort()));
+        new Dispatcher().log(graph);
+        graph.dijkstra("A");
+
     }
 }
