@@ -103,7 +103,7 @@ public class Graph<T extends Comparable<? super T>> {
         start.dist = 0;
 
         while (containsUnknownDistanceVertex()) {
-            Vertex v = getSmallestDistanceVertex(start);
+            Vertex v = getSmallestDistanceVertex(/*start*/);
             v.known = true;
             for (Vertex w : v.adjacent()) {
                 if (!w.known) {
@@ -141,7 +141,7 @@ public class Graph<T extends Comparable<? super T>> {
     private Vertex getSmallestDistanceVertex(Vertex v) {
         Vertex smallest=null;
         for(Vertex w:v.adjacent()){
-            System.out.println("dist:"+w+v.linked[lookUp(v.element)]);
+            System.out.println("dist:"+w+v.linked[lookUp(w.element)]);
             if(!w.known){
                 if(v.linked[lookUp(w.element)]!=INFINITY){
                     if(null==smallest){
@@ -157,6 +157,7 @@ public class Graph<T extends Comparable<? super T>> {
                 }
             }
         }
+        System.out.print("\n");
         return smallest;
     }
 
