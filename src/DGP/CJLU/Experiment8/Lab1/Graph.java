@@ -5,35 +5,46 @@ import java.util.*;
 /**
  * @author 16861
  */
-public class Graph<T extends Comparable<? super T>> {
+public class Graph<T> {
     /**
      * we use it to represent unlinked
      */
-    private static final int INFINITY = -1;
+    private static final int INFINITY = Integer.MAX_VALUE;
+    /**
+     * we use it to represent linked to itself
+     */
+    private static final int TO_SELF = 0;
+
     private final int size;
     private final Map<T, Vertex> vertices = new HashMap<>();
     private final Map<T, Integer> dictionary = new HashMap<>();
     private int usedNum = 0;
+    private boolean isOriented=true;
 
     public Graph(int maxVertexCount) {
         this.size = maxVertexCount;
     }
 
+    public Graph(int maxVertexCount,boolean isOriented) {
+        this.size = maxVertexCount;
+        this.isOriented=isOriented;
+    }
     /**
      * look up for the mapped vertex index
+     *
      * @param key the vertex's name
      * @return the index of vertex
      */
-    private int lookUp(T key) {
+    private int indexOf(T key) {
         if (!dictionary.containsKey(key)) {
             dictionary.put(key, usedNum++);
         }
         return dictionary.get(key);
     }
 
-    private T getKey(int value) {
+    private T elementOf(int index) {
         for (Map.Entry<T, Integer> entry : dictionary.entrySet()) {
-            if (value == entry.getValue()) {
+            if (index == entry.getValue()) {
                 return entry.getKey();
             }
         }
@@ -52,14 +63,29 @@ public class Graph<T extends Comparable<? super T>> {
             throw new IllegalStateException("插入元素间距不能小于等于0");
         }
 
-        lookUp(from);
-        lookUp(to);
+        indexOf(from);
+        indexOf(to);
 
         if (!vertices.containsKey(from)) {
             vertices.put(from, new Vertex(from));
         }
-        Vertex entry = vertices.get(from);
-        entry.link(to, dist);
+        if (!vertices.containsKey(to)) {
+            vertices.put(to, new Vertex(to));
+        }
+
+        Vertex vertexFrom = vertices.get(from);
+        vertexFrom.link(to, dist);
+        if(!isOriented){
+            Vertex vertexTo = vertices.get(to);
+            vertexTo.link(from, dist);
+        }
+    }
+
+    public void forEachVertex(LoopFunction loopFunction) {
+        for (Map.Entry<T, Vertex> e : vertices.entrySet()) {
+            Vertex v = e.getValue();
+            loopFunction.invoke(v);
+        }
     }
 
     public Object[] topSort() {
@@ -67,18 +93,18 @@ public class Graph<T extends Comparable<? super T>> {
         Object[] result = new Object[size];
         int counter = 0;
 
-        for (Map.Entry<T, Vertex> mapEntry : vertices.entrySet()) {
-            Vertex entry = mapEntry.getValue();
-            if (entry.degree == 0) {
-                q.offer(entry);
+        forEachVertex((v) -> {
+            if (v.inDegree == 0) {
+                q.offer(v);
             }
-        }
+        });
+
         while (!q.isEmpty()) {
             Vertex entry = q.poll();
             result[counter++] = entry.getElement();
 
             for (Vertex vertex : entry.adjacent()) {
-                if (--vertex.degree == 0) {
+                if (--vertex.inDegree == 0) {
                     q.offer(vertex);
                 }
             }
@@ -89,37 +115,49 @@ public class Graph<T extends Comparable<? super T>> {
         return result;
     }
 
-    public void dijkstra(T element){
-        dijkstra(vertices.get(element));
+    /**
+     * dijkstra algorithm
+     * @param element
+     */
+    public void shortestPath(T element) {
+        shortestPath(vertices.get(element));
     }
 
-    private void dijkstra(Vertex start) {
+    private void shortestPath(Vertex start) {
         //prepare for every method call
-        for(Map.Entry<T,Vertex> entry:vertices.entrySet()){
-            Vertex v= entry.getValue();
-            v.dist=INFINITY;
-            v.known=false;
-        }
+        forEachVertex((v) -> {
+            v.dist = INFINITY;
+            v.known = false;
+        });
+
         start.dist = 0;
 
         while (containsUnknownDistanceVertex()) {
-            Vertex v = getSmallestDistanceVertex(/*start*/);
-            v.known = true;
-            for (Vertex w : v.adjacent()) {
+            Vertex opVertex = smallestUnknownDistanceVertex();
+            opVertex.known = true;
+            for (Vertex w : opVertex.adjacent()) {
                 if (!w.known) {
-                    int cvw = v.getLinkLengthTo(w);
-                    if (v.dist + cvw < w.dist) {
-                        w.dist = v.dist + cvw;
-                        w.path = v;
+                    int cvw = opVertex.distanceTo(w);
+                    if ((long) opVertex.dist + cvw < (long) w.dist) {
+                        w.dist = opVertex.dist + cvw;
+                        w.path = opVertex;
                     }
                 }
             }
         }
-        printPath(start);
+
+
     }
 
+    public void printAllPath(){
+        forEachVertex((v) -> {
+            System.out.print(v + ":");
+            printPath(v);
+            System.out.print("\n");
+        });
+    }
 
-    public void printPath(Vertex v) {
+    private void printPath(Vertex v) {
         if (v.path != null) {
             printPath(v.path);
             System.out.print(" -> ");
@@ -127,37 +165,35 @@ public class Graph<T extends Comparable<? super T>> {
         System.out.print(v);
     }
 
+    public void printTreeEdge(){
+
+    }
+
     private boolean containsUnknownDistanceVertex() {
-        for(Map.Entry<T, Vertex> e: vertices.entrySet()){
-            Vertex v=e.getValue();
-            //containsUnknown
-            if(!v.known){
+        //cannot use forEachVertex method here
+        for (Map.Entry<T, Vertex> e : vertices.entrySet()) {
+            Vertex v = e.getValue();
+            if (!v.known) {
                 return true;
             }
         }
         return false;
     }
 
-    private Vertex getSmallestDistanceVertex(Vertex v) {
-        Vertex smallest=null;
-        for(Vertex w:v.adjacent()){
-            System.out.println("dist:"+w+v.linked[lookUp(w.element)]);
-            if(!w.known){
-                if(v.linked[lookUp(w.element)]!=INFINITY){
-                    if(null==smallest){
-                        smallest=w;
-                    }
-                    if(smallest.linked[lookUp(w.element)]!=INFINITY){
-                        if(v.linked[lookUp(w.element)]<=smallest.linked[lookUp(w.element)]){
-                            smallest=w;
-                        }
-                    }else {
-                        smallest=w;
-                    }
+    private Vertex smallestUnknownDistanceVertex() {
+        Vertex smallest = null;
+        for (Map.Entry<T, Vertex> entry : vertices.entrySet()) {
+            Vertex v = entry.getValue();
+            //w is unknown
+            if (!v.known) {
+                if (smallest == null) {
+                    smallest = v;
+                }
+                if (v.dist <= smallest.dist) {
+                    smallest = v;
                 }
             }
         }
-        System.out.print("\n");
         return smallest;
     }
 
@@ -166,7 +202,7 @@ public class Graph<T extends Comparable<? super T>> {
         public int dist = INFINITY;
         public Vertex path;
         public boolean known = false;
-        public int degree = 0;
+        public int inDegree = 0;
         /**
          * which element
          */
@@ -179,31 +215,29 @@ public class Graph<T extends Comparable<? super T>> {
         public Vertex(T from) {
             this.element = from;
             linked = new int[size];
-            Arrays.fill(linked,INFINITY);
+            Arrays.fill(linked, INFINITY);
+            linked[indexOf(from)] = TO_SELF;
         }
 
-        public void link(T to, int dist) {
-            if (INFINITY == linked[lookUp(to)]) {
-                if (!vertices.containsKey(to)) {
-                    vertices.put(to, new Vertex(to));
-                }
-                vertices.get(to).degree++;
-                linked[lookUp(to)] = dist;
+        public void link(T to, int distance) {
+            if (INFINITY == linked[indexOf(to)]) {
+                vertices.get(to).inDegree++;
+                linked[indexOf(to)] = distance;
             }
         }
 
         public Iterable<Vertex> adjacent() {
             LinkedList<Vertex> entryList = new LinkedList<>();
             for (int i = 0; i < size; i++) {
-                if (0 < linked[i]) {
-                    entryList.add(vertices.get(getKey(i)));
+                if (TO_SELF < linked[i] && linked[i] != INFINITY) {
+                    entryList.add(vertices.get(elementOf(i)));
                 }
             }
             return entryList;
         }
 
-        public int getLinkLengthTo(Vertex vertex) {
-            return linked[lookUp(vertex.element)];
+        public int distanceTo(Vertex vertex) {
+            return linked[indexOf(vertex.element)];
         }
 
         @Override
@@ -215,10 +249,15 @@ public class Graph<T extends Comparable<? super T>> {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("This Graph:\n");
-        for (Map.Entry<T, Vertex> line : vertices.entrySet()) {
-            for (int element : line.getValue().linked) {
-                sb.append(element).append(" ");
+        sb.append("This Graph:\n \t");
+        for (int i = 0; i < size; i++) {
+            sb.append(elementOf(i)).append('\t');
+        }
+        sb.append('\n');
+        for (int j = 0; j < size; j++) {
+            sb.append(elementOf(j)).append('\t');
+            for (int distance : vertices.get(elementOf(j)).linked) {
+                sb.append(distance==Integer.MAX_VALUE?"∞":distance).append('\t');
             }
             sb.append('\n');
         }
