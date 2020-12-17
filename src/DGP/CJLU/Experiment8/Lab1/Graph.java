@@ -18,13 +18,22 @@ public class Graph<T> {
     private final int size;
     private final Map<T, Vertex> vertices = new HashMap<>();
     private final Map<T, Integer> dictionary = new HashMap<>();
+    private final boolean isOriented;
     private int usedNum = 0;
-    private boolean isOriented=true;
 
+    /**
+     * oriented graph is built by default
+     * @param maxVertexCount the max vertex count you intend to insert
+     */
     public Graph(int maxVertexCount) {
-        this.size = maxVertexCount;
+        this(maxVertexCount,true);
     }
 
+    /**
+     * build a graph
+     * @param maxVertexCount the max vertex count you intend to insert
+     * @param isOriented config whether to create oriented or not
+     */
     public Graph(int maxVertexCount,boolean isOriented) {
         this.size = maxVertexCount;
         this.isOriented=isOriented;
@@ -129,24 +138,21 @@ public class Graph<T> {
             v.dist = INFINITY;
             v.known = false;
         });
-
         start.dist = 0;
 
         while (containsUnknownDistanceVertex()) {
-            Vertex opVertex = smallestUnknownDistanceVertex();
-            opVertex.known = true;
-            for (Vertex w : opVertex.adjacent()) {
+            Vertex v = smallestUnknownDistanceVertex();
+            v.known = true;
+            for (Vertex w : v.adjacent()) {
                 if (!w.known) {
-                    int cvw = opVertex.distanceTo(w);
-                    if ((long) opVertex.dist + cvw < (long) w.dist) {
-                        w.dist = opVertex.dist + cvw;
-                        w.path = opVertex;
+                    int cvw = v.distanceTo(w);
+                    if ((long) v.dist + cvw < (long) w.dist) {
+                        w.dist = v.dist + cvw;
+                        w.path = v;
                     }
                 }
             }
         }
-
-
     }
 
     public void printAllPath(){
@@ -163,10 +169,6 @@ public class Graph<T> {
             System.out.print(" -> ");
         }
         System.out.print(v);
-    }
-
-    public void printTreeEdge(){
-
     }
 
     private boolean containsUnknownDistanceVertex() {
@@ -195,6 +197,17 @@ public class Graph<T> {
             }
         }
         return smallest;
+    }
+
+    public void printTree(){
+        forEachVertex((v)->{
+            //System.out.println(v.element.toString()+v.known+v.dist+v.path);
+            if(v.path==null){
+                System.out.println(v+" is root");
+            }else {
+                System.out.println(v+" -> "+v.path);
+            }
+        });
     }
 
     public class Vertex {

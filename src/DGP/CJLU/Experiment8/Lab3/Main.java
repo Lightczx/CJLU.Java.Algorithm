@@ -20,6 +20,7 @@ public class Main {
         graph.link("D","F",10);
         graph.link("E","F",18);
         new Dispatcher().log(graph);
-
+        graph.shortestPath("A");
+        graph.printTree();
     }
 }
