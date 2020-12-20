@@ -4,10 +4,11 @@ package DGP.CJLU.Experiment8.Lab1;
  * @author 16861
  */
 @FunctionalInterface
-public interface LoopFunction{
+interface LoopFunction<T> {
     /**
      * loop function
-     * @param v
+     *
+     * @param v the vertex
      */
-    void invoke(Graph.Vertex v);
+    void invoke(Graph<T>.Vertex v);
 }

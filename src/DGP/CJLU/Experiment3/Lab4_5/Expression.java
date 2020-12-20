@@ -6,5 +6,5 @@ import java.util.LinkedList;
  * @author 16861
  */
 public class Expression {
-    LinkedList<Item> data = new LinkedList<>();
+    LinkedList<Item> items = new LinkedList<>();
 }

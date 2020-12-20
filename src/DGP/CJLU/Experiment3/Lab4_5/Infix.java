@@ -2,6 +2,9 @@ package DGP.CJLU.Experiment3.Lab4_5;
 
 import java.util.Stack;
 
+/**
+ * @author 16861
+ */
 public class Infix extends Expression {
 
     /**
@@ -21,7 +24,7 @@ public class Infix extends Expression {
             if (c == '+' || c == '-' || c == '*' || c == '/' || c == '(' || c == ')') {
                 //是操作符，直接添加至list中
                 i++;
-                data.add(new Item(c));
+                items.add(new Item(c));
             } else if (Character.isDigit(c)) {
                 //是数字,判断多位数的情况
                 StringBuilder str = new StringBuilder();
@@ -29,7 +32,7 @@ public class Infix extends Expression {
                     str.append(expression.charAt(i));
                     i++;
                 }
-                data.add(new Item(str.toString()));
+                items.add(new Item(str.toString()));
 
             }
         } while (i < expression.length());
@@ -38,10 +41,10 @@ public class Infix extends Expression {
     public Suffix toSuffix() {
         Stack<Item> stack = new Stack<>();
         Suffix result = new Suffix();
-        for (Item item : data) {
+        for (Item item : items) {
             //运算数,直接输出.
             if (item.isNumber()) {
-                result.data.add(item);
+                result.items.add(item);
             }
             //左括号,直接压入堆栈
             else if (item.isLeftParentheses()) {
@@ -49,7 +52,7 @@ public class Infix extends Expression {
                 //右括号,(意味着括号已结束)不断弹出栈顶运算符并输出直到遇到左括号(弹出但不输出)
             } else if (item.isRightParentheses()) {
                 while (!stack.peek().isLeftParentheses()) {
-                    result.data.add(stack.pop());
+                    result.items.add(stack.pop());
                 }
                 //pop out left parentheses
                 stack.pop();
@@ -57,14 +60,14 @@ public class Infix extends Expression {
             } else if (item.isOperator()) {
                 if (!stack.isEmpty() && item.priority() <= stack.peek().priority()) {
                     while (!(stack.isEmpty() || item.priority() > stack.peek().priority())) {
-                        result.data.add(stack.pop());
+                        result.items.add(stack.pop());
                     }
                 }
                 stack.push(item);
             }
         }
         while (!stack.isEmpty()) {
-            result.data.add(stack.pop());
+            result.items.add(stack.pop());
         }
         return result;
     }

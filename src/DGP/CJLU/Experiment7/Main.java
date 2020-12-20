@@ -2,9 +2,6 @@ package DGP.CJLU.Experiment7;
 
 import DGP.CJLU.Utils.Execution.Dispatcher;
 import DGP.CJLU.Utils.Implementation.ArrayFactory;
-import DGP.CJLU.Utils.Implementation.Sorting;
-
-import java.util.Arrays;
 
 import static DGP.CJLU.Utils.Implementation.Sorting.*;
 

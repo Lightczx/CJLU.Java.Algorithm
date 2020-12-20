@@ -1,6 +1,8 @@
 package DGP.CJLU.Utils.Implementation;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 /**
  * A class that contains several sorting routines,
@@ -96,7 +98,7 @@ public final class Sorting {
      */
     public static <T extends Comparable<? super T>> void heapsort(T[] a) {
         /* buildHeap */
-        for (int i = a.length / 2 - 1; i >= 0; i--)   {
+        for (int i = a.length / 2 - 1; i >= 0; i--) {
             percDown(a, i, a.length);
         }
         for (int i = a.length - 1; i > 0; i--) {

@@ -9,7 +9,7 @@ import java.util.Stack;
 public class Suffix extends Expression {
     public double evaluate() {
         Stack<Double> stack = new Stack<>();
-        for (Item item : data) {
+        for (Item item : items) {
             if (item.isNumber()) {
                 //是数字
                 stack.push(Double.parseDouble(item.value));
@@ -32,11 +32,10 @@ public class Suffix extends Expression {
 
     @Override
     public String toString() {
-        Iterator<Item> it = data.iterator();
+        Iterator<Item> it = items.iterator();
         if (!it.hasNext()) {
             return "[]";
         }
-
         StringBuilder sb = new StringBuilder();
         sb.append('[');
         for (; ; ) {

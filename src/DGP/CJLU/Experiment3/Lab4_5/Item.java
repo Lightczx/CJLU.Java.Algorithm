@@ -4,15 +4,10 @@ package DGP.CJLU.Experiment3.Lab4_5;
  * @author 16861
  */
 public class Item {
-
     public String value;
 
     public Item(String value) {
         this.value = value;
-    }
-
-    public Item(StringBuilder value) {
-        this.value = value.toString();
     }
 
     public Item(char value) {
@@ -36,12 +31,11 @@ public class Item {
     }
 
     public int priority() {
-        if ("*".equals(value) || "/".equals(value)) {
-            return 1;
-        } else if ("+".equals(value) || "-".equals(value)) {
-            return 0;
-        }
-        return -1;
+        return switch (value) {
+            case "*", "/" -> 1;
+            case "+", "-" -> 0;
+            default -> -1;
+        };
     }
 
     @Override

@@ -23,21 +23,24 @@ public class Graph<T> {
 
     /**
      * oriented graph is built by default
+     *
      * @param maxVertexCount the max vertex count you intend to insert
      */
     public Graph(int maxVertexCount) {
-        this(maxVertexCount,true);
+        this(maxVertexCount, true);
     }
 
     /**
      * build a graph
+     *
      * @param maxVertexCount the max vertex count you intend to insert
-     * @param isOriented config whether to create oriented or not
+     * @param isOriented     config whether to create oriented or not
      */
-    public Graph(int maxVertexCount,boolean isOriented) {
+    public Graph(int maxVertexCount, boolean isOriented) {
         this.size = maxVertexCount;
-        this.isOriented=isOriented;
+        this.isOriented = isOriented;
     }
+
     /**
      * look up for the mapped vertex index
      *
@@ -66,10 +69,10 @@ public class Graph<T> {
 
     public void link(T from, T to, int dist) {
         if (usedNum > size) {
-            throw new IllegalStateException("插入的元素超出限制个数");
+            throw new IllegalArgumentException("插入的元素超出限制个数");
         }
         if (dist <= 0) {
-            throw new IllegalStateException("插入元素间距不能小于等于0");
+            throw new IllegalArgumentException("插入元素间距不能小于等于0");
         }
 
         indexOf(from);
@@ -84,13 +87,13 @@ public class Graph<T> {
 
         Vertex vertexFrom = vertices.get(from);
         vertexFrom.link(to, dist);
-        if(!isOriented){
+        if (!isOriented) {
             Vertex vertexTo = vertices.get(to);
             vertexTo.link(from, dist);
         }
     }
 
-    public void forEachVertex(LoopFunction loopFunction) {
+    public void forEachVertex(LoopFunction<T> loopFunction) {
         for (Map.Entry<T, Vertex> e : vertices.entrySet()) {
             Vertex v = e.getValue();
             loopFunction.invoke(v);
@@ -126,7 +129,8 @@ public class Graph<T> {
 
     /**
      * dijkstra algorithm
-     * @param element
+     *
+     * @param element start element
      */
     public void shortestPath(T element) {
         shortestPath(vertices.get(element));
@@ -155,7 +159,7 @@ public class Graph<T> {
         }
     }
 
-    public void printAllPath(){
+    public void printAllPath() {
         forEachVertex((v) -> {
             System.out.print(v + ":");
             printPath(v);
@@ -199,37 +203,55 @@ public class Graph<T> {
         return smallest;
     }
 
-    public void printTree(){
-        forEachVertex((v)->{
+    public void printTree() {
+        forEachVertex((v) -> {
             //System.out.println(v.element.toString()+v.known+v.dist+v.path);
-            if(v.path==null){
-                System.out.println(v+" is root");
-            }else {
-                System.out.println(v+" -> "+v.path);
+            if (v.path == null) {
+                System.out.println(v + " is root");
+            } else {
+                System.out.println(v + " -> " + v.path);
             }
         });
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("This Graph:\n \t");
+        for (int i = 0; i < size; i++) {
+            sb.append(elementOf(i)).append('\t');
+        }
+        sb.append('\n');
+        for (int j = 0; j < size; j++) {
+            sb.append(elementOf(j)).append('\t');
+            for (int distance : vertices.get(elementOf(j)).linked) {
+                sb.append(distance == Integer.MAX_VALUE ? "∞" : distance).append('\t');
+            }
+            sb.append('\n');
+        }
+        return sb.toString();
+    }
+
     public class Vertex {
         private final int[] linked;
-        public int dist = INFINITY;
-        public Vertex path;
-        public boolean known = false;
-        public int inDegree = 0;
         /**
          * which element
          */
         private final T element;
-
-        public T getElement() {
-            return element;
-        }
+        public int dist = INFINITY;
+        public Vertex path;
+        public boolean known = false;
+        public int inDegree = 0;
 
         public Vertex(T from) {
             this.element = from;
             linked = new int[size];
             Arrays.fill(linked, INFINITY);
             linked[indexOf(from)] = TO_SELF;
+        }
+
+        public T getElement() {
+            return element;
         }
 
         public void link(T to, int distance) {
@@ -257,23 +279,5 @@ public class Graph<T> {
         public String toString() {
             return element.toString();
         }
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("This Graph:\n \t");
-        for (int i = 0; i < size; i++) {
-            sb.append(elementOf(i)).append('\t');
-        }
-        sb.append('\n');
-        for (int j = 0; j < size; j++) {
-            sb.append(elementOf(j)).append('\t');
-            for (int distance : vertices.get(elementOf(j)).linked) {
-                sb.append(distance==Integer.MAX_VALUE?"∞":distance).append('\t');
-            }
-            sb.append('\n');
-        }
-        return sb.toString();
     }
 }

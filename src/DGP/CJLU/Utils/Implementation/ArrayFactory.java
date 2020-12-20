@@ -25,7 +25,7 @@ public class ArrayFactory {
         return arr;
     }
 
-    public static <T> T[] copy(T[] array){
-        return Arrays.copyOf(array,array.length);
+    public static <T> T[] copy(T[] array) {
+        return Arrays.copyOf(array, array.length);
     }
 }

@@ -4,24 +4,25 @@ package DGP.CJLU.Utils.Execution;
  * counting the execute time of codes
  * use run method to counting<br/>
  * example usage:<br/>
- *  {@code new Dispatcher.run(()->{someFunc();})}
+ * {@code new Dispatcher.run(()->{someFunc();})}
+ *
  * @author 16861
  */
 public class Dispatcher {
 
-    public Dispatcher(){
-
-    }
-    public Dispatcher(DispatcherOperations operations){
-
-    }
-
-    public Dispatcher(String loginfo){
-        this.log(loginfo);
-    }
-
     private long beginTime;
     private long endTime;
+
+    public Dispatcher() {
+
+    }
+
+    public Dispatcher(DispatcherOperations operations) {
+
+    }
+    public Dispatcher(String loginfo) {
+        this.log(loginfo);
+    }
 
     private void begin() {
         beginTime = System.nanoTime();

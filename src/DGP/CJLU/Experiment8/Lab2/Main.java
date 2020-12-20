@@ -10,17 +10,17 @@ import DGP.CJLU.Utils.Execution.Dispatcher;
  * @author 16861
  */
 public class Main {
-    public static void main(String[] args){
-        Graph<String> graph=new Graph<>(6,true);
-        graph.link("A","C",5);
-        graph.link("A","D",30);
-        graph.link("B","A",2);
-        graph.link("B","E",8);
-        graph.link("C","B",15);
-        graph.link("C","F",7);
-        graph.link("E","D",4);
-        graph.link("F","D",10);
-        graph.link("F","E",18);
+    public static void main(String[] args) {
+        Graph<String> graph = new Graph<>(6, true);
+        graph.link("A", "C", 5);
+        graph.link("A", "D", 30);
+        graph.link("B", "A", 2);
+        graph.link("B", "E", 8);
+        graph.link("C", "B", 15);
+        graph.link("C", "F", 7);
+        graph.link("E", "D", 4);
+        graph.link("F", "D", 10);
+        graph.link("F", "E", 18);
         new Dispatcher().log(graph);
         graph.shortestPath("A");
         graph.printAllPath();

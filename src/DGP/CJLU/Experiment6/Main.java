@@ -5,7 +5,6 @@ import DGP.CJLU.Utils.Execution.Dispatcher;
 import DGP.CJLU.Utils.Implementation.ArrayFactory;
 import DGP.CJLU.Utils.Implementation.Rand;
 import DGP.CJLU.Utils.Implementation.Searching;
-import DGP.CJLU.Utils.Implementation.Sorting;
 
 import java.util.Hashtable;
 
@@ -52,7 +51,7 @@ public class Main {
 
     private static AvlTree<Integer> randomAvlTree(int n) {
         AvlTree<Integer> tree = new AvlTree<>();
-        for(int num:ArrayFactory.randomArray(n)){
+        for (int num : ArrayFactory.randomArray(n)) {
             tree.insert(num);
         }
         return tree;
@@ -60,8 +59,8 @@ public class Main {
 
     private static Hashtable<Integer, Integer> randomHashtable(int n) {
         Hashtable<Integer, Integer> table = new Hashtable<>();
-        int i=0;
-        for(int num:ArrayFactory.randomArray(n)){
+        int i = 0;
+        for (int num : ArrayFactory.randomArray(n)) {
             table.put(i, num);
             i++;
         }
