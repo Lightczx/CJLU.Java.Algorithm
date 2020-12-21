@@ -1,6 +1,7 @@
 package DGP.CJLU.CourseDesign;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
 
 public class Calculator {
     private static Calculator instance;
@@ -21,18 +22,20 @@ public class Calculator {
         frame.setVisible(true);
         frame.setSize(400, 300);
 
-        instance.calculateButton.addActionListener(e -> {
-            if (!"".equals(instance.expressionText.getText())) {
-                try {
-                    Infix infix = new Infix(instance.expressionText.getText());
-                    instance.resultText.setText(String.valueOf(infix.toSuffix().evaluate()));
-                } catch (Throwable throwable) {
-                    instance.resultText.setText("表达式不正确");
-                }
-            } else {
-                instance.resultText.setText("表达式不能为空");
-            }
-        });
+        instance.calculateButton.addActionListener(Calculator::getResult);
+    }
 
+    private static void getResult(ActionEvent e) {
+        if (!"".equals(instance.expressionText.getText())) {
+            try {
+                Infix infix = new Infix(instance.expressionText.getText());
+                String result = String.valueOf(infix.toSuffix().evaluate());
+                instance.resultText.setText(result);
+            } catch (Throwable throwable) {
+                instance.resultText.setText("表达式不正确");
+            }
+        } else {
+            instance.resultText.setText("表达式不能为空");
+        }
     }
 }
