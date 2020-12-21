@@ -13,7 +13,7 @@ import java.util.Arrays;
  */
 public class Main {
     public static void main(String[] args) {
-        Graph<String> graph = new Graph<>(6, true);
+        Graph<String> graph = new Graph<>(6);
         graph.link("A", "C");
         graph.link("A", "D");
         graph.link("B", "E");

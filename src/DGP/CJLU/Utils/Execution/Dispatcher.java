@@ -20,6 +20,7 @@ public class Dispatcher {
     public Dispatcher(DispatcherOperations operations) {
 
     }
+
     public Dispatcher(String loginfo) {
         this.log(loginfo);
     }

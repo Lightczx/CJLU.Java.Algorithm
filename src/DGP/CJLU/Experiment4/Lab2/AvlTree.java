@@ -32,14 +32,16 @@ public class AvlTree<T extends Comparable<? super T>> {
     }
 
     public T findMin() throws UnderflowException {
-        if (isEmpty())
+        if (isEmpty()) {
             throw new UnderflowException();
+        }
         return findMin(root).element;
     }
 
     public T findMax() throws UnderflowException {
-        if (isEmpty())
+        if (isEmpty()) {
             throw new UnderflowException();
+        }
         return findMax(root).element;
     }
 
@@ -277,12 +279,15 @@ public class AvlTree<T extends Comparable<? super T>> {
 
     private long getLeavesCount(AvlNode<T> t) {
         long result = 0;
-        if (t.left == null && t.right == null)
+        if (t.left == null && t.right == null) {
             return 1;
-        if (t.left != null)
+        }
+        if (t.left != null) {
             result += getLeavesCount(t.left);
-        if (t.right != null)
+        }
+        if (t.right != null) {
             result += getLeavesCount(t.right);
+        }
         return result;
 
     }

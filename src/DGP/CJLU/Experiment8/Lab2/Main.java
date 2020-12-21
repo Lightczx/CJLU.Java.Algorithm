@@ -11,7 +11,7 @@ import DGP.CJLU.Utils.Execution.Dispatcher;
  */
 public class Main {
     public static void main(String[] args) {
-        Graph<String> graph = new Graph<>(6, true);
+        Graph<String> graph = new Graph<>(6);
         graph.link("A", "C", 5);
         graph.link("A", "D", 30);
         graph.link("B", "A", 2);

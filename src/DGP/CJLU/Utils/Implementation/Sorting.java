@@ -242,18 +242,19 @@ public final class Sorting {
                     break;
                 }
             }
-
-            swapReferences(a, i, right - 1);   // Restore pivot
-
-            quicksort(a, left, i - 1);    // Sort small elements
-            quicksort(a, i + 1, right);   // Sort large elements
+            // Restore pivot
+            swapReferences(a, i, right - 1);
+            // Sort small elements
+            quicksort(a, left, i - 1);
+            // Sort large elements
+            quicksort(a, i + 1, right);
         } else {// Do an insertion sort on the subarray
             insertionSort(a, left, right);
         }
     }
 
     /**
-     * Internal insertion sort routine for subarrays
+     * Internal insertion sort routine for subArrays
      * that is used by quicksort.
      *
      * @param a     an array of Comparable items.
@@ -272,71 +273,19 @@ public final class Sorting {
         }
     }
 
-    /**
-     * Quick selection algorithm.
-     * Places the kth smallest item in a[k-1].
-     *
-     * @param a an array of Comparable items.
-     * @param k the desired rank (1 is minimum) in the entire array.
-     */
-    public static <T extends Comparable<? super T>> void quickSelect(T[] a, int k) {
-        quickSelect(a, 0, a.length - 1, k);
-    }
-
-    /**
-     * Internal selection method that makes recursive calls.
-     * Uses median-of-three partitioning and a cutoff of 10.
-     * Places the kth smallest item in a[k-1].
-     *
-     * @param a     an array of Comparable items.
-     * @param left  the left-most index of the subarray.
-     * @param right the right-most index of the subarray.
-     * @param k     the desired index (1 is minimum) in the entire array.
-     */
-    private static <T extends Comparable<? super T>> void quickSelect(T[] a, int left, int right, int k) {
-        if (left + CUTOFF <= right) {
-            T pivot = median3(a, left, right);
-
-            // Begin partitioning
-            int i = left, j = right - 1;
-            for (; ; ) {
-                while (a[++i].compareTo(pivot) < 0) {
-                }
-                while (a[--j].compareTo(pivot) > 0) {
-                }
-                if (i < j) {
-                    swapReferences(a, i, j);
-                } else {
-                    break;
-                }
-            }
-            // Restore pivot
-            swapReferences(a, i, right - 1);
-
-            if (k <= i) {
-                quickSelect(a, left, i - 1, k);
-            } else if (k > i + 1) {
-                quickSelect(a, i + 1, right, k);
-            }
-            // Do an insertion sort on the subarray
-        } else {
-            insertionSort(a, left, right);
-        }
-    }
-
-    public static <T extends Comparable<? super T>> void selectionSort(T[] numbs) {
-        for (int i = 0; i < numbs.length; i++) {
+    public static <T extends Comparable<? super T>> void selectionSort(T[] a) {
+        for (int i = 0; i < a.length; i++) {
             int minIndex = i;// 将当前下标定义为最小值下标
-            for (int j = i + 1; j < numbs.length; j++) {
-                if (numbs[minIndex].compareTo(numbs[j]) > 0) {
+            for (int j = i + 1; j < a.length; j++) {
+                if (a[minIndex].compareTo(a[j]) > 0) {
                     minIndex = j;
                 }
             }
             //如果不是同一个，就交换
             if (i != minIndex) {
-                T temp = numbs[i];
-                numbs[i] = numbs[minIndex];
-                numbs[minIndex] = temp;
+                T temp = a[i];
+                a[i] = a[minIndex];
+                a[minIndex] = temp;
             }
         }
     }
@@ -344,10 +293,12 @@ public final class Sorting {
     public static <T extends Comparable<? super T>> void bubbleSort(T[] a) {
         T temp;
         int i, j;
-
-        for (i = 0; i < a.length - 1; i++) { /* 外循环为排序趟数，a.length个数进行a.length-1趟 */
-            for (j = 0; j < a.length - 1 - i; j++) { /* 内循环为每趟比较的次数，第i趟比较a.length-i次 */
-                if (a[j].compareTo(a[j + 1]) > 0) { /* 相邻元素比较，若逆序则交换（升序为左大于右，降序反之） */
+        //外循环为排序趟数，a.length个数进行a.length-1趟
+        for (i = 0; i < a.length - 1; i++) {
+            //内循环为每趟比较的次数，第i趟比较a.length-i次
+            for (j = 0; j < a.length - 1 - i; j++) {
+                //相邻元素比较，若逆序则交换（升序为左大于右，降序反之）
+                if (a[j].compareTo(a[j + 1]) > 0) {
                     temp = a[j];
                     a[j] = a[j + 1];
                     a[j + 1] = temp;
@@ -459,15 +410,6 @@ public final class Sorting {
         arr = Arrays.copyOf(arr, arr.length + 1);
         arr[arr.length - 1] = value;
         return arr;
-    }
-
-    private static void checkSort(Integer[] a) {
-        for (int i = 0; i < a.length; i++) {
-            if (a[i] != i) {
-                System.out.println("Error at " + i);
-            }
-        }
-        System.out.println("Finished checkSort");
     }
 }
 

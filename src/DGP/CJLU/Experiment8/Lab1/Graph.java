@@ -34,7 +34,7 @@ public class Graph<T> {
      * build a graph
      *
      * @param maxVertexCount the max vertex count you intend to insert
-     * @param isOriented     config whether to create oriented or not
+     * @param isOriented     config whether to create an  oriented graph or not
      */
     public Graph(int maxVertexCount, boolean isOriented) {
         this.size = maxVertexCount;
