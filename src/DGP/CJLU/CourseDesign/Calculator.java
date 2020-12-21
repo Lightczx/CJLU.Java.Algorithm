@@ -22,10 +22,10 @@ public class Calculator {
         frame.setVisible(true);
         frame.setSize(400, 300);
 
-        instance.calculateButton.addActionListener(Calculator::getResult);
+        instance.calculateButton.addActionListener(e->getResult());
     }
 
-    private static void getResult(ActionEvent e) {
+    private static void getResult() {
         if (!"".equals(instance.expressionText.getText())) {
             try {
                 Infix infix = new Infix(instance.expressionText.getText());
