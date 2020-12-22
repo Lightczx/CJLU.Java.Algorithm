@@ -5,6 +5,8 @@ import javax.swing.*;
 /**
  * @author 16861
  */
+
+//TODO:-1*(-(-1))
 public class Calculator {
     private static Calculator instance;
     private JTextField expressionText;
@@ -29,13 +31,14 @@ public class Calculator {
 
     private static void getResult() {
         if (!"".equals(instance.expressionText.getText())) {
-            try {
+            /*try {*/
                 Infix infix = new Infix(instance.expressionText.getText());
                 String result = String.valueOf(infix.toSuffix().evaluate());
                 instance.resultText.setText(result);
-            } catch (Throwable throwable) {
-                instance.resultText.setText("表达式不正确");
-            }
+            /*} catch (Throwable throwable) {
+                instance.resultText.setText(throwable.getMessage());
+                System.out.println(throwable.getClass().getSimpleName());
+            }*/
         } else {
             instance.resultText.setText("表达式不能为空");
         }

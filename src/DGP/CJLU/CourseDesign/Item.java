@@ -15,7 +15,7 @@ public class Item {
     }
 
     public boolean isNumber() {
-        return value.matches("\\d+");
+        return value.matches("-*\\d+(\\.\\d+)?");
     }
 
     public boolean isOperator() {

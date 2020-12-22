@@ -16,7 +16,7 @@ public class Suffix extends Expression {
             } else {
                 //是操作符，取出栈顶两个元素
                 double num2 = stack.pop();
-                double num1 = stack.pop();
+                double num1 = stack.isEmpty()?0: stack.pop();
                 double res = switch (item.value) {
                     case "+" -> num1 + num2;
                     case "-" -> num1 - num2;

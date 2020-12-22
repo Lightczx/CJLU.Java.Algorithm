@@ -12,34 +12,58 @@ public class Infix extends Expression {
      * only support (  ) + - * / operator
      * convert string expression to linked list element
      *
-     * @param expression to be converted
+     * @param exprString the expression to be converted
      */
-    public Infix(String expression) {
+    public Infix(String exprString) {
         //remove space
-        expression = expression.replace(" ", "");
+        exprString = exprString.replace(" ", "");
         int i = 0;
         do {
-            char c = expression.charAt(i);
-            //判断非法输入
-            if (Character.isLetter(expression.charAt(i))) {
-                throw new IllegalArgumentException("表达式不能包含英文字符");
-            }
+            char c = exprString.charAt(i);
             //是操作符，直接添加至list中
-            if (c == '+' || c == '-' || c == '*' || c == '/' || c == '(' || c == ')') {
-                i++;
+            if (c == '+' || c == '*' || c == '/' || c == '(' || c == ')') {
                 items.add(new Item(c));
+                i++;
+            } else if (c == '-') {
+                Item last = items.isEmpty() ? null : items.getLast();
+                if (last != null) {
+                    if (last.isNumber()) {
+                        items.add(new Item(c));
+                        i++;
+                    } else {
+                        //-（）
+                        StringBuilder str = new StringBuilder().append('-');
+                        i++;
+                        while (i < exprString.length() && Character.isDigit(exprString.charAt(i))) {
+                            str.append(exprString.charAt(i));
+                            i++;
+                        }
+                        items.add(new Item(str.toString()));
+                    }
+                } else {
+                    //是负数
+                    StringBuilder str = new StringBuilder().append('-');
+                    i++;
+                    while (i < exprString.length() && Character.isDigit(exprString.charAt(i))) {
+                        str.append(exprString.charAt(i));
+                        i++;
+                    }
+                    items.add(new Item(str.toString()));
+                }
             } else if (Character.isDigit(c)) {
                 //是数字,判断多位数的情况
                 StringBuilder str = new StringBuilder();
-                while (i < expression.length() && Character.isDigit(expression.charAt(i))) {
-
-                    str.append(expression.charAt(i));
+                while (i < exprString.length() && Character.isDigit(exprString.charAt(i))) {
+                    str.append(exprString.charAt(i));
                     i++;
                 }
                 items.add(new Item(str.toString()));
-
+            } else {
+                //非法输入
+                throw new IllegalArgumentException("unexpected char");
             }
-        } while (i < expression.length());
+        } while (i < exprString.length());
+        System.out.println("The items:" + items);
     }
 
     public Suffix toSuffix() {
