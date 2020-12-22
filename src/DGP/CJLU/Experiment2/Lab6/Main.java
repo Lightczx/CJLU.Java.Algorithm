@@ -4,20 +4,19 @@ import DGP.CJLU.Utils.Execution.Dispatcher;
 import DGP.CJLU.Utils.Implementation.Rand;
 
 /**
- * Write a nonrecursive procedure to reverse a singly linked list in O(N) time.
+ * Write a non-recursive procedure to reverse a singly linked list in O(N) time.
  *
  * @author 16861
  */
 public class Main {
 
     public static void main(String[] args) {
-        SingleLinkedList<Integer> singleLinkedList = InitializeSingleLinkedList();
-        //System.out.println(singleLinkedList.toString());
+        SingleLinkedList<Integer> singleLinkedList = initializeSingleLinkedList();
+
         new Dispatcher().run(singleLinkedList::reverse);
-        //System.out.println(singleLinkedList.toString());
     }
 
-    private static SingleLinkedList<Integer> InitializeSingleLinkedList() {
+    private static SingleLinkedList<Integer> initializeSingleLinkedList() {
         SingleLinkedList<Integer> list = new SingleLinkedList<>();
         for (int j = 1; j <= 1000000; j++) {
             list.addFirst(new Rand().randomInt(1, 1000000));

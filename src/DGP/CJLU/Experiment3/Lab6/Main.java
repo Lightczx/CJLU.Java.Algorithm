@@ -7,6 +7,7 @@ import java.util.Stack;
 /**
  * Write a program to output the result of these operations on a stack and a queue, respectively using java.util.Stack
  * and java.util.Queue: insert integer sequence {1,2,3 4}, then delete two integers and insert integer 5.
+ * @author 16861
  */
 public class Main {
     public static void main(String[] args) {

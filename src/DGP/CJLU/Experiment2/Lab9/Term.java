@@ -2,6 +2,9 @@ package DGP.CJLU.Experiment2.Lab9;
 
 import java.util.LinkedList;
 
+/**
+ * @author 16861
+ */
 public class Term {
     public int coefficient;
     public int exponent;

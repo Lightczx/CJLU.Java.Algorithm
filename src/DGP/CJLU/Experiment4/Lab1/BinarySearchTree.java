@@ -33,14 +33,16 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
     }
 
     public T findMin() throws UnderflowException {
-        if (isEmpty())
+        if (isEmpty()) {
             throw new UnderflowException();
+        }
         return findMin(root).element;
     }
 
     public T findMax() throws UnderflowException {
-        if (isEmpty())
+        if (isEmpty()) {
             throw new UnderflowException();
+        }
         return findMax(root).element;
     }
 
@@ -81,16 +83,18 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
      * @return true if the item is found; false otherwise.
      */
     private boolean contains(T x, BinaryNode<T> t) {
-        if (t == null)
+        if (t == null) {
             return false;
+        }
         int compareResult = myCompare(x, t.element);
 
-        if (compareResult < 0)
+        if (compareResult < 0) {
             return contains(x, t.left);
-        else if (compareResult > 0)
+        } else if (compareResult > 0) {
             return contains(x, t.right);
-        else
+        } else {
             return true;
+        }
     }
 
     /**
@@ -133,17 +137,19 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
      * @return the new root of the subtree.
      */
     private BinaryNode<T> insert(T x, BinaryNode<T> t) {
-        if (t == null)
+        if (t == null) {
             return new BinaryNode<>(x, null, null);
+        }
 
         int compareResult = myCompare(x, t.element);
 
-        if (compareResult < 0)
+        if (compareResult < 0) {
             t.left = insert(x, t.left);
-        else if (compareResult > 0)
+        } else if (compareResult > 0) {
             t.right = insert(x, t.right);
-        else
+        } else {
             ;
+        }
         return t;
     }
 

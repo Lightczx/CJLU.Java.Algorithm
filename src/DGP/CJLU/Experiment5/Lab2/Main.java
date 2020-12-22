@@ -10,7 +10,7 @@ import java.util.*;
  */
 public class Main {
     public static void main(String[] args) {
-        Map<Integer, Integer> map = new HashMap<>();
+        Map<Integer, Integer> map = new HashMap<>(5);
         testMap(map);
         map = new TreeMap<>();
         testMap(map);

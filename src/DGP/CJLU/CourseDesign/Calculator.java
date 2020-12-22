@@ -1,8 +1,10 @@
 package DGP.CJLU.CourseDesign;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
 
+/**
+ * @author 16861
+ */
 public class Calculator {
     private static Calculator instance;
     private JTextField expressionText;
@@ -22,7 +24,7 @@ public class Calculator {
         frame.setVisible(true);
         frame.setSize(400, 300);
 
-        instance.calculateButton.addActionListener(e->getResult());
+        instance.calculateButton.addActionListener(e -> getResult());
     }
 
     private static void getResult() {

@@ -5,6 +5,7 @@ import DGP.CJLU.Utils.Implementation.Exceptions.UnderflowException;
 
 import java.util.Comparator;
 
+@SuppressWarnings("ALL")
 public class AvlTree<T extends Comparable<? super T>> {
     private static final int ALLOWED_IMBALANCE = 1;
     private AvlNode<T> root;
@@ -237,7 +238,8 @@ public class AvlTree<T extends Comparable<? super T>> {
             t.left = remove(x, t.left);
         } else if (compareResult > 0) {
             t.right = remove(x, t.right);
-        } else if (t.left != null && t.right != null) {// Two children
+        } else if (t.left != null && t.right != null) {
+            // Two children
             t.element = findMin(t.right).element;
             t.right = remove(t.element, t.right);
         } else {
@@ -308,8 +310,9 @@ public class AvlTree<T extends Comparable<? super T>> {
     }
 
     private long counts(AvlNode<T> t) {
-        if (t == null)
+        if (t == null) {
             return 0;
+        }
         long sum = 0;
 
         if (t.left != null) {

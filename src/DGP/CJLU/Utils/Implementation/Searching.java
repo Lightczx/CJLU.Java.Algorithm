@@ -1,5 +1,8 @@
 package DGP.CJLU.Utils.Implementation;
 
+/**
+ * @author 16861
+ */
 public class Searching {
     public static final int NOT_FOUND = -1;
 

@@ -3,6 +3,7 @@ package DGP.CJLU.Experiment2.Lab6;
 /**
  * single linked list custom implementation
  *
+ * @author 16861
  * @param <E> the stored value type
  */
 public class SingleLinkedList<E> {

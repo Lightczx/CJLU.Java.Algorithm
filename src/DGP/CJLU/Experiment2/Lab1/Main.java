@@ -18,22 +18,22 @@ import java.util.List;
  */
 public class Main {
     public static void main(String[] args) {
-        ListPos lparray = InitializeArrayList();
-        ListPos lplinked = InitializeLinkedList();
+        ListPos lparray = initializeArrayList();
+        ListPos lplinked = initializeLinkedList();
         new Dispatcher().run(() -> {
-            PrintLots(lparray.list, lparray.pos);
+            printLots(lparray.list, lparray.pos);
         }).run(() -> {
-            PrintLots(lplinked.list, lplinked.pos);
+            printLots(lplinked.list, lplinked.pos);
         });
     }
 
-    private static void PrintLots(List<Integer> l, List<Integer> p) {
+    private static void printLots(List<Integer> l, List<Integer> p) {
         for (int index : p) {
             System.out.println(l.get(index));
         }
     }
 
-    private static ListPos InitializeArrayList() {
+    private static ListPos initializeArrayList() {
         ArrayList<Integer> list = new ArrayList<>();
         ArrayList<Integer> pos = new ArrayList<>();
         for (int i = 1; i <= 10; i++) {
@@ -45,7 +45,7 @@ public class Main {
         return new ListPos(list, pos);
     }
 
-    private static ListPos InitializeLinkedList() {
+    private static ListPos initializeLinkedList() {
         LinkedList<Integer> list = new LinkedList<>();
         LinkedList<Integer> pos = new LinkedList<>();
         for (int i = 1; i <= 10; i++) {

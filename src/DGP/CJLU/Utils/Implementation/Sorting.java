@@ -275,7 +275,8 @@ public final class Sorting {
 
     public static <T extends Comparable<? super T>> void selectionSort(T[] a) {
         for (int i = 0; i < a.length; i++) {
-            int minIndex = i;// 将当前下标定义为最小值下标
+            // 将当前下标定义为最小值下标
+            int minIndex = i;
             for (int j = i + 1; j < a.length; j++) {
                 if (a[minIndex].compareTo(a[j]) > 0) {
                     minIndex = j;

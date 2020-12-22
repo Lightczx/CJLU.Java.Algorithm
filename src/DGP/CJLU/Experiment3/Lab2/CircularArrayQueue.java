@@ -25,8 +25,9 @@ public class CircularArrayQueue<E> implements Queue<E> {
             return true;
         }
         //full : return
-        if (isFull())
+        if (isFull()) {
             return false;
+        }
 
         array[availableIndex++] = e;
         //circle to 0
