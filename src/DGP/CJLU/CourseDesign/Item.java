@@ -14,7 +14,11 @@ public class Item {
         this.value = String.valueOf(value);
     }
 
-    public boolean isNumber() {
+    /**
+     * 只能判断整数
+     * @return true if value is integer
+     */
+    public boolean isInteger() {
         return value.matches("-*\\d+(\\.\\d+)?");
     }
 
@@ -30,6 +34,10 @@ public class Item {
         return ")".equals(value);
     }
 
+    /**
+     * the priority of item
+     * @return
+     */
     public int priority() {
         return switch (value) {
             case "*", "/" -> 1;

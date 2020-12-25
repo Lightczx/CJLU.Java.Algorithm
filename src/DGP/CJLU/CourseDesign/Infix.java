@@ -12,14 +12,14 @@ public class Infix extends Expression {
      * only support (  ) + - * / operator
      * convert string expression to linked list element
      *
-     * @param exprString the expression to be converted
+     * @param expr the expression to be converted
      */
-    public Infix(String exprString) {
+    public Infix(String expr) {
         //remove space
-        exprString = exprString.replace(" ", "");
+        expr = expr.replace(" ", "");
         int i = 0;
         do {
-            char c = exprString.charAt(i);
+            char c = expr.charAt(i);
             //是操作符，直接添加至list中
             if (c == '+' || c == '*' || c == '/' || c == '(' || c == ')') {
                 items.add(new Item(c));
@@ -27,15 +27,15 @@ public class Infix extends Expression {
             } else if (c == '-') {
                 Item last = items.isEmpty() ? null : items.getLast();
                 if (last != null) {
-                    if (last.isNumber()) {
+                    if (last.isInteger()) {
                         items.add(new Item(c));
                         i++;
                     } else {
                         //-（）
                         StringBuilder str = new StringBuilder().append('-');
                         i++;
-                        while (i < exprString.length() && Character.isDigit(exprString.charAt(i))) {
-                            str.append(exprString.charAt(i));
+                        while (i < expr.length() && Character.isDigit(expr.charAt(i))) {
+                            str.append(expr.charAt(i));
                             i++;
                         }
                         items.add(new Item(str.toString()));
@@ -44,8 +44,8 @@ public class Infix extends Expression {
                     //是负数
                     StringBuilder str = new StringBuilder().append('-');
                     i++;
-                    while (i < exprString.length() && Character.isDigit(exprString.charAt(i))) {
-                        str.append(exprString.charAt(i));
+                    while (i < expr.length() && Character.isDigit(expr.charAt(i))) {
+                        str.append(expr.charAt(i));
                         i++;
                     }
                     items.add(new Item(str.toString()));
@@ -53,17 +53,16 @@ public class Infix extends Expression {
             } else if (Character.isDigit(c)) {
                 //是数字,判断多位数的情况
                 StringBuilder str = new StringBuilder();
-                while (i < exprString.length() && Character.isDigit(exprString.charAt(i))) {
-                    str.append(exprString.charAt(i));
+                while (i < expr.length() && Character.isDigit(expr.charAt(i))) {
+                    str.append(expr.charAt(i));
                     i++;
                 }
                 items.add(new Item(str.toString()));
             } else {
                 //非法输入
-                throw new IllegalArgumentException("unexpected char");
+                throw new IllegalArgumentException("unexpected char:" + c);
             }
-        } while (i < exprString.length());
-        System.out.println("The items:" + items);
+        } while (i < expr.length());
     }
 
     public Suffix toSuffix() {
@@ -71,7 +70,7 @@ public class Infix extends Expression {
         Suffix result = new Suffix();
         for (Item item : items) {
             //运算数,直接输出.
-            if (item.isNumber()) {
+            if (item.isInteger()) {
                 result.items.add(item);
             }
             //左括号,压入堆栈

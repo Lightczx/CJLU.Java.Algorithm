@@ -10,7 +10,7 @@ public class Suffix extends Expression {
     public double evaluate() {
         Stack<Double> stack = new Stack<>();
         for (Item item : items) {
-            if (item.isNumber()) {
+            if (item.isInteger()) {
                 //是数字
                 stack.push(Double.parseDouble(item.value));
             } else {
@@ -44,7 +44,7 @@ public class Suffix extends Expression {
             if (!it.hasNext()) {
                 return sb.append(']').toString();
             }
-            sb.append(' ');
+            sb.append(',');
         }
     }
 }

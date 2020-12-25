@@ -31,14 +31,16 @@ public class Calculator {
 
     private static void getResult() {
         if (!"".equals(instance.expressionText.getText())) {
-            /*try {*/
+            try {
                 Infix infix = new Infix(instance.expressionText.getText());
-                String result = String.valueOf(infix.toSuffix().evaluate());
+                Suffix suffix = infix.toSuffix();
+                //System.out.println(suffix);
+                String result = String.valueOf(suffix.evaluate());
                 instance.resultText.setText(result);
-            /*} catch (Throwable throwable) {
-                instance.resultText.setText(throwable.getMessage());
+            } catch (Throwable throwable) {
+                instance.resultText.setText(throwable.getClass().getSimpleName() + throwable.getMessage());
                 System.out.println(throwable.getClass().getSimpleName());
-            }*/
+            }
         } else {
             instance.resultText.setText("表达式不能为空");
         }
