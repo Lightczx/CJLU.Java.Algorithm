@@ -8,6 +8,7 @@ import java.util.List;
 
 /**
  * Compute the maximum, minimum and average value of a list. LinkedList and ArrayList should be used.
+ *
  * @author 16861
  */
 public class Main {

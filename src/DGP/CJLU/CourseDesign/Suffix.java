@@ -16,15 +16,15 @@ public class Suffix extends Expression {
             } else {
                 //是操作符，取出栈顶两个元素
                 double num2 = stack.pop();
-                double num1 = stack.isEmpty()?0: stack.pop();
-                double res = switch (item.value) {
+                double num1 = stack.isEmpty() ? 0 : stack.pop();
+                double result = switch (item.value) {
                     case "+" -> num1 + num2;
                     case "-" -> num1 - num2;
                     case "*" -> num1 * num2;
                     case "/" -> num1 / num2;
                     default -> throw new IllegalArgumentException("表达式包含非法运算符");
                 };
-                stack.push(res);
+                stack.push(result);
             }
         }
         return stack.pop();
