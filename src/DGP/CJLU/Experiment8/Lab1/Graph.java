@@ -141,6 +141,7 @@ public class Graph<T> {
         forEachVertex((v) -> {
             v.dist = INFINITY;
             v.known = false;
+            v.path = null;
         });
         start.dist = 0;
 
